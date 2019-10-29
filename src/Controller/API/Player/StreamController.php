@@ -4,9 +4,11 @@ namespace App\Controller\API\Player;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ODM\MongoDB\DocumentManager as DocumentManager;
 
+use App\Document\Track;
 use App\Document\Artist;
 use App\Document\Album;
 
@@ -17,20 +19,8 @@ class StreamController
      */
     public function searchArtist(DocumentManager $dm, $id)
     {
-        $artist = $dm->getRepository(Artist::class)->findById($id);
+        $track = $dm->getRepository(Track::class)->find($id);
 
-        $response = new StreamedResponse();
-
-        
-
-        $response->setCallback(function () {
-            var_dump('Hello World');
-            flush();
-            sleep(2);
-            var_dump('Hello World');
-            flush();
-        });
-
-        $response->send();
+        return new JsonResponse($track->getFile());
     }
 }

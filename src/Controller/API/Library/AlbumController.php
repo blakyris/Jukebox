@@ -16,10 +16,10 @@ class AlbumController
      */
     public function getAll(DocumentManager $dm)
     {
-        $tracks = $dm->getRepository(Album::class)->findAll();
+        $albums = $dm->getRepository(Album::class)->findAll();
         
         foreach ($albums as $album)
-            $json[] = $album->getName();
+            $json[] = $album->getProperties();
 
         return new JsonResponse($json);
     }

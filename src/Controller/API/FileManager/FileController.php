@@ -2,6 +2,8 @@
 
 namespace App\Controller\API\FileManager;
 
+
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -33,9 +35,9 @@ class FileController
         if ($files) {
             foreach ($files as $file) {
                 $libraryManager->addFileToLibrary($file);
-                return new JsonResponse(['status' => "success"]);
             }
-            
+            $dm->flush();
+            return new JsonResponse(['status' => "success"]);
         }
         else return new JsonResponse(['status' => "error"]);
     }

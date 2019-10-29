@@ -23,7 +23,7 @@ class Artist
     private $name;
 
     /**
-     * @MongoDB\ReferenceMany(targetDocument=Album::class, storeAs="id", cascade={"persist"})
+     * @MongoDB\ReferenceMany(targetDocument=Album::class, cascade={"persist"})
      */
     private $albums;
 
@@ -35,6 +35,20 @@ class Artist
     public function getId() { return $this->id; }
     public function getName() { return $this->name; }
     public function getAlbums() { return $this->albums; }
+
+    public function getProperties() {
+        $albumsArray = array();
+
+        foreach ($this->albums as $album)
+            $albumsArray[] = $album->getName();
+
+        $artist = [
+            'name' => $this->name,
+            'alums' => $albumsArray
+        ];
+
+        return $artist;
+    }
 
     public function setName(String $name) { $this->name = $name; }
 }

@@ -19,7 +19,7 @@ class ArtistController
         $artists = $dm->getRepository(Artist::class)->findAll();
         
         foreach ($artists as $artist)
-            $json[] = $artist->getName();
+            $json[] = $artist->getProperties();
 
         return new JsonResponse($json);
     }
@@ -31,6 +31,6 @@ class ArtistController
     {
         $artist = $dm->getRepository(Artist::class)->findBy(['name' => $name]);
 
-        return new JsonResponse($artist);
+        return new JsonResponse($artist->getProperties());
     }
 }

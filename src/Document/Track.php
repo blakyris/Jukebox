@@ -20,7 +20,7 @@ class Track
     private $id;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument=File::class, storeAs="id", cascade={"persist"})
+     * @MongoDB\ReferenceOne(targetDocument=File::class, cascade={"persist"})
      */
     private $file;
 
@@ -30,17 +30,17 @@ class Track
     private $title;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument=Artist::class, storeAs="id", cascade={"persist"})
+     * @MongoDB\ReferenceOne(targetDocument=Artist::class, cascade={"persist"})
      */
     private $albumArtist;
 
     /**
-     * @MongoDB\ReferenceMany(targetDocument=Artist::class, storeAs="id", cascade={"persist"})
+     * @MongoDB\ReferenceMany(targetDocument=Artist::class, cascade={"persist"})
      */
     private $artists;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument=Album::class, storeAs="id", cascade={"persist"})
+     * @MongoDB\ReferenceOne(targetDocument=Album::class, cascade={"persist"})
      */
     private $album;
 
@@ -71,9 +71,9 @@ class Track
     public function getProperties() {
         $track = [
             "title" => $this->title,
-            "albumArtist" => $this->albumArtist,
+            "albumArtist" => $this->albumArtist->getName(),
             "artists" => $this->artists,
-            "album" => $this->album,
+            "album" => $this->album->getName(),
             "trackNumber" => $this->trackNumber,
             "genre" => $this->genre,
         ];

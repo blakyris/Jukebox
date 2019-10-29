@@ -24,12 +24,12 @@ class Album
     private $name;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument=Album::class, storeAs="id", cascade={"persist"})
+     * @MongoDB\ReferenceOne(targetDocument=Artist::class, cascade={"persist"})
      */
     private $artist;
 
     /**
-     * @MongoDB\ReferenceMany(targetDocument=Track::class, storeAs="id", cascade={"persist"})
+     * @MongoDB\ReferenceMany(targetDocument=Track::class, cascade={"persist"})
      */
     private $tracks;
 
@@ -48,8 +48,16 @@ class Album
     public function getArtist() { return $this->artist; }
     public function getTracks() { return $this->tracks; }
     public function getYear() { return $this->year; }
+    public function getProperties() {
+        $album = [
+            'name' => $this->name,
+            'artist' => $this->artist->getName()
+        ];
+
+        return $album;
+    }
 
     public function setName(String $name) { $this->name = $name; }
-    public function setArtist(String $artist) { $this->artist = $artist; }
+    public function setArtist(Artist $artist) { $this->artist = $artist; }
     public function setYear(int $year) { $this->year = $year; }
 }
