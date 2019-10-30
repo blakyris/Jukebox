@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use Doctrine\ODM\MongoDB\DocumentManager as DocumentManager;
+use Doctrine\ODM\MongoDB\Repository\UploadOptions;
 use Psr\Log\LoggerInterface;
 
 use App\Service\TagEditor;
@@ -16,6 +17,7 @@ class LibraryManager
 {
 
     private $documentManager;
+    private $gridfsRepo;
 
     private $logger;
 
@@ -25,7 +27,9 @@ class LibraryManager
     }
 
     public function isArtistInLibrary(String $name) {
-        $artist = $this->documentManager->getRepository(Artist::class)->findOneBy(['name' => $name]);
+        $artist = $this->documentManager->createQueryBuilder(Artist::class)
+            ->field('name')->equals($name)
+            ->getQuery()->getSingleResult();
 
         if ($artist) return $artist;
         else return NULL;
@@ -45,8 +49,14 @@ class LibraryManager
     {
         $tagger = new TagEditor();
 
-        $file = new File();
-        $file->setFile($path);
+        $uploadOptions = new UploadOptions();
+        $uploadOptions->chunkSizeBytes = 1024 * 1024;
+
+        $file = $this->documentManager->getRepository(File::class)->uploadFromFile(
+            $path,
+            null,
+            $uploadOptions
+        );
 
         $tags = $tagger->getTags($path);
 
@@ -71,7 +81,7 @@ class LibraryManager
                 $this->documentManager->persist($a);
                 $artists[] = $a;
             }
-        }
+        }   
 
         if ($albumObj = $this->isAlbumInLibrary($tags['tags']['album'], $albumArtist)) {
             $album = $albumObj;
@@ -91,5 +101,6 @@ class LibraryManager
         $track->setGenre($tags['tags']['genre']);
         
         $this->documentManager->persist($track);
+        $this->documentManager->flush();
     }
 }

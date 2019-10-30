@@ -3,12 +3,21 @@ import ReactDOM from 'react-dom';
 
 class App extends React.Component {
 
-    render() {
-        return (
-            <h1>Hello World !</h1>
-        )
+    getAllTracks = () => {
+        console.log("Fetching data...");
     }
 
-} 
+    componentDidMount() {
+        this.getAllTracks();
+    }
+
+    render() {
+        return (
+            <div className="container">
+                <h1>Hello Symfony !</h1>
+            </div>  
+        );
+    }
+}
 
 ReactDOM.render(<App />, document.getElementById('root'));

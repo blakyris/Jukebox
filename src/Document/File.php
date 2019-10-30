@@ -10,7 +10,7 @@ use App\Document\Artist;
 use App\Document\Album;
 
 /**
- * @MongoDB\Document
+ * @MongoDB\File
  */
 class File
 {
@@ -19,32 +19,29 @@ class File
      */
     private $id;
 
-    /**
-     * @MongoDB\File
+    /** 
+     * @MongoDB\File\Filename
      */
-    private $file;
+    private $name;
+
+    /**
+     * @MongoDB\File\Length
+     */
+    private $length;
 
     /** 
-     * @MongoDB\Field(type="date")
+     * @MongoDB\File\UploadDate
      */
     private $uploadDate;
 
     /**
-     * @MongoDB\Field(type="string")
-     */
-    private $mimeType;
-
-    /**
-     *  @MongoDB\Field(type="int") 
+     *  @MongoDB\File\ChunkSize
     */
     private $chunkSize;
-    
+
     public function getId() { return $this->id; }
-    public function getFile() { return $this->file; }
-    public function getUploadDate() { return $this->uploadDate; }
-    public function getMimeType() { return $this->mimeType; }
-    public function getChunkSize() { return $this->chunkSize; }
-   
-    public function setFile($file) { $this->file = $file; }
-    public function setMimeType(String $type) { $this->mimeType = $type; }
+    public function getName(): ?string { return $this->name; }
+    public function getUploadDate(): \DateTimeInterface { return $this->uploadDate; }
+    public function getLength() { return $this->length; }
+    public function getChunkSize() : ?int { return $this->chunkSize; }
 }

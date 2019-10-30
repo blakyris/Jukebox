@@ -36,7 +36,6 @@ class FileController
             foreach ($files as $file) {
                 $libraryManager->addFileToLibrary($file);
             }
-            $dm->flush();
             return new JsonResponse(['status' => "success"]);
         }
         else return new JsonResponse(['status' => "error"]);

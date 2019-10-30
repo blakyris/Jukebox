@@ -7,9 +7,6 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 Encore
     .setOutputPath('public/build/')
     .setPublicPath('/build')
-
-    .addEntry('app', './assets/js/app.js')
-
     .splitEntryChunks()
     .enableSingleRuntimeChunk()
     .cleanupOutputBeforeBuild()
@@ -22,8 +19,18 @@ Encore
         corejs: 3
     })
 
+    .configureBabel(function (babelConfig) {
+        babelConfig.plugins = [
+            "@babel/plugin-proposal-object-rest-spread","@babel/plugin-proposal-class-properties",
+            "@babel/plugin-transform-runtime"
+        ]
+    })
+
+    .addEntry('app', './assets/js/app.js')
+    .addEntry('css', './node_modules/bootstrap/dist/css/bootstrap.min.css')
+
     // enables Sass/SCSS support
-    //.enableSassLoader()
+    .enableSassLoader()
 
     //.enableIntegrityHashes(Encore.isProduction())
 
@@ -31,6 +38,8 @@ Encore
     .enableReactPreset()
     .addEntry('js/app', './assets/js/app/app.js')
 
+    
+    
 ;
 
 module.exports = Encore.getWebpackConfig();
