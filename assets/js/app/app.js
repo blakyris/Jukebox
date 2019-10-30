@@ -3,12 +3,8 @@ import ReactDOM from 'react-dom';
 
 class App extends React.Component {
 
-    getAllTracks = () => {
-        console.log("Fetching data...");
-    }
-
     componentDidMount() {
-        this.getAllTracks();
+        
     }
 
     render() {
