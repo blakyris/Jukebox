@@ -13,14 +13,17 @@ class App extends React.Component {
 
     render() {
         return (
-            <div className="d-flex flex-column p-0 h-100 w-100 app">
-                <div className="d-flex flex-row flex-wrap h-100 w-100 view-container">
-                        <Sidebar />
-                        <LibraryExplorer />
+            <div className="d-flex flex-column flex-wrap h-100 w-100 view-container">
+
+                <div className="d-flex flex-row flex-fill h-100 w-100  explorer-container">
+                    <Sidebar />
+                    <LibraryExplorer />
                 </div>
-                <div className="d-flex flex-row w-100 player-container">
+
+                <div className="d-flex flex-column fixed-bottom player-container">
                     <Player />
                 </div>
+
             </div>
         );
     }

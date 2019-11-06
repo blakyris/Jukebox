@@ -1,12 +1,10 @@
 html,body{ height: 100%; }
 
-.app {
-    
+.view-container {
+    position: absolute;
 }
 
-.view-container {
-    overflow-y: scroll;
-}
+/* React.Component : SIDEBAR */
 
 .sidebar {
     background-color: #111;
@@ -18,9 +16,12 @@ html,body{ height: 100%; }
     color: #AAA;
 }
 
+/* React.Component : LIBRARY EXPLORER */
+
 .library-explorer {
     background-color: #090909;
     color: #FFF;
+    overflow-y: scroll;
 }
 
 .library-explorer .header {
@@ -36,8 +37,8 @@ html,body{ height: 100%; }
 }
 
 .album-grid .item {
-    flex: 0;
     margin: 10px 15px;
+    background-color: crimson;
 }
 
 .album-grid .item .cover {
