@@ -33,12 +33,12 @@ html,body{ height: 100%; }
 }
 
 .album-grid {
-
+   
 }
 
 .album-grid .item {
     margin: 10px 15px;
-    background-color: crimson;
+    width: 150px;
 }
 
 .album-grid .item .cover {
@@ -55,6 +55,11 @@ html,body{ height: 100%; }
     margin: 0;
     padding: 0;
     text-align: center;
+    text-overflow: ("...");
+    word-wrap: break-word;
+    overflow: hidden;
+    max-height: 3.6em;
+    line-height: 1.8em;
 }
 
 .album-grid .item .info .name {
@@ -87,4 +92,15 @@ html,body{ height: 100%; }
 
 .player .player-btn {
     color: #FFF;
+}
+
+.player .track-info {
+    margin: 10px 0;
+}
+
+.player .track-info p {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font-size: 12px;
 }
