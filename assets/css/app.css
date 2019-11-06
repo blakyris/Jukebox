@@ -101,6 +101,5 @@ html,body{ height: 100%; }
 .player .track-info p {
     margin: 0;
     padding: 0;
-    text-align: center;
     font-size: 12px;
 }

@@ -70,12 +70,13 @@ class Track
 
     public function getProperties() {
         $track = [
-            "title" => $this->title,
-            "albumArtist" => $this->albumArtist->getName(),
-            "artists" => $this->artists,
-            "album" => $this->album->getName(),
-            "trackNumber" => $this->trackNumber,
-            "genre" => $this->genre,
+            'id' => $this->id,
+            'title' => $this->title,
+            'albumArtist' => $this->albumArtist->getName(),
+            'artists' => $this->artists,
+            'album' => $this->album->getName(),
+            'trackNumber' => $this->trackNumber,
+            'genre' => $this->genre,
         ];
 
         return ($track);

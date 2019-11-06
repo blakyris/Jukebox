@@ -40,11 +40,12 @@ class Artist
         $albumsArray = array();
 
         foreach ($this->albums as $album)
-            $albumsArray[] = $album->getName();
+            $albumsArray[] = $album->getId();
 
         $artist = [
+            'id' => $this->id,
             'name' => $this->name,
-            'alums' => $albumsArray
+            'albums' => $albumsArray
         ];
 
         return $artist;

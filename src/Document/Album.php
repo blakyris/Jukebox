@@ -50,6 +50,7 @@ class Album
     public function getYear() { return $this->year; }
     public function getProperties() {
         $album = [
+            'id' => $this->id,
             'name' => $this->name,
             'artist' => $this->artist->getName()
         ];
