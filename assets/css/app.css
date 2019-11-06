@@ -1,5 +1,13 @@
 html,body{ height: 100%; }
 
+.app {
+    
+}
+
+.view-container {
+    overflow-y: scroll;
+}
+
 .sidebar {
     background-color: #111;
     color: #FFF;
@@ -17,6 +25,54 @@ html,body{ height: 100%; }
 
 .library-explorer .header {
 
+}
+
+.library-explorer .content {
+
+}
+
+.album-grid {
+
+}
+
+.album-grid .item {
+    flex: 0;
+    margin: 10px 15px;
+}
+
+.album-grid .item .cover {
+    background-color: #333;
+    width: 150px;
+    height: 150px;
+}
+
+.album-grid .item .info {
+    padding: 5px 10px;
+}
+
+.album-grid .item .info p {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.album-grid .item .info .name {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.album-grid .item .info .artist {
+    font-size: 12px;
+}
+
+.track-list {
+
+}
+
+.track-list tbody td  {
+    border:none;
+    color: #fff;
+    font-size: 12px;
 }
 
 .player {
