@@ -1,47 +1,45 @@
-import React from 'react';
 
+// REACT + REDUX
+import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Howl, Howler } from 'howler';
+
+// BOOTSTRAP
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Howl, Howler } from 'howler';
 
+// FONTAWSOME
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlayCircle } from '@fortawesome/free-regular-svg-icons';
 import { faBackward } from '@fortawesome/free-solid-svg-icons';
 import { faForward } from '@fortawesome/free-solid-svg-icons';
 import { faVolumeUp } from '@fortawesome/free-solid-svg-icons';
 
-const API_STREAM_TRACK = "http://127.0.0.1/api/stream/track/";
+// APP MODULES
+import * as PlayerActions from '../../actions/PlayerActions';
 
 class Player extends React.Component {
-  state = {};
 
   constructor(props) {
     super(props);
   }
 
   componentDidMount() {
-    this.setState({
-      audio: new Howl({
-        src: API_STREAM_TRACK + "5db967abdf077941924ff89d",
-        html5: true
-      })
-    });
-  }
 
-  play() {
-    this.state.audio.play();
   }
 
   render() {
+    console.log(this.props);
     return (
       <div className="player w-100">
         <ProgressBar className="mx-auto w-100" now={80} />
         <div className="d-flex flex-row justify-content-between align-items-center p-2">
 
           <div className="d-flex flex-column track-info">
-            <div><p>Track Name - Artist</p></div>
+            <div><p>{this.props.player.trackId}</p></div>
             <div><p>Album</p></div>
           </div>
 
@@ -49,7 +47,7 @@ class Player extends React.Component {
             <Button variant="link" className="player-btn mx-2">
               <FontAwesomeIcon icon={faBackward} />
             </Button>
-            <Button onClick={this.play.bind(this)} variant="link" className="player-btn mx-2">
+            <Button onClick={() => this.props.playTrack("5db967abdf077941924ff89d")} variant="link" className="player-btn mx-2">
               <FontAwesomeIcon icon={faPlayCircle} size="lg" />
             </Button>
             <Button variant="link" className="player-btn mx-2">
@@ -66,12 +64,21 @@ class Player extends React.Component {
             </Form>
           </div>
 
-          </div>
-          
         </div>
-        );
-      }
-    
-    }
-    
-export default Player;
+
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = (state) => {
+  return state;
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+      playTrack: (id) => { dispatch({type: 'PLAYER_PLAY_TRACK', trackId: id}) }
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (Player);

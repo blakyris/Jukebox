@@ -1,7 +1,7 @@
 import React from 'react';
 import AlbumGridItem from './AlbumGridItem';
 
-const API_GET_ALBUM = "http://127.0.0.1/api/library/albums/get/all";
+import * as API from '../../constants/ApiConstants';
 
 class AlbumGrid extends React.Component {
 
@@ -14,7 +14,7 @@ class AlbumGrid extends React.Component {
     }
 
     componentDidMount() {
-        fetch(API_GET_ALBUM)
+        fetch(API.API_GET_ALL_ALBUMS)
             .then(response => response.json())
             .then(
                 (data) => {

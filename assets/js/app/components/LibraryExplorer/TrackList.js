@@ -2,7 +2,7 @@ import React from 'react';
 
 import Table from 'react-bootstrap/Table';
 
-const API_GET_TRACKS = "http://127.0.0.1/api/library/tracks/get/all";
+import * as API from '../../constants/ApiConstants';
 
 class TrackList extends React.Component {
 
@@ -15,7 +15,7 @@ class TrackList extends React.Component {
     }
 
     componentDidMount() {
-        fetch(API_GET_TRACKS)
+        fetch(API.API_GET_ALL_TRACKS)
             .then(response => response.json())
             .then(
                 (data) => {

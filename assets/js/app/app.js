@@ -1,9 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+
+import Reducers from './reducers/Reducers';
 
 import Sidebar from './components/Sidebar/Sidebar';
 import LibraryExplorer from './components/LibraryExplorer/LibraryExplorer';
 import Player from './components/Player/Player';
+
+
+const store = createStore(Reducers);
 
 class App extends React.Component {
 
@@ -30,6 +37,8 @@ class App extends React.Component {
 }
 
 ReactDOM.render(
-    <App />
+    <Provider store={store}>
+        <App />
+    </Provider>
     , document.getElementById('root'));
 
