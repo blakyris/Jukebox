@@ -3,18 +3,31 @@ import * as API from '../constants/ApiConstants';
 import { Howl, Howler } from 'howler';
 
 
+export const PLAYER_INITIALIZE = 'PLAYER_INITIALIZE'
+export const initialize = (trackId) => {
+    return {
+        type: PLAYER_INITIALIZE,
+    }
+}
+
 export const PLAYER_REQUEST_TRACK = 'PLAYER_REQUEST_TRACK'
-export const requestTrack = (trackId) => (
-{
-    type: PLAYER_REQUEST_TRACK,
-    trackId: trackId,
-})
+export const requestTrack = (trackId) => {
+    return {
+        type: PLAYER_REQUEST_TRACK,
+    }
+}
 
 export const PLAYER_PLAY_TRACK = 'PLAYER_PLAY_TRACK'
-export const playTrack = (trackId) => {
+export const playTrack = () => {
     return {
         type: PLAYER_PLAY_TRACK,
-        trackId: trackId,
+    }
+}
+
+export const PLAYER_PAUSE_TRACK = 'PLAYER_PAUSE_TRACK'
+export const pauseTrack = () => {
+    return {
+        type: PLAYER_PAUSE_TRACK,
     }
 }
 
@@ -30,14 +43,8 @@ export const previousTrack = (trackId) => ({
     trackId: trackId,
 })
 
-/*
-function fetchTrack(id) {
-    return dispatch => {
-        dispatch(requestTrack(id))
-        return dispatch(receivePosts(id, new Howl({
-            src: API.API_STREAM_TRACK + id,
-            html5: true
-        })))
-    };
-}
-*/
+export const PLAYER_SET_METADATA = 'PLAYER_SET_METADATA'
+export const setMetadata = (trackMetadata) => ({
+    type: PLAYER_SET_METADATA,
+    trackMetadata: trackMetadata,
+})

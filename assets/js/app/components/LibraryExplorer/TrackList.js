@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Table from 'react-bootstrap/Table';
 
@@ -33,8 +34,11 @@ class TrackList extends React.Component {
             );
     }
 
-    startStream(id) {
-
+    startStream(track) {
+        console.log(this.props);
+        this.props.setStreamSource(track.id);
+        this.props.setPlayerMetadata(track);
+        this.props.playTrack();
     }
 
     render() {
@@ -51,7 +55,7 @@ class TrackList extends React.Component {
                         <Table hover size="sm" className="">
                             <tbody>
                                 {tracks.map((track) => (
-                                    <tr key={track.id} onClick={this.startStream(track.id)}>
+                                    <tr key={track.id} onDoubleClick={() => { this.startStream(track) }}>
                                         <td>{track.title}</td>
                                         <td>{track.albumArtist}</td>
                                         <td>{track.album}</td>
@@ -73,4 +77,31 @@ class TrackList extends React.Component {
 
 }
 
-export default TrackList;
+const mapDispatchToProps = (dispatch) => {
+    return {
+    
+      setStreamSource: (trackId) => {
+        dispatch({
+          type: 'PLAYER_REQUEST_TRACK',
+          trackId: trackId
+        })
+      },
+  
+      playTrack: () => {
+        dispatch({
+          type: 'PLAYER_PLAY_TRACK',
+        })
+      },
+  
+      setPlayerMetadata: (trackMetadata) => {
+        dispatch({
+          type: 'PLAYER_SET_METADATA',
+          trackMetadata: trackMetadata
+        })
+      },
+
+    };
+  }
+  
+
+export default connect(null, mapDispatchToProps) (TrackList);

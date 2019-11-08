@@ -16,7 +16,7 @@ class LibraryExplorer extends React.Component {
           <h1>Library Explorer</h1>
         </div>
         <div className="d-flex flex-column m-0 p-0 px-2 content">
-          <AlbumGrid />
+          <TrackList />
         </div>
       </div>
     );

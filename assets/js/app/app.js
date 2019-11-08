@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 
 import Reducers from './reducers/Reducers';
 
@@ -9,8 +10,10 @@ import Sidebar from './components/Sidebar/Sidebar';
 import LibraryExplorer from './components/LibraryExplorer/LibraryExplorer';
 import Player from './components/Player/Player';
 
-
-const store = createStore(Reducers);
+const store = createStore(
+    Reducers,
+    applyMiddleware(thunk)
+);
 
 class App extends React.Component {
 
