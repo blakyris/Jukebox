@@ -10,10 +10,10 @@ export const initialize = (trackId) => {
     }
 }
 
-export const PLAYER_REQUEST_TRACK = 'PLAYER_REQUEST_TRACK'
-export const requestTrack = (trackId) => {
+export const PLAYER_SET_TRACK = 'PLAYER_SET_TRACK'
+export const setTrack = (trackId) => {
     return {
-        type: PLAYER_REQUEST_TRACK,
+        type: PLAYER_SET_TRACK,
     }
 }
 
@@ -41,10 +41,4 @@ export const PLAYER_PREV_TRACK = 'PLAYER_PREV_TRACK'
 export const previousTrack = (trackId) => ({
     type: PLAYER_PREV_TRACK,
     trackId: trackId,
-})
-
-export const PLAYER_SET_METADATA = 'PLAYER_SET_METADATA'
-export const setMetadata = (trackMetadata) => ({
-    type: PLAYER_SET_METADATA,
-    trackMetadata: trackMetadata,
 })

@@ -25,13 +25,6 @@ class Player extends React.Component {
 
   constructor(props) {
     super(props);
-    this.initializePlayer();
-  }
-
-  initializePlayer() {
-    if (!this.props.player.audioObj) {
-      this.props.initializeAction();
-    }
   }
 
   componentDidMount() {
@@ -39,20 +32,20 @@ class Player extends React.Component {
   }
 
   componentDidUpdate() {
-
+    
   }
 
   setTrack(trackId) {
-    this.props.requestAction(trackId);
+    this.props.setAction(trackId);
   }
 
   playPause() {
     if (!this.props.player.isPlaying) {
       if (this.props.player.audioObj.state() == 'unloaded') {
         console.warn("Player has no sources to play.");
-        this.setTrack("5db96796df077941924ff6d6");
+      } else {
+        this.props.playAction();
       }
-      this.props.playAction();
     } else {
       this.props.pauseAction();
     }
@@ -65,13 +58,12 @@ class Player extends React.Component {
   render() {
     return (
       <div className="player w-100">
-        <ProgressBar className="mx-auto w-100" now={80} />
+        <ProgressBar className="mx-auto w-100" now={50} />
         <div className="d-flex flex-row justify-content-between align-items-center p-2">
 
           <div className="d-flex flex-column track-info">
             <div><p>{this.props.player.trackMetadata.title }</p></div>
-            <div><p>{this.props.player.trackMetadata.albumArtist }</p></div>
-            <div><p>{this.props.player.trackMetadata.album }</p></div>
+            <div><p>{this.props.player.trackMetadata.albumArtist } - {this.props.player.trackMetadata.album }</p></div>
           </div>
 
           <ButtonToolbar className="d-flex justify-content-center my-2">
@@ -109,15 +101,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
 
-    initializeAction: () => {
+    setAction: (trackId) => {
       dispatch({
-        type: 'PLAYER_INITIALIZE',
-      })
-    },
-
-    requestAction: (trackId) => {
-      dispatch({
-        type: 'PLAYER_REQUEST_TRACK',
+        type: 'PLAYER_SET_TRACK',
         trackId: trackId
       })
     },
@@ -143,4 +129,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Player);
+export default connect(mapStateToProps, mapDispatchToProps) (Player);

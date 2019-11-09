@@ -35,10 +35,7 @@ class TrackList extends React.Component {
     }
 
     startStream(track) {
-        console.log(this.props);
-        this.props.setStreamSource(track.id);
-        this.props.setPlayerMetadata(track);
-        this.props.playTrack();
+        this.props.playerSetTrack(track);
     }
 
     render() {
@@ -80,10 +77,11 @@ class TrackList extends React.Component {
 const mapDispatchToProps = (dispatch) => {
     return {
     
-      setStreamSource: (trackId) => {
+      playerSetTrack: (track) => {
         dispatch({
-          type: 'PLAYER_REQUEST_TRACK',
-          trackId: trackId
+          type: 'PLAYER_SET_TRACK',
+          trackId: track.id,
+          trackMetadata: track
         })
       },
   
@@ -92,13 +90,7 @@ const mapDispatchToProps = (dispatch) => {
           type: 'PLAYER_PLAY_TRACK',
         })
       },
-  
-      setPlayerMetadata: (trackMetadata) => {
-        dispatch({
-          type: 'PLAYER_SET_METADATA',
-          trackMetadata: trackMetadata
-        })
-      },
+
 
     };
   }
