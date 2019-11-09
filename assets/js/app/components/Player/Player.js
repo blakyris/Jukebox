@@ -32,7 +32,8 @@ class Player extends React.Component {
   }
 
   componentDidUpdate() {
-    
+    console.log("Player updated");
+    console.log(this.props);
   }
 
   setTrack(trackId) {
@@ -58,7 +59,7 @@ class Player extends React.Component {
   render() {
     return (
       <div className="player w-100">
-        <ProgressBar className="mx-auto w-100" now={50} />
+        <ProgressBar className="mx-auto w-100" now={25} />
         <div className="d-flex flex-row justify-content-between align-items-center p-2">
 
           <div className="d-flex flex-column track-info">

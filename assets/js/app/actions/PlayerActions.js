@@ -11,9 +11,50 @@ export const initialize = (trackId) => {
 }
 
 export const PLAYER_SET_TRACK = 'PLAYER_SET_TRACK'
-export const setTrack = (trackId) => {
+export const setTrack = (track) => {
+    return (dispatch, getState) => {
+
+        const { player } = getState();
+        if (player.audioObj && player.audioObj.state() != 'unloaded') {
+            console.warn("Player needs to be unload.");
+            player.audioObj.unload();
+        }
+
+        dispatch({
+            type: PLAYER_SET_TRACK,
+            audioObj: new Howl({
+                src: API.API_STREAM_TRACK + track.id,
+                html5: true,
+                format: track.format,
+                onload: () => {
+                    dispatch({
+                        type: PLAYER_PLAY_TRACK,
+                    });
+                },
+                onloaderror: (id, error) => {
+                    dispatch({
+                        type: PLAYER_LOAD_ERROR,
+                        error: error,
+                    });
+                }
+            }),
+            trackMetadata: track,
+        });
+
+    }
+}
+
+export const PLAYER_LOAD_SUCCESS = 'PLAYER_LOAD_SUCCESS'
+export const loadSuccess = () => {
     return {
-        type: PLAYER_SET_TRACK,
+        type: PLAYER_LOAD_SUCCESS,
+    }
+}
+
+export const PLAYER_LOAD_ERROR = 'PLAYER_LOAD_ERROR'
+export const loadError = () => {
+    return {
+        type: PLAYER_LOAD_ERROR,
     }
 }
 

@@ -20,7 +20,7 @@ class UploadController
     /**
      * @Route("/api/upload/tracks", methods={"POST"})
      */
-    public function getAll(DocumentManager $dm, Request $request, FileManager $fileManager, TagEditor $tagEditor)
+    public function upload(DocumentManager $dm, Request $request, FileManager $fileManager, TagEditor $tagEditor)
     {
         $file = $request->files->get('file');
         if ($file) {

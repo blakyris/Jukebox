@@ -12,7 +12,7 @@ import Player from './components/Player/Player';
 
 const store = createStore(
     Reducers,
-    applyMiddleware(thunk)
+    applyMiddleware(thunk),
 );
 
 class App extends React.Component {

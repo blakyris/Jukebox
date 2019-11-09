@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Table from 'react-bootstrap/Table';
 
 import * as API from '../../constants/ApiConstants';
+import {setTrack} from '../../actions/PlayerActions';
 
 class TrackList extends React.Component {
 
@@ -78,11 +79,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
     
       playerSetTrack: (track) => {
-        dispatch({
-          type: 'PLAYER_SET_TRACK',
-          trackId: track.id,
-          trackMetadata: track
-        })
+        dispatch(setTrack(track));
       },
   
       playTrack: () => {

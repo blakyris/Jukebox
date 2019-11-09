@@ -6,7 +6,7 @@ import { Howl } from 'howler';
 
 
 const initialPlayerState = {
-    audioObj: new Howl({src: {}}),
+    audioObj: null,
     src: {},
     playQueue: null,
     trackMetadata: {},
@@ -20,27 +20,20 @@ function PlayerReducer(state = initialPlayerState, action) {
     switch (action.type) {
 
         case PlayerActions.PLAYER_SET_TRACK:
-            if (state.audioObj.state() != 'unloaded')
-                state.audioObj.unload();
+            return {
+               ...state,
+                audioObj: action.audioObj,
+                trackMetadata: action.trackMetadata,
+            }; 
+
+        case PlayerActions.PLAYER_LOAD_ERROR:
+            console.error("Player error while loading track : " + action.error);
             return {
                 ...state,
-                audioObj: new Howl({
-                    src: API.API_STREAM_TRACK + action.trackId,
-                    html5: true,
-                    preload: true,
-                    onload: () => {
-                        console.log("Track loaded succesfully.");
-                    },
-                    onloaderror: (id, err) => {
-                        console.error("Load Error : " + err);
-                    }
-                }),
-                trackMetadata: action.trackMetadata
             };
 
         case PlayerActions.PLAYER_PLAY_TRACK:
             state.audioObj.play();
-            console.log("Track Duration : " + state.audioObj.duration());
             return {
                 ...state,
                 isPlaying: true,
@@ -58,4 +51,4 @@ function PlayerReducer(state = initialPlayerState, action) {
     }
 }
 
-export default PlayerReducer;
+export default PlayerReducer;   

@@ -75,7 +75,7 @@ class TagEditor
         $tags = array();
 
         $tags = [
-            'fileinfo' => [
+            'fileInfo' => [
                 'path' => $this->filePath,
                 'format' => $this->fileFormat,
             ],

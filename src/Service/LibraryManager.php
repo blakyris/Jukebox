@@ -99,6 +99,7 @@ class LibraryManager
         $track->setAlbumArtist($albumArtist);
         $track->setTrackNumber((int) $tags['tags']['trackNumber']);
         $track->setGenre($tags['tags']['genre']);
+        $track->setFormat($tags['fileInfo']['format']);
         
         $this->documentManager->persist($track);
         $this->documentManager->flush();
