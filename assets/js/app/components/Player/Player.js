@@ -22,17 +22,23 @@ import * as API from '../../constants/ApiConstants';
 import * as PlayerActions from '../../actions/PlayerActions';
 
 class Player extends React.Component {
-  /*
-    constructor(props) {
-      super(props);
-    }
-  */
+
+  constructor(props) {
+    super(props);
+  }
+
   componentDidMount() {
 
   }
 
   componentDidUpdate() {
-
+    if (this.props.player.isPlaying) {
+      setInterval(() => {
+        this.props.getSeekPosAction();
+      }, 1000);
+    } else {
+      clearInterval();
+    }
   }
 
   playPause() {
@@ -44,14 +50,28 @@ class Player extends React.Component {
     }
   }
 
+  prevTrack() {
+    this.props.prevAction();
+  }
+
+  nextTrack() {
+    this.props.nextAction();
+  }
+
   unload() {
 
+  }
+
+  getProgressValue() {
+    if (this.props.player.isPlaying) {
+      return ((this.props.player.seek / this.props.player.duration) * 100);
+    } else return 0;
   }
 
   render() {
     return (
       <div className="player w-100">
-        <ProgressBar className="mx-auto w-100" now={25} />
+        <ProgressBar className="mx-auto w-100" now={this.getProgressValue()} />
         <div className="d-flex flex-row justify-content-between align-items-center p-2">
 
           <div className="d-flex flex-column track-info">
@@ -60,13 +80,13 @@ class Player extends React.Component {
           </div>
 
           <ButtonToolbar className="d-flex justify-content-center my-2">
-            <Button variant="link" className="player-btn mx-2">
+            <Button onClick={this.prevTrack.bind(this)} variant="link" className="player-btn mx-2">
               <FontAwesomeIcon icon={faBackward} />
             </Button>
             <Button onClick={this.playPause.bind(this)} variant="link" className="player-btn mx-2">
               <FontAwesomeIcon icon={faPlayCircle} size="lg" />
             </Button>
-            <Button variant="link" className="player-btn mx-2">
+            <Button onClick={this.nextTrack.bind(this)} variant="link" className="player-btn mx-2">
               <FontAwesomeIcon icon={faForward} />
             </Button>
           </ButtonToolbar>
@@ -75,7 +95,7 @@ class Player extends React.Component {
             <FontAwesomeIcon icon={faVolumeUp} size="sm" className="mr-2" />
             <Form className="m-0 p-0">
               <Form.Group className="m-0 p-0">
-                <input type="range" className="form-control-range" />
+                <input defaultValue={this.props.player.volume} type="range" className="form-control-range" />
               </Form.Group>
             </Form>
           </div>
@@ -113,11 +133,17 @@ const mapDispatchToProps = (dispatch) => {
       })
     },
 
-    resumeAction: () => {
-      dispatch({
-        type: 'PLAYER_RESUME_TRACK',
-      })
-    }
+    nextAction: () => {
+      dispatch(PlayerActions.nextTrack());
+    },
+
+    prevAction: () => {
+      dispatch(PlayerActions.prevTrack());
+    },
+
+    getSeekPosAction: () => {
+      dispatch(PlayerActions.getSeekPos());
+    },
 
   };
 }

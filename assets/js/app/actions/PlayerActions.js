@@ -1,6 +1,7 @@
 import * as API from '../constants/ApiConstants';
 
 import { Howl, Howler } from 'howler';
+import { array } from 'prop-types';
 
 
 export const PLAYER_INITIALIZE = 'PLAYER_INITIALIZE'
@@ -28,6 +29,9 @@ export const setTrack = (track) => {
                 src: API.API_STREAM_TRACK + track.id,
                 format: track.format,
                 onload: () => {
+                    dispatch({
+                        type: PLAYER_LOAD_SUCCESS,
+                    });
                     dispatch({
                         type: PLAYER_PLAY_TRACK,
                     });
@@ -74,16 +78,28 @@ export const pauseTrack = () => {
 }
 
 export const PLAYER_NEXT_TRACK = 'PLAYER_NEXT_TRACK'
-export const nextTrack = (trackId) => ({
-    type: PLAYER_NEXT_TRACK,
-    trackId: trackId,
-})
+export const nextTrack = () => {
+    return (dispatch, getState) => {
+        const { playQueue, queuePos } = getState().player;
+
+        if (queuePos < playQueue.length) {
+            dispatch (setTrack(playQueue[queuePos + 1]));
+            dispatch (setQueuePos(queuePos + 1));
+        }
+    }
+}
 
 export const PLAYER_PREV_TRACK = 'PLAYER_PREV_TRACK'
-export const previousTrack = (trackId) => ({
-    type: PLAYER_PREV_TRACK,
-    trackId: trackId,
-})
+export const prevTrack = () => {
+    return (dispatch, getState) => {
+        const { playQueue, queuePos } = getState().player;
+
+        if (queuePos > 0) {
+            dispatch (setTrack(playQueue[queuePos - 1]));
+            dispatch (setQueuePos(queuePos - 1));
+        }
+    }
+}
 
 export const PLAYER_SEEKED = 'PLAYER_SEEKED'
 export const seek = () => {
@@ -96,5 +112,32 @@ export const PLAYER_UNLOAD = 'PLAYER_UNLOAD'
 export const unload = () => {
     return {
         type: PLAYER_UNLOAD,
+    }
+}
+
+export const PLAYER_GET_SEEK_POS = 'PLAYER_GET_SEEK_POS'
+export const getSeekPos = () => {
+    return {
+        type: PLAYER_GET_SEEK_POS,
+    }
+}
+
+export const PLAYER_SET_PLAY_QUEUE = 'PLAYER_SET_PLAY_QUEUE'
+export const setPlayQueue = (queue) => {
+    console.log("Queue set :");
+    console.log(queue);
+    return {
+        type: PLAYER_SET_PLAY_QUEUE,
+        playQueue: queue || {},
+    }
+}
+
+export const PLAYER_SET_QUEUE_POSITION = 'PLAYER_SET_QUEUE_POSITION'
+export const setQueuePos = (pos) => {
+    console.log("Queue pos :");
+    console.log(pos);
+    return {
+        type: PLAYER_SET_QUEUE_POSITION,
+        queuePos: pos,
     }
 }

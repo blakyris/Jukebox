@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Table from 'react-bootstrap/Table';
 
 import * as API from '../../constants/ApiConstants';
-import {setTrack} from '../../actions/PlayerActions';
+import { setTrack, setPlayQueue, setQueuePos } from '../../actions/PlayerActions';
 
 class TrackList extends React.Component {
 
@@ -35,8 +35,10 @@ class TrackList extends React.Component {
             );
     }
 
-    startStream(track) {
+    handleClick(track) {
         this.props.playerSetTrack(track);
+        this.props.playerSetPlayQueue(this.state.tracks);
+        this.props.playerSetQueuePos(this.state.tracks.indexOf(track));
     }
 
     render() {
@@ -53,7 +55,7 @@ class TrackList extends React.Component {
                         <Table hover size="sm" className="">
                             <tbody>
                                 {tracks.map((track) => (
-                                    <tr key={track.id} onDoubleClick={() => { this.startStream(track) }}>
+                                    <tr key={track.id} onDoubleClick={() => { this.handleClick(track) }}>
                                         <td>{track.title}</td>
                                         <td>{track.albumArtist}</td>
                                         <td>{track.album}</td>
@@ -77,20 +79,21 @@ class TrackList extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-    
-      playerSetTrack: (track) => {
-        dispatch(setTrack(track));
-      },
-  
-      playTrack: () => {
-        dispatch({
-          type: 'PLAYER_PLAY_TRACK',
-        })
-      },
 
+        playerSetTrack: (track) => {
+            dispatch(setTrack(track));
+        },
+
+        playerSetPlayQueue: (queue) => {
+            dispatch(setPlayQueue(queue));
+        },
+
+        playerSetQueuePos: (pos) => {
+            dispatch(setQueuePos(pos));
+        },
 
     };
-  }
-  
+}
 
-export default connect(null, mapDispatchToProps) (TrackList);
+
+export default connect(null, mapDispatchToProps)(TrackList);

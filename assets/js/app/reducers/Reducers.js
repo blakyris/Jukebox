@@ -4,7 +4,7 @@ import PlayerReducer from './PlayerReducer';
 
 const Reducers = combineReducers(
     {
-        player: PlayerReducer
+        player: PlayerReducer,
     }
 );
 

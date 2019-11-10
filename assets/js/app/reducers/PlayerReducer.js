@@ -7,15 +7,15 @@ import { Howl } from 'howler';
 
 const initialPlayerState = {
     audioObj: null,
-    playingId: null,
-    src: {},
-    playQueue: null,
     trackMetadata: {},
+    playQueue: null,
+    queuePos: 0,
+    duration: 0,
     seek: 0,
+    volume: 100,
     isLoading: false,
     isPlaying: false,
 }
-
 
 function PlayerReducer(state, action) {
     switch (action.type) {
@@ -27,6 +27,12 @@ function PlayerReducer(state, action) {
                 trackMetadata: action.trackMetadata,
             };
 
+        case PlayerActions.PLAYER_LOAD_SUCCESS:
+            return {
+                ...state,
+                duration: Math.round(state.audioObj.duration()),
+            };
+
         case PlayerActions.PLAYER_LOAD_ERROR:
             console.error("Player error while loading track : " + action.error);
             return {
@@ -35,7 +41,6 @@ function PlayerReducer(state, action) {
 
         case PlayerActions.PLAYER_PLAY_TRACK:
             state.audioObj.play();
-
             return {
                 ...state,
                 isPlaying: true,
@@ -49,8 +54,30 @@ function PlayerReducer(state, action) {
             };
 
         case PlayerActions.PLAYER_UNLOAD:
+            state.audioObj.stop();
             state.audioObj.unload();
-            return initialPlayerState;
+            return {
+                ...state,
+                isPlaying: false,
+            };
+
+        case PlayerActions.PLAYER_GET_SEEK_POS:
+            return {
+                ...state,
+                seek: Math.round(state.audioObj.seek()),
+            };
+
+        case PlayerActions.PLAYER_SET_PLAY_QUEUE:
+            return {
+                ...state,
+                playQueue: action.playQueue,
+            };
+
+        case PlayerActions.PLAYER_SET_QUEUE_POSITION:
+            return {
+                ...state,
+                queuePos: action.queuePos,
+            };
 
         default:
             console.warn("Called default state.");
@@ -58,4 +85,4 @@ function PlayerReducer(state, action) {
     }
 }
 
-export default PlayerReducer;   
+export default PlayerReducer;

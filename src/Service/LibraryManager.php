@@ -49,14 +49,7 @@ class LibraryManager
     {
         $tagger = new TagEditor();
 
-        $uploadOptions = new UploadOptions();
-        $uploadOptions->chunkSizeBytes = 1024 * 1024;
-
-        $file = $this->documentManager->getRepository(File::class)->uploadFromFile(
-            $path,
-            null,
-            $uploadOptions
-        );
+        $file = $this->documentManager->getRepository(File::class)->uploadFromFile($path);
 
         $tags = $tagger->getTags($path);
 
