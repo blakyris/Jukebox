@@ -17,7 +17,6 @@ export const setTrack = (track) => {
 
         const { player } = getState();
         if (player.audioObj && player.audioObj.state() != 'unloaded') {
-            console.warn("Player needs to be unload.");
             dispatch({
                 type: PLAYER_UNLOAD,
             });
@@ -41,6 +40,9 @@ export const setTrack = (track) => {
                         type: PLAYER_LOAD_ERROR,
                         error: error,
                     });
+                },
+                onend: () => {
+                    dispatch(nextTrack());
                 },
             }),
             trackMetadata: track,
@@ -124,8 +126,6 @@ export const getSeekPos = () => {
 
 export const PLAYER_SET_PLAY_QUEUE = 'PLAYER_SET_PLAY_QUEUE'
 export const setPlayQueue = (queue) => {
-    console.log("Queue set :");
-    console.log(queue);
     return {
         type: PLAYER_SET_PLAY_QUEUE,
         playQueue: queue || {},
@@ -134,8 +134,6 @@ export const setPlayQueue = (queue) => {
 
 export const PLAYER_SET_QUEUE_POSITION = 'PLAYER_SET_QUEUE_POSITION'
 export const setQueuePos = (pos) => {
-    console.log("Queue pos :");
-    console.log(pos);
     return {
         type: PLAYER_SET_QUEUE_POSITION,
         queuePos: pos,

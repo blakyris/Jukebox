@@ -80,7 +80,6 @@ function PlayerReducer(state, action) {
             };
 
         default:
-            console.warn("Called default state.");
             return initialPlayerState;
     }
 }
