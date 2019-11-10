@@ -22,31 +22,23 @@ import * as API from '../../constants/ApiConstants';
 import * as PlayerActions from '../../actions/PlayerActions';
 
 class Player extends React.Component {
-
-  constructor(props) {
-    super(props);
-  }
-
+  /*
+    constructor(props) {
+      super(props);
+    }
+  */
   componentDidMount() {
 
   }
 
   componentDidUpdate() {
-    console.log("Player updated");
-    console.log(this.props);
-  }
 
-  setTrack(trackId) {
-    this.props.setAction(trackId);
   }
 
   playPause() {
     if (!this.props.player.isPlaying) {
-      if (this.props.player.audioObj.state() == 'unloaded') {
-        console.warn("Player has no sources to play.");
-      } else {
+      if (this.props.player.audioObj.state() != 'unloaded')
         this.props.playAction();
-      }
     } else {
       this.props.pauseAction();
     }
@@ -63,8 +55,8 @@ class Player extends React.Component {
         <div className="d-flex flex-row justify-content-between align-items-center p-2">
 
           <div className="d-flex flex-column track-info">
-            <div><p>{this.props.player.trackMetadata.title }</p></div>
-            <div><p>{this.props.player.trackMetadata.albumArtist } - {this.props.player.trackMetadata.album }</p></div>
+            <div><p>{this.props.player.trackMetadata.title}</p></div>
+            <div><p>{this.props.player.trackMetadata.albumArtist} - {this.props.player.trackMetadata.album}</p></div>
           </div>
 
           <ButtonToolbar className="d-flex justify-content-center my-2">
@@ -102,10 +94,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
 
-    setAction: (trackId) => {
+    setAction: (track) => {
       dispatch({
         type: 'PLAYER_SET_TRACK',
-        trackId: trackId
+        track: track
       })
     },
 
@@ -130,4 +122,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps) (Player);
+export default connect(mapStateToProps, mapDispatchToProps)(Player);

@@ -7,6 +7,7 @@ import { Howl } from 'howler';
 
 const initialPlayerState = {
     audioObj: null,
+    playingId: null,
     src: {},
     playQueue: null,
     trackMetadata: {},
@@ -16,15 +17,15 @@ const initialPlayerState = {
 }
 
 
-function PlayerReducer(state = initialPlayerState, action) {
+function PlayerReducer(state, action) {
     switch (action.type) {
 
         case PlayerActions.PLAYER_SET_TRACK:
             return {
-               ...state,
+                ...state,
                 audioObj: action.audioObj,
                 trackMetadata: action.trackMetadata,
-            }; 
+            };
 
         case PlayerActions.PLAYER_LOAD_ERROR:
             console.error("Player error while loading track : " + action.error);
@@ -34,6 +35,7 @@ function PlayerReducer(state = initialPlayerState, action) {
 
         case PlayerActions.PLAYER_PLAY_TRACK:
             state.audioObj.play();
+
             return {
                 ...state,
                 isPlaying: true,
@@ -46,7 +48,12 @@ function PlayerReducer(state = initialPlayerState, action) {
                 isPlaying: false,
             };
 
+        case PlayerActions.PLAYER_UNLOAD:
+            state.audioObj.unload();
+            return initialPlayerState;
+
         default:
+            console.warn("Called default state.");
             return initialPlayerState;
     }
 }

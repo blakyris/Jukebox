@@ -17,14 +17,15 @@ export const setTrack = (track) => {
         const { player } = getState();
         if (player.audioObj && player.audioObj.state() != 'unloaded') {
             console.warn("Player needs to be unload.");
-            player.audioObj.unload();
+            dispatch({
+                type: PLAYER_UNLOAD,
+            });
         }
 
         dispatch({
             type: PLAYER_SET_TRACK,
             audioObj: new Howl({
                 src: API.API_STREAM_TRACK + track.id,
-                html5: true,
                 format: track.format,
                 onload: () => {
                     dispatch({
@@ -36,7 +37,7 @@ export const setTrack = (track) => {
                         type: PLAYER_LOAD_ERROR,
                         error: error,
                     });
-                }
+                },
             }),
             trackMetadata: track,
         });
@@ -83,3 +84,17 @@ export const previousTrack = (trackId) => ({
     type: PLAYER_PREV_TRACK,
     trackId: trackId,
 })
+
+export const PLAYER_SEEKED = 'PLAYER_SEEKED'
+export const seek = () => {
+    return {
+        type: PLAYER_SEEKED,
+    }
+}
+
+export const PLAYER_UNLOAD = 'PLAYER_UNLOAD'
+export const unload = () => {
+    return {
+        type: PLAYER_UNLOAD,
+    }
+}
