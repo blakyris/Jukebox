@@ -51,7 +51,7 @@ class TrackList extends React.Component {
                 );
             else {
                 return (
-                    <div className="d-flex flex-column m-0 p-0 track-list">
+                    <div className="container-fluid track-list">
                         <Table hover size="sm" className="">
                             <tbody>
                                 {tracks.map((track) => (

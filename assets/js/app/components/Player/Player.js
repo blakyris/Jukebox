@@ -13,6 +13,7 @@ import Form from 'react-bootstrap/Form';
 // FONTAWSOME
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlayCircle } from '@fortawesome/free-regular-svg-icons';
+import { faPauseCircle } from '@fortawesome/free-regular-svg-icons';
 import { faBackward } from '@fortawesome/free-solid-svg-icons';
 import { faForward } from '@fortawesome/free-solid-svg-icons';
 import { faVolumeUp } from '@fortawesome/free-solid-svg-icons';
@@ -73,11 +74,11 @@ class Player extends React.Component {
       <div className="player w-100">
         <Form className="m-0 p-0">
           <Form.Group className="m-0 p-0">
-            <input value={this.getProgressValue()} 
-            onChange={(e) => {
-              this.props.setSeekPosAction(Math.round((e.target.value / 100) * this.props.player.duration));
-            }} 
-            type="range" className="form-control-range seek-bar" />
+            <input value={this.getProgressValue()}
+              onChange={(e) => {
+                this.props.setSeekPosAction(Math.round((e.target.value / 100) * this.props.player.duration));
+              }}
+              type="range" className="form-control-range p-0 m-0 range-slider seek-bar" />
           </Form.Group>
         </Form>
         <div className="d-flex flex-row justify-content-between align-items-center p-2">
@@ -92,18 +93,22 @@ class Player extends React.Component {
               <FontAwesomeIcon icon={faBackward} />
             </Button>
             <Button onClick={this.playPause.bind(this)} variant="link" className="player-btn mx-2">
-              <FontAwesomeIcon icon={faPlayCircle} size="lg" />
+              <FontAwesomeIcon icon={this.props.player.isPlaying ? faPauseCircle : faPlayCircle} size="lg" />
             </Button>
             <Button onClick={this.nextTrack.bind(this)} variant="link" className="player-btn mx-2">
               <FontAwesomeIcon icon={faForward} />
             </Button>
           </ButtonToolbar>
 
-          <div className="d-flex align-items-center volume-control">
+          <div className="d-flex align-items-center mr-2 volume-control">
             <FontAwesomeIcon icon={faVolumeUp} size="sm" className="mr-2" />
             <Form className="m-0 p-0">
               <Form.Group className="m-0 p-0">
-                <input defaultValue={this.props.player.volume} type="range" className="form-control-range" />
+                <input defaultValue={this.props.player.volume * 100}
+                  onChange={(e) => {
+                    this.props.setVolumeAction(e.target.value);
+                  }} 
+                  type="range" className="form-control-range range-slider" />
               </Form.Group>
             </Form>
           </div>
@@ -155,6 +160,10 @@ const mapDispatchToProps = (dispatch) => {
 
     getSeekPosAction: () => {
       dispatch(PlayerActions.getSeekPos());
+    },
+
+    setVolumeAction: (value) => {
+      dispatch(PlayerActions.setVolume(value));
     },
 
   };

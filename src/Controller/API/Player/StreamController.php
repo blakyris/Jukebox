@@ -33,6 +33,7 @@ class StreamController
             echo $contents;
             flush();
         });
+        
         return $response->send();
     }
 }

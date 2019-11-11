@@ -25,7 +25,7 @@ class App extends React.Component {
         return (
             <div className="d-flex flex-column flex-wrap h-100 w-100 view-container">
 
-                <div className="d-flex flex-row flex-fill h-100 w-100  explorer-container">
+                <div className="d-flex flex-row flex-fill h-100 w-100 explorer-container">
                     <Sidebar />
                     <LibraryExplorer />
                 </div>

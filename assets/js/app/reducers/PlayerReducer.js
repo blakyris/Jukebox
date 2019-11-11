@@ -12,7 +12,7 @@ const initialPlayerState = {
     queuePos: 0,
     duration: 0,
     seek: 0,
-    volume: 100,
+    volume: 1,
     isLoading: false,
     isPlaying: false,
 }
@@ -54,7 +54,8 @@ function PlayerReducer(state, action) {
             };
 
         case PlayerActions.PLAYER_SET_SEEK_POS:
-            state.audioObj.seek(action.seekPos);
+            if (state.isPlaying)
+                state.audioObj.seek(action.seekPos);
             return {
                 ...state,
             };
@@ -63,6 +64,14 @@ function PlayerReducer(state, action) {
             return {
                 ...state,
                 seek: Math.round(state.audioObj.seek()),
+            };
+
+        case PlayerActions.PLAYER_SET_VOLUME:
+            if (state.audioObj)
+                state.audioObj.volume(action.volume / 100);
+            return {
+                ...state,
+                volume: action.volume / 100,
             };
 
         case PlayerActions.PLAYER_SET_PLAY_QUEUE:

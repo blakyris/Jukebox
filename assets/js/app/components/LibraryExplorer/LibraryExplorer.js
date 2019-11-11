@@ -11,7 +11,7 @@ class LibraryExplorer extends React.Component {
   
   render() {
     return(
-      <div className="d-flex flex-column flex-fill p-0 m-0 library-explorer">
+      <div className="d-flex flex-column flex-fill library-explorer">
         <div className="d-flex flex-column px-4 py-3 header">
           <h1>Library Explorer</h1>
         </div>

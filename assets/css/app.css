@@ -1,7 +1,11 @@
 html,body{ height: 100%; }
 
 .view-container {
-    position: absolute;
+
+}
+
+.explorer-container {
+    padding-bottom: 75px;
 }
 
 /* React.Component : SIDEBAR */
@@ -29,7 +33,7 @@ html,body{ height: 100%; }
 }
 
 .library-explorer .content {
-
+    
 }
 
 .album-grid {
@@ -72,7 +76,7 @@ html,body{ height: 100%; }
 }
 
 .track-list {
-
+    margin-bottom: 20px;
 }
 
 .track-list tbody td  {
@@ -106,89 +110,36 @@ html,body{ height: 100%; }
 
 /* SEEK */ 
 
-input[type=range].seek-bar {
-    -webkit-appearance: none;
-    width: 100%;
-    margin: 0px 0;
-  }
-  input[type=range].seek-bar:focus {
-    outline: none;
-  }
-  input[type=range].seek-bar::-webkit-slider-runnable-track {
-    width: 100%;
-    height: 8px;
-    cursor: pointer;
-    box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
-    background: #646464;
-    border-radius: 0px;
-    border: 0px solid #010101;
-  }
-  input[type=range].seek-bar::-webkit-slider-thumb {
-    box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
-    border: 0px solid rgba(0, 0, 0, 0);
-    height: 8px;
-    width: 10px;
-    border-radius: 0px;
-    background: #ffffff;
-    cursor: pointer;
-    -webkit-appearance: none;
-    margin-top: 0px;
-  }
-  input[type=range].seek-bar:focus::-webkit-slider-runnable-track {
-    background: #717171;
-  }
-  input[type=range].seek-bar::-moz-range-track {
-    width: 100%;
-    height: 8px;
-    cursor: progress;
-    box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
-    background: #646464;
-    border-radius: 0px;
-    border: 0px solid #010101;
-  }
-  input[type=range].seek-bar::-moz-range-thumb {
-    box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
-    border: 0px solid rgba(0, 0, 0, 0);
-    height: 8px;
-    width: 10px;
-    border-radius: 0px;
-    background: blue;
-    cursor: pointer;
-  }
-  input[type=range].seek-bar::-ms-track {
-    width: 100%;
-    height: 8px;
-    cursor: pointer;
-    background: transparent;
-    border-color: transparent;
-    color: transparent;
-  }
-  input[type=range].seek-bar::-ms-fill-lower {
-    background: #575757;
-    border: 0px solid #010101;
-    border-radius: 0px;
-    box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
-  }
-  input[type=range].seek-bar::-ms-fill-upper {
-    background: #646464;
-    border: 0px solid #010101;
-    border-radius: 0px;
-    box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
-  }
-  input[type=range].seek-bar::-ms-thumb {
-    box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
-    border: 0px solid rgba(0, 0, 0, 0);
-    width: 10px;
-    border-radius: 0px;
-    background: #ffffff;
-    cursor: pointer;
-    height: 8px;
-  }
+.range-slider {
+  -webkit-appearance: none;
+  background-color: #555;
+  height: 5px;
+  outline: none;
+  cursor: pointer;
+}
 
-  input[type=range].seek-bar:focus::-ms-fill-lower {
-    background: #646464;
-  }
-  input[type=range].seek-bar:focus::-ms-fill-upper {
-    background: #717171;
-  }
-  
+
+.range-slider::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #FFF;
+}
+
+.range-slider::-moz-range-thumb {
+  appearance: none;
+  -moz-appearance: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #FFF;
+}
+
+.range-slider:hover::-webkit-slider-thumb {
+  height: 15px;
+  width: 15px;
+  transition: linear 0.2s;
+}
+
