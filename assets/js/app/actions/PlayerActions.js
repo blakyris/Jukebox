@@ -103,17 +103,11 @@ export const prevTrack = () => {
     }
 }
 
-export const PLAYER_SEEKED = 'PLAYER_SEEKED'
-export const seek = () => {
+export const PLAYER_SET_SEEK_POS = 'PLAYER_SET_SEEK_POS'
+export const setSeek = (pos) => {
     return {
-        type: PLAYER_SEEKED,
-    }
-}
-
-export const PLAYER_UNLOAD = 'PLAYER_UNLOAD'
-export const unload = () => {
-    return {
-        type: PLAYER_UNLOAD,
+        type: PLAYER_SET_SEEK_POS,
+        seekPos: pos
     }
 }
 
@@ -137,5 +131,12 @@ export const setQueuePos = (pos) => {
     return {
         type: PLAYER_SET_QUEUE_POSITION,
         queuePos: pos,
+    }
+}
+
+export const PLAYER_UNLOAD = 'PLAYER_UNLOAD'
+export const unload = () => {
+    return {
+        type: PLAYER_UNLOAD,
     }
 }

@@ -71,7 +71,15 @@ class Player extends React.Component {
   render() {
     return (
       <div className="player w-100">
-        <ProgressBar className="mx-auto w-100" now={this.getProgressValue()} />
+        <Form className="m-0 p-0">
+          <Form.Group className="m-0 p-0">
+            <input value={this.getProgressValue()} 
+            onChange={(e) => {
+              this.props.setSeekPosAction(Math.round((e.target.value / 100) * this.props.player.duration));
+            }} 
+            type="range" className="form-control-range seek-bar" />
+          </Form.Group>
+        </Form>
         <div className="d-flex flex-row justify-content-between align-items-center p-2">
 
           <div className="d-flex flex-column track-info">
@@ -139,6 +147,10 @@ const mapDispatchToProps = (dispatch) => {
 
     prevAction: () => {
       dispatch(PlayerActions.prevTrack());
+    },
+
+    setSeekPosAction: (pos) => {
+      dispatch(PlayerActions.setSeek(pos));
     },
 
     getSeekPosAction: () => {

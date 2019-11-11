@@ -53,12 +53,10 @@ function PlayerReducer(state, action) {
                 isPlaying: false,
             };
 
-        case PlayerActions.PLAYER_UNLOAD:
-            state.audioObj.stop();
-            state.audioObj.unload();
+        case PlayerActions.PLAYER_SET_SEEK_POS:
+            state.audioObj.seek(action.seekPos);
             return {
                 ...state,
-                isPlaying: false,
             };
 
         case PlayerActions.PLAYER_GET_SEEK_POS:
@@ -77,6 +75,14 @@ function PlayerReducer(state, action) {
             return {
                 ...state,
                 queuePos: action.queuePos,
+            };
+
+        case PlayerActions.PLAYER_UNLOAD:
+            state.audioObj.stop();
+            state.audioObj.unload();
+            return {
+                ...state,
+                isPlaying: false,
             };
 
         default:
