@@ -1,15 +1,43 @@
 html,body{ height: 100%; }
 
+/* UTILS */
+
+.noselect {
+    -webkit-touch-callout: none;
+      -webkit-user-select: none;
+       -khtml-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none;
+}
+
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #333;
+}
+  
+::-webkit-scrollbar-thumb {
+    background: #555;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #777;
+}
+
+/* CONTAINERS */
 .view-container {
 
 }
 
 .explorer-container {
-    padding-bottom: 75px;
+    padding-bottom: 60px;
 }
 
 /* React.Component : SIDEBAR */
-
 .sidebar {
     background-color: #111;
     color: #FFF;
@@ -21,7 +49,6 @@ html,body{ height: 100%; }
 }
 
 /* React.Component : LIBRARY EXPLORER */
-
 .library-explorer {
     background-color: #090909;
     color: #FFF;
@@ -33,9 +60,10 @@ html,body{ height: 100%; }
 }
 
 .library-explorer .content {
-    
+
 }
 
+/* React.Component : ALBUM GRID */
 .album-grid {
    
 }
@@ -75,6 +103,7 @@ html,body{ height: 100%; }
     font-size: 12px;
 }
 
+/* React.Component : TRACK LIST */
 .track-list {
     margin-bottom: 20px;
 }
@@ -85,27 +114,54 @@ html,body{ height: 100%; }
     font-size: 12px;
 }
 
+.track-list .track-row p {
+    margin: 3px 0;
+}
+
+.track-list .track-row:hover {
+    background-color: #111;
+}
+
+/* React.Component : PLAYER */
 .player {
+    height: 60px;
     background-color:#111;
     color: #FFF;
 }
 
-.player .progress {
-    height: 3px;
-}
-
-.player .player-btn {
-    color: #FFF;
-}
-
 .player .track-info {
-    margin: 10px 0;
+
 }
 
 .player .track-info p {
     margin: 0;
     padding: 0;
     font-size: 12px;
+}
+
+.player .track-info .title {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.player .track-info .artist {
+
+}
+
+.player .track-info .album {
+    color: #AAA;
+}
+
+.player .controls {
+
+}
+
+.player .controls .player-btn {
+    color: #FFF;
+}
+
+.player .volume .range-slider {
+    max-width: 100px;
 }
 
 /* SEEK */ 

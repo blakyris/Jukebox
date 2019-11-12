@@ -89,6 +89,7 @@ function PlayerReducer(state, action) {
         case PlayerActions.PLAYER_UNLOAD:
             state.audioObj.stop();
             state.audioObj.unload();
+            state.audioObj = null;
             return {
                 ...state,
                 isPlaying: false,

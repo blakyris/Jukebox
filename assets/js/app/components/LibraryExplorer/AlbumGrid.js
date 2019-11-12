@@ -1,6 +1,7 @@
 import React from 'react';
-import AlbumGridItem from './AlbumGridItem';
+import axios from 'axios';
 
+import AlbumGridItem from './AlbumGridItem';
 import * as API from '../../constants/ApiConstants';
 
 class AlbumGrid extends React.Component {
@@ -14,22 +15,19 @@ class AlbumGrid extends React.Component {
     }
 
     componentDidMount() {
-        fetch(API.API_GET_ALL_ALBUMS)
-            .then(response => response.json())
-            .then(
-                (data) => {
-                    this.setState({
-                        isLoaded: true,
-                        albums: data
-                    });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            );
+        axios.get(API.API_GET_ALL_ALBUMS)
+        .then((response) => {
+            this.setState({
+                isLoaded: true,
+                albums: response.data,
+            });
+        })
+        .catch(function (error) {
+            this.setState({
+                isLoaded: true,
+                error
+            });
+        });
     }
 
     render() {
@@ -41,9 +39,6 @@ class AlbumGrid extends React.Component {
                     <div>{error}</div>
                 );
             else {
-                albums.forEach(album => {
-                    console.log(album);
-                });
                 return (
                     <div className="d-flex flex-column flex-fill flex-wrap album-grid">
                         <div className="d-flex flex-row flex-wrap">

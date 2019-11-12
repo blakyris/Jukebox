@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 import Table from 'react-bootstrap/Table';
 
@@ -17,22 +18,19 @@ class TrackList extends React.Component {
     }
 
     componentDidMount() {
-        fetch(API.API_GET_ALL_TRACKS)
-            .then(response => response.json())
-            .then(
-                (data) => {
-                    this.setState({
-                        isLoaded: true,
-                        tracks: data
-                    });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            );
+        axios.get(API.API_GET_ALL_TRACKS)
+        .then((response) => {
+            this.setState({
+                isLoaded: true,
+                tracks: response.data,
+            });
+        })
+        .catch(function (error) {
+            this.setState({
+                isLoaded: true,
+                error
+            });
+        });
     }
 
     handleClick(track) {
@@ -51,14 +49,14 @@ class TrackList extends React.Component {
                 );
             else {
                 return (
-                    <div className="container-fluid track-list">
+                    <div className="d-flex flex-column track-list">
                         <Table hover size="sm" className="">
                             <tbody>
                                 {tracks.map((track) => (
-                                    <tr key={track.id} onDoubleClick={() => { this.handleClick(track) }}>
-                                        <td>{track.title}</td>
-                                        <td>{track.albumArtist}</td>
-                                        <td>{track.album}</td>
+                                    <tr className="track-row" key={track.id} onDoubleClick={() => { this.handleClick(track) }}>
+                                        <td><p className="noselect">{track.title}</p></td>
+                                        <td><p className="noselect">{track.albumArtist}</p></td>
+                                        <td><p className="noselect">{track.album}</p></td>
                                     </tr>
                                 ))}
                             </tbody>

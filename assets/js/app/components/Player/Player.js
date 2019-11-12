@@ -72,6 +72,7 @@ class Player extends React.Component {
   render() {
     return (
       <div className="player w-100">
+
         <Form className="m-0 p-0">
           <Form.Group className="m-0 p-0">
             <input value={this.getProgressValue()}
@@ -81,14 +82,21 @@ class Player extends React.Component {
               type="range" className="form-control-range p-0 m-0 range-slider seek-bar" />
           </Form.Group>
         </Form>
+        
         <div className="d-flex flex-row justify-content-between align-items-center p-2">
 
-          <div className="d-flex flex-column track-info">
-            <div><p>{this.props.player.trackMetadata.title}</p></div>
-            <div><p>{this.props.player.trackMetadata.albumArtist} - {this.props.player.trackMetadata.album}</p></div>
-          </div>
+          <div className="d-flex flex-column flex-fill noselect track-info">
+            <div>
+              <p className="title">{this.props.player.trackMetadata.title}</p>
+            </div>
+            <div className="d-flex flex-row flex-fill">
+              <p className="artist">{this.props.player.trackMetadata.albumArtist}</p>
+              <p>&nbsp; -  &nbsp;</p>
+              <p className="album"> {this.props.player.trackMetadata.album}</p>
+            </div>
+          </div>  
 
-          <ButtonToolbar className="d-flex justify-content-center my-2">
+          <ButtonToolbar className="d-flex flex-row flex-fill justify-content-center controls">
             <Button onClick={this.prevTrack.bind(this)} variant="link" className="player-btn mx-2">
               <FontAwesomeIcon icon={faBackward} />
             </Button>
@@ -100,7 +108,7 @@ class Player extends React.Component {
             </Button>
           </ButtonToolbar>
 
-          <div className="d-flex align-items-center mr-2 volume-control">
+          <div className="d-flex flex-fill align-items-center justify-content-end volume">
             <FontAwesomeIcon icon={faVolumeUp} size="sm" className="mr-2" />
             <Form className="m-0 p-0">
               <Form.Group className="m-0 p-0">
