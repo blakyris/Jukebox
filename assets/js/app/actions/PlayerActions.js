@@ -1,7 +1,6 @@
 import * as API from '../constants/ApiConstants';
 
 import { Howl, Howler } from 'howler';
-import { array } from 'prop-types';
 
 
 export const PLAYER_INITIALIZE = 'PLAYER_INITIALIZE'

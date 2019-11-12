@@ -1,11 +1,8 @@
 // REACT + REDUX
 import React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { Howl, Howler } from 'howler';
 
 // BOOTSTRAP
-import ProgressBar from 'react-bootstrap/ProgressBar';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -19,7 +16,6 @@ import { faForward } from '@fortawesome/free-solid-svg-icons';
 import { faVolumeUp } from '@fortawesome/free-solid-svg-icons';
 
 // APP MODULES
-import * as API from '../../constants/ApiConstants';
 import * as PlayerActions from '../../actions/PlayerActions';
 
 class Player extends React.Component {
@@ -57,10 +53,6 @@ class Player extends React.Component {
 
   nextTrack() {
     this.props.nextAction();
-  }
-
-  unload() {
-
   }
 
   getProgressValue() {

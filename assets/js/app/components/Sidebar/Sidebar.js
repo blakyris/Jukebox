@@ -1,12 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import { faMusic } from '@fortawesome/free-solid-svg-icons';
-import { faCompactDisc } from '@fortawesome/free-solid-svg-icons';
-import { faUsers } from '@fortawesome/free-solid-svg-icons';
+import { Icon } from 'react-icons-kit'
+import {music_note_multiple} from 'react-icons-kit/linea/music_note_multiple';
+import {music_playlist} from 'react-icons-kit/linea/music_playlist'
 
 class Sidebar extends React.Component {
 
@@ -15,10 +11,14 @@ class Sidebar extends React.Component {
       <div className="sidebar">
         <ul className="m-0 p-0">
           <li className="button p-3">
-              <FontAwesomeIcon icon={faMusic} size="lg" />
+            <Icon icon={music_note_multiple} size={24} />
           </li>
-          <li className="button p-3"><FontAwesomeIcon icon={faCompactDisc} size="lg" /></li>
-          <li className="button p-3"><FontAwesomeIcon icon={faUsers} size="lg" /></li>
+          <li className="button p-3">
+            <Icon icon={music_playlist} size={24} />
+          </li>
+          <li className="button p-3">
+            <Icon icon={music_playlist} size={24} />
+          </li>
         </ul>
       </div>
     );

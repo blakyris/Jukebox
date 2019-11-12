@@ -2,6 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
+import { Icon } from 'react-icons-kit'
+import {basic_clessidre} from 'react-icons-kit/linea/basic_clessidre'
+
 import Table from 'react-bootstrap/Table';
 
 import * as API from '../../constants/ApiConstants';
@@ -67,7 +70,8 @@ class TrackList extends React.Component {
         } else {
             return (
                 <div className="loading">
-                    <p>Loading...</p>
+                    <Icon icon={basic_clessidre} size={128}/>
+                    <h4>Please Wait...</h4>
                 </div>
             );
         }

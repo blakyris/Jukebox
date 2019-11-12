@@ -29,12 +29,16 @@ html,body{ height: 100%; }
 }
 
 /* CONTAINERS */
-.view-container {
+.app {
 
 }
 
-.explorer-container {
+.app-container {
     padding-bottom: 60px;
+}
+
+.view-container {
+    overflow-y: scroll;
 }
 
 /* React.Component : SIDEBAR */
@@ -45,27 +49,38 @@ html,body{ height: 100%; }
 
 .sidebar .button {
     list-style: none;
-    color: #AAA;
+    color: #FFF;
 }
 
 /* React.Component : LIBRARY EXPLORER */
 .library-explorer {
     background-color: #090909;
     color: #FFF;
-    overflow-y: scroll;
 }
 
 .library-explorer .header {
-
+    background-color: #101010;
 }
 
 .library-explorer .content {
 
 }
 
+.library-explorer .view-selector {
+
+}
+
+.library-explorer .view-selector a {
+    color: #FFF;
+}
+
+.library-explorer .view-selector a.active {
+    border-bottom: 3px solid greenyellow;
+}
+
 /* React.Component : ALBUM GRID */
 .album-grid {
-   
+    margin: 10px 10px;
 }
 
 .album-grid .item {
@@ -105,7 +120,7 @@ html,body{ height: 100%; }
 
 /* React.Component : TRACK LIST */
 .track-list {
-    margin-bottom: 20px;
+    margin: 10px 10px;
 }
 
 .track-list tbody td  {
@@ -120,6 +135,10 @@ html,body{ height: 100%; }
 
 .track-list .track-row:hover {
     background-color: #111;
+}
+
+.track-list .track-row td:focus {
+    background-color: blue;
 }
 
 /* React.Component : PLAYER */

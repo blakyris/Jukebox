@@ -35,7 +35,7 @@ class UploadController extends AbstractController
             $file->move($tempDir, $id);
 
             $libraryManager->addFileToLibrary($filepath);
-            //$filesystem->remove($filepath);
+            $filesystem->remove($filepath);
             return new JsonResponse(['status' => "success"]);
         } else {
             return new JsonResponse(['Error' => "An error occured while uploading files. Please try again."]);
