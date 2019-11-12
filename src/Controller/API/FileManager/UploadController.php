@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ODM\MongoDB\DocumentManager as DocumentManager;
 
 use App\Service\TagEditor;
-use App\Service\FileManager;
+use App\Service\LibraryManager;
 
 use App\Document\Artist;
 use App\Document\Album;
