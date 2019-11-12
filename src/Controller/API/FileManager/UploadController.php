@@ -20,13 +20,14 @@ class UploadController
     /**
      * @Route("/api/upload/tracks", methods={"POST"})
      */
-    public function upload(DocumentManager $dm, Request $request, FileManager $fileManager, TagEditor $tagEditor)
+    public function upload(DocumentManager $dm, Request $request, LibraryManager $libraryManager, TagEditor $tagEditor)
     {
         $file = $request->files->get('file');
         if ($file) {
-            $filename = $file->getPath() . "/" . $file->getFileName();
-            $tags = $tagEditor->getTags($filename);
-            return new JsonResponse($tags['tags']);
+            $path = $file->getPath() . "/" . $file->getFileName();
+            //$tags = $tagEditor->getTags($filename);
+            $libraryManager->addFileToLibrary($path);
+            return new JsonResponse(['status' => "success"]);
         } else {
             return new JsonResponse(['Error' => "An error occured while uploading files. Please try again."]);
         }
