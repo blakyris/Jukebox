@@ -15,7 +15,7 @@ use App\Document\Artist;
 use App\Document\Album;
 use App\Document\File;
 
-class StreamController
+class StreamController extends AbstractController
 {
     /**
      * @Route("/api/stream/track/{id}", methods={"GET"})

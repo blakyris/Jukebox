@@ -9,7 +9,7 @@ use Doctrine\ODM\MongoDB\DocumentManager as DocumentManager;
 
 use App\Document\Album;
 
-class AlbumController
+class AlbumController extends AbstractController
 {
     /**
      * @Route("/api/library/albums/get/all", methods={"GET"})

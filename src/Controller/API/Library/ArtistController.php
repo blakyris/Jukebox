@@ -9,7 +9,7 @@ use Doctrine\ODM\MongoDB\DocumentManager as DocumentManager;
 
 use App\Document\Artist;
 
-class ArtistController
+class ArtistController extends AbstractController
 {
     /**
      * @Route("/api/library/artists/get/all", methods={"GET"})

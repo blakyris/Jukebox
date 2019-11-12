@@ -11,8 +11,7 @@ use App\Document\Artist;
 use App\Document\Album;
 use App\Document\Track;
 
-
-class TrackController
+class TrackController extends AbstractController
 {
     /**
      * @Route("/api/library/tracks/get/all", methods={"GET"})

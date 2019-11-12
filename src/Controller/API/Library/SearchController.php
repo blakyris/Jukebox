@@ -10,7 +10,7 @@ use Doctrine\ODM\MongoDB\DocumentManager as DocumentManager;
 use App\Document\Artist;
 use App\Document\Album;
 
-class SearchController
+class SearchController extends AbstractController
 {
     /**
      * @Route("/api/library/search/artist/{name}", methods={"GET"})

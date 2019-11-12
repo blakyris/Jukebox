@@ -18,7 +18,7 @@ use App\Document\Artist;
 use App\Document\Album;
 use App\Document\Track;
 
-class FileController
+class FileController extends AbstractController
 {
      /**
       * 
