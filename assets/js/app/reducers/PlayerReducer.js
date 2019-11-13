@@ -17,9 +17,9 @@ const initialPlayerState = {
     isPlaying: false,
 }
 
-function PlayerReducer(state, action) {
+function PlayerReducer(state = initialPlayerState, action) {
     switch (action.type) {
-
+        
         case PlayerActions.PLAYER_SET_TRACK:
             return {
                 ...state,
@@ -96,7 +96,9 @@ function PlayerReducer(state, action) {
             };
 
         default:
-            return initialPlayerState;
+            return {
+                ...state,
+            }
     }
 }
 
