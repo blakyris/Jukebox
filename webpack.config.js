@@ -26,8 +26,8 @@ Encore
         ]
     })
 
-    .addEntry('app', './assets/js/app.js')
-    .addEntry('css', './node_modules/bootstrap/dist/css/bootstrap.min.css')
+    .addEntry('app-css', './assets/css/app.css')
+    .addEntry('bootstrap-css', './node_modules/bootstrap/dist/css/bootstrap.min.css')
 
     // enables Sass/SCSS support
     .enableSassLoader()
@@ -38,8 +38,7 @@ Encore
     .enableReactPreset()
     .addEntry('js/app', './assets/js/app/app.js')
 
-    
-    
+    .addEntry('app', './assets/js/app.js')
 ;
 
 module.exports = Encore.getWebpackConfig();
