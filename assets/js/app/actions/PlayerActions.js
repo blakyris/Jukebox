@@ -26,14 +26,12 @@ export const setTrack = (track) => {
             audioObj: new Howl({
                 src: API.API_STREAM_TRACK + track.id,
                 preload: true,
+                autoplay: true,
                 format: track.format,
                 volume: player.volume,
                 onload: () => {
                     dispatch({
                         type: PLAYER_LOAD_SUCCESS,
-                    });
-                    dispatch({
-                        type: PLAYER_PLAY_TRACK,
                     });
                 },
                 onloaderror: (id, error) => {

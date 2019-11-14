@@ -25,6 +25,7 @@ function PlayerReducer(state = initialPlayerState, action) {
                 ...state,
                 audioObj: action.audioObj,
                 trackMetadata: action.trackMetadata,
+                isPlaying: true,
             };
 
         case PlayerActions.PLAYER_LOAD_SUCCESS:
@@ -87,6 +88,7 @@ function PlayerReducer(state = initialPlayerState, action) {
             };
 
         case PlayerActions.PLAYER_UNLOAD:
+            state.audioObj.off();
             state.audioObj.stop();
             state.audioObj.unload();
             state.audioObj = null;
