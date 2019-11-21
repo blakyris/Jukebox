@@ -24,17 +24,25 @@ class StreamController extends AbstractController
     public function streamTrack(DocumentManager $documentManager, $id)
     {
         $track = $documentManager->getRepository(Track::class)->findOneBy(['id' => $id]);
+        $fileId = $track->getFile()->getId();
+        $len = $documentManager->getRepository(File::class)->findOneBy(['id' => $fileId])->getLength();
+        
         $file = $documentManager->getRepository(File::class)
-            ->openDownloadStream($track->getFile()->getId());
+            ->openDownloadStream($fileId);
         
         $response = new StreamedResponse();
         $response->headers->set('X-Accel-Buffering', 'no');
+        $response->headers->set('Transfer-Encoding', 'chunked');
 
-        $response->setCallback(function () use ($file) {
-            $stream = stream_get_contents($file);
-            echo $stream;
-            ob_flush();
-            flush();
+        $response->setCallback(function () use ($file, $len) {
+            $pos = 0;
+            while ($pos < $len) {
+                $stream = stream_get_contents($file, 128, $pos);
+                echo $stream;
+                ob_flush();
+                flush();
+                $pos = $pos + 128;
+            }
         });
         
         return $response->send();
