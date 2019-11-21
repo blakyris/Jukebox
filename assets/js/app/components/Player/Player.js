@@ -29,13 +29,7 @@ class Player extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.props.player.isPlaying) {
-      setInterval(() => {
-        this.props.getSeekPosAction();
-      }, 1000);
-    } else {
-      clearInterval();
-    }
+    
   }
 
   playPause() {

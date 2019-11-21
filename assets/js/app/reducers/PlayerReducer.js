@@ -89,6 +89,7 @@ function PlayerReducer(state = initialPlayerState, action) {
             };
 
         case PlayerActions.PLAYER_UNLOAD:
+            clearInterval();
             state.audioObj.off();
             state.audioObj.stop();
             state.audioObj.unload();

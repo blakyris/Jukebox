@@ -25,11 +25,19 @@ export const setTrack = (track) => {
             type: PLAYER_SET_TRACK,
             audioObj: new Howl({
                 src: API.API_STREAM_TRACK + track.id,
+                usingWebAudio: false,
                 html5: true,
                 preload: true,
                 autoplay: true,
                 format: track.format,
                 volume: player.volume,
+                onplay: () => {
+                    setInterval(() => {
+                        dispatch({
+                            type: PLAYER_GET_SEEK_POS,
+                        });
+                    }, 1000);
+                },
                 onload: () => {
                     dispatch({
                         type: PLAYER_LOAD_SUCCESS,
