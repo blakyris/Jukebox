@@ -47,10 +47,11 @@ class LibraryManager
 
     public function addFileToLibrary(String $path)
     {
-        $tagger = new TagEditor();
-
         $file = $this->documentManager->getRepository(File::class)->uploadFromFile($path);
+        $this->documentManager->persist($file);
+        $this->documentManager->flush();
 
+        $tagger = new TagEditor();
         $tags = $tagger->getTags($path);
 
         $track = new Track();

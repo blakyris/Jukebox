@@ -31,11 +31,12 @@ class UploadController extends AbstractController
             $tempDir = $this->getParameter('kernel.project_dir').'/tmp';
             $id = uniqid();
             $filepath = $tempDir . "/" . $id;
-
             $file->move($tempDir, $id);
 
             $libraryManager->addFileToLibrary($filepath);
+
             $filesystem->remove($filepath);
+
             return new JsonResponse(['status' => "success"]);
         } else {
             return new JsonResponse(['Error' => "An error occured while uploading files. Please try again."]);
