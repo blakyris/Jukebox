@@ -39,6 +39,8 @@ class File
     */
     private $chunkSize;
 
+
+
     public function getId() { return $this->id; }
     public function getName(): ?string { return $this->name; }
     public function getUploadDate(): \DateTimeInterface { return $this->uploadDate; }

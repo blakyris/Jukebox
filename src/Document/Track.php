@@ -64,6 +64,11 @@ class Track
      */
     private $format;
     
+    /** 
+     * @MongoDB\Field(type="string")
+     */
+    private $mimetype;
+
     public function __construct()
     {
         $this->artists = new ArrayCollection();
@@ -79,6 +84,7 @@ class Track
     public function getGenre() { return $this->genre; }
     public function getFormat() { return $this->format; }
     public function getDuration() { return $this->duration; }
+    public function getMimeType() { return $this->mimetype; }
 
     public function getProperties() {
         $track = [
@@ -91,6 +97,7 @@ class Track
             'genre' => $this->genre,
             'duration' => $this->duration,
             'format' => $this->format,
+            'mimetype' => $this->mimetype,
         ];
 
         return ($track);
@@ -105,4 +112,5 @@ class Track
     public function setGenre(String $genre) { $this->genre = $genre; }
     public function setFormat(String $format) { $this->format = $format; }
     public function setDuration(float $duration) { $this->duration = $duration; }
+    public function setMimeType($type) { $this->mimetype = $type; }
 }

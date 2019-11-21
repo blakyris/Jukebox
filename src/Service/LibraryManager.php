@@ -93,6 +93,7 @@ class LibraryManager
         $track->setGenre($tags['tags']['genre']);
         $track->setDuration($tags['tags']['duration']);
         $track->setFormat($tags['fileInfo']['format']);
+        $track->setMimeType($tags['fileInfo']['mimetype']);
         
         $this->documentManager->persist($track);
         $this->documentManager->flush();
