@@ -22,7 +22,7 @@ class FileController extends AbstractController
 {
      /**
       * 
-      * @Route("/api/add/files/from_directory", methods={"POST"})
+      * @Route("/api/library/directory", methods={"POST"})
       * 
       * @return JsonResponse
       */

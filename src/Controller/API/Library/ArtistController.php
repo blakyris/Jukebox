@@ -12,7 +12,7 @@ use App\Document\Artist;
 class ArtistController extends AbstractController
 {
     /**
-     * @Route("/api/library/artists/get/all", methods={"GET"})
+     * @Route("/api/library/artists", methods={"GET"})
      */
     public function getAll(DocumentManager $dm)
     {
@@ -25,7 +25,7 @@ class ArtistController extends AbstractController
     }
 
     /**
-     * @Route("/api/library/artists/get/{name}", methods={"GET"})
+     * @Route("/api/library/artists/{name}", methods={"GET"})
      */
     public function getArtist(DocumentManager $dm, String $name)
     {

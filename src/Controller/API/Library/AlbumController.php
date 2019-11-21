@@ -12,7 +12,7 @@ use App\Document\Album;
 class AlbumController extends AbstractController
 {
     /**
-     * @Route("/api/library/albums/get/all", methods={"GET"})
+     * @Route("/api/library/albums", methods={"GET"})
      */
     public function getAll(DocumentManager $dm)
     {

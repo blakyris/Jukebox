@@ -14,7 +14,7 @@ use App\Document\Track;
 class TrackController extends AbstractController
 {
     /**
-     * @Route("/api/library/tracks/get/all", methods={"GET"})
+     * @Route("/api/library/tracks", methods={"GET"})
      */
     public function getAll(DocumentManager $dm)
     {
