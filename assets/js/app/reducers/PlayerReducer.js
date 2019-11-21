@@ -25,6 +25,7 @@ function PlayerReducer(state = initialPlayerState, action) {
                 ...state,
                 audioObj: action.audioObj,
                 trackMetadata: action.trackMetadata,
+                duration: action.duration,
                 isPlaying: true,
             };
 

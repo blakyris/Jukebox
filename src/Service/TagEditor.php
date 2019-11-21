@@ -16,6 +16,8 @@ class TagEditor
     private $discNumber;
     private $tracksOnDisc;
     private $genre;
+    private $duration;
+    private $mimetype;
 
     private $filePath;
     private $fileFormat;
@@ -33,7 +35,6 @@ class TagEditor
         if (!empty($metadata['tags'])) {
 			foreach ($metadata['tags'] as $tagFormat => $tags) {
                 $this->trackTitle = $tags['title'] ?: "";
-
                 if (isset($tags['artists']))
                     $this->artists = $tags['artists'];
                 else if (isset($tags['artist']))
@@ -69,6 +70,12 @@ class TagEditor
                     $this->genre = $tags['genre'];
             }
         }
+        if (!empty($metadata['playtime_seconds'])) {
+            $this->duration = $metadata['playtime_seconds'];
+        }
+        if (!empty($metadata['mime_type'])) {
+            $this->mimetype = $metadata['mime_type'];
+        }
     }
 
     private function buildTagsBag() {
@@ -78,6 +85,7 @@ class TagEditor
             'fileInfo' => [
                 'path' => $this->filePath,
                 'format' => $this->fileFormat,
+                'mimetype' => $this->mimetype,
             ],
             'tags' => [
                 'trackTitle' => $this->trackTitle[0],
@@ -89,6 +97,7 @@ class TagEditor
                 'discNumber' => $this->discNumber[0],
                 'tracksOnDisc' => $this->tracksOnDisc[0],
                 'genre' => $this->genre[0] ?? "",
+                'duration' => $this->duration,
             ],
         ];
 

@@ -54,6 +54,11 @@ class Track
      */
     private $genre;
 
+    /**
+     * @MongoDB\Field(type="float")
+     */
+    private $duration;
+
     /** 
      * @MongoDB\Field(type="string")
      */
@@ -73,6 +78,7 @@ class Track
     public function getTrackNumber() { return $this->trackNumber; }
     public function getGenre() { return $this->genre; }
     public function getFormat() { return $this->format; }
+    public function getDuration() { return $this->duration; }
 
     public function getProperties() {
         $track = [
@@ -83,6 +89,7 @@ class Track
             'album' => $this->album->getName(),
             'trackNumber' => $this->trackNumber,
             'genre' => $this->genre,
+            'duration' => $this->duration,
             'format' => $this->format,
         ];
 
@@ -97,4 +104,5 @@ class Track
     public function setTrackNumber(int $number) { $this->trackNumber = $number; }
     public function setGenre(String $genre) { $this->genre = $genre; }
     public function setFormat(String $format) { $this->format = $format; }
+    public function setDuration(float $duration) { $this->duration = $duration; }
 }

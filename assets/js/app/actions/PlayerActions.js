@@ -46,6 +46,7 @@ export const setTrack = (track) => {
                 },
             }),
             trackMetadata: track,
+            duration: track.duration,
         });
     }
 }
