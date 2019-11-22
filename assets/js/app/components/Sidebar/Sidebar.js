@@ -13,12 +13,6 @@ class Sidebar extends React.Component {
           <li className="button p-3">
             <Icon icon={music_note_multiple} size={24} />
           </li>
-          <li className="button p-3">
-            <Icon icon={music_playlist} size={24} />
-          </li>
-          <li className="button p-3">
-            <Icon icon={music_playlist} size={24} />
-          </li>
         </ul>
       </div>
     );

@@ -49,23 +49,17 @@ class Player extends React.Component {
     this.props.nextAction();
   }
 
-  getProgressValue() {
-    if (this.props.player.seek > 0)
-      return ((this.props.player.seek / this.props.player.duration) * 100);
-    else return 0;
-  }
-
   render() {
     return (
       <div className="player w-100">
 
         <Form className="m-0 p-0">
           <Form.Group className="m-0 p-0">
-            <input value={this.getProgressValue()}
+            <input value={this.props.player.seek}
               onChange={(e) => {
-                this.props.setSeekPosAction(Math.round((e.target.value / 100) * this.props.player.duration));
+                this.props.setSeekPosAction(e.target.value);
               }}
-              type="range" className="form-control-range p-0 m-0 range-slider seek-bar" />
+              type="range"  min="0" step="1" max={this.props.player.duration} className="form-control-range p-0 m-0 range-slider seek-bar" />
           </Form.Group>
         </Form>
         

@@ -28,7 +28,6 @@ class LibraryExplorer extends React.Component {
       viewComponent = <div><p>An error occured during view rendering</p></div>;
     }
 
-
     return (
       <div className="d-flex flex-column flex-fill library-explorer">
 
