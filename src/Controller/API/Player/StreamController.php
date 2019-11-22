@@ -35,6 +35,7 @@ class StreamController extends AbstractController
         $response->headers->set('Transfer-Encoding', 'chunked');
         $response->headers->set('Content-Length', $len);
         $response->headers->set('Content-Type', $track->getMimeType());
+        $response->headers->set('Accept-Ranges', 'bytes');
 
         $response->setCallback(function () use ($file, $len) {
             $pos = 0;
