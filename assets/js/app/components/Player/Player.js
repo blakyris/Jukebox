@@ -59,7 +59,7 @@ class Player extends React.Component {
               onChange={(e) => {
                 this.props.setSeekPosAction(e.target.value);
               }}
-              type="range"  min="0" step="1" max={this.props.player.duration} className="form-control-range p-0 m-0 range-slider seek-bar" />
+              type="range"  min="0" step="any" max={this.props.player.duration} className="form-control-range p-0 m-0 range-slider seek-bar" />
           </Form.Group>
         </Form>
         
