@@ -65,7 +65,6 @@ function PlayerReducer(state = initialPlayerState, action) {
 
         case PlayerActions.PLAYER_SET_SEEK_POS:
             if (state.isPlaying) {
-                console.log(action.seekPos);
                 state.audioObj.seek(action.seekPos);
             }
             return {
