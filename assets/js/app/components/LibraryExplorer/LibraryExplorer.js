@@ -6,6 +6,7 @@ import Nav from 'react-bootstrap/Nav';
 import * as LibraryExplorerActions from '../../actions/LibraryExplorerActions';
 import AlbumGrid from './AlbumGrid';
 import TrackList from './TrackList';
+import Loading from '../Utils/Loading';
 
 class LibraryExplorer extends React.Component {
 
@@ -22,7 +23,7 @@ class LibraryExplorer extends React.Component {
     } else if (view == 'albums') {
       viewComponent = <AlbumGrid />;
     } else if (view == 'artists') {
-      viewComponent = <div><p>Coming soon...</p></div>;
+      viewComponent = <div><Loading /></div>;
     } else {
       viewComponent = <div><p>An error occured during view rendering</p></div>;
     }

@@ -7,6 +7,7 @@ import {basic_clessidre} from 'react-icons-kit/linea/basic_clessidre'
 
 import Table from 'react-bootstrap/Table';
 
+import Loading from '../Utils/Loading';
 import * as API from '../../constants/ApiConstants';
 import { setTrack, setPlayQueue, setQueuePos } from '../../actions/PlayerActions';
 
@@ -44,7 +45,7 @@ class TrackList extends React.Component {
 
     render() {
         const { isLoaded, tracks, error } = this.state;
-
+        
         if (isLoaded) {
             if (error)
                 return (
@@ -69,10 +70,7 @@ class TrackList extends React.Component {
             }
         } else {
             return (
-                <div className="loading">
-                    <Icon icon={basic_clessidre} size={128}/>
-                    <h4>Please Wait...</h4>
-                </div>
+                <Loading />
             );
         }
     }

@@ -29,6 +29,7 @@ export const setTrack = (track) => {
                 html5: true,
                 preload: true,
                 autoplay: true,
+                format: track.format,
                 volume: player.volume,
                 onplay: () => {
                     dispatch({

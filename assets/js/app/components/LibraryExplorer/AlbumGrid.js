@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import AlbumGridItem from './AlbumGridItem';
 import * as API from '../../constants/ApiConstants';
+import Loading from '../Utils/Loading';
 
 class AlbumGrid extends React.Component {
 
@@ -51,9 +52,7 @@ class AlbumGrid extends React.Component {
             }
         } else {
             return (
-                <div className="loading">
-                    <p>Loading...</p>
-                </div>
+                <Loading />
             );
         }
     }
