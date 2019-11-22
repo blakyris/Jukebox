@@ -50,9 +50,9 @@ class Player extends React.Component {
   }
 
   getProgressValue() {
-    if (this.props.player.isPlaying) {
+    if (this.props.player.seek > 0)
       return ((this.props.player.seek / this.props.player.duration) * 100);
-    } else return 0;
+    else return 0;
   }
 
   render() {

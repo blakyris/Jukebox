@@ -33,8 +33,10 @@ class StreamController extends AbstractController
         $response = new StreamedResponse();
         $response->headers->set('X-Accel-Buffering', 'no');
         $response->headers->set('Transfer-Encoding', 'chunked');
-        $response->headers->set('Content-Length', $len);
+        $response->headers->set('Content-Range', 'bytes 0-' . $len);
+        $response->headers->set('Content-Transfer-Encoding', 'binary');
         $response->headers->set('Content-Type', $track->getMimeType());
+        $response->headers->set('Content-Length', $len);
         $response->headers->set('Accept-Ranges', 'bytes');
 
         $response->setCallback(function () use ($file, $len) {

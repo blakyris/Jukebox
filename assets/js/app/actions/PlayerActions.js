@@ -15,6 +15,7 @@ export const setTrack = (track) => {
     return (dispatch, getState) => {
 
         const { player } = getState();
+        let animationId = null;
         if (player.audioObj && player.audioObj.state() != 'unloaded') {
             dispatch({
                 type: PLAYER_UNLOAD,
@@ -32,11 +33,18 @@ export const setTrack = (track) => {
                 format: track.format,
                 volume: player.volume,
                 onplay: () => {
-                    setInterval(() => {
+                    dispatch({
+                        type: PLAYER_STARTED_PLAYBACK,
+                    });
+                    animationId = setInterval(() => {
                         dispatch({
                             type: PLAYER_GET_SEEK_POS,
                         });
-                    }, 1000);
+                    }, 500);
+                    dispatch({
+                        type: PLAYER_STARTED_SEEK_TRACKING,
+                        animationId: animationId,
+                    });
                 },
                 onload: () => {
                     dispatch({
@@ -77,6 +85,13 @@ export const PLAYER_PLAY_TRACK = 'PLAYER_PLAY_TRACK'
 export const playTrack = () => {
     return {
         type: PLAYER_PLAY_TRACK,
+    }
+}
+
+export const PLAYER_STARTED_PLAYBACK = 'PLAYER_STARTED_PLAYBACK'
+export const startedPlayback = () => {
+    return {
+        type: PLAYER_STARTED_PLAYBACK,
     }
 }
 
@@ -123,6 +138,14 @@ export const PLAYER_GET_SEEK_POS = 'PLAYER_GET_SEEK_POS'
 export const getSeekPos = () => {
     return {
         type: PLAYER_GET_SEEK_POS,
+    }
+}
+
+export const PLAYER_STARTED_SEEK_TRACKING = 'PLAYER_STARTED_SEEK_TRACKING'
+export const startedSeekTracking = (animationId) => {
+    return {
+        type: PLAYER_SET_VOLUME,
+        animationId: animationId,
     }
 }
 
