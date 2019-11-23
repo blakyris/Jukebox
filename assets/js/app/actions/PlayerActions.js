@@ -39,7 +39,7 @@ export const setTrack = (track) => {
                         dispatch({
                             type: PLAYER_GET_SEEK_POS,
                         });
-                    }, 500);
+                    }, 200);
                     dispatch({
                         type: PLAYER_STARTED_SEEK_TRACKING,
                         animationId: animationId,
@@ -105,9 +105,11 @@ export const nextTrack = () => {
     return (dispatch, getState) => {
         const { playQueue, queuePos } = getState().player;
 
-        if (queuePos < playQueue.length) {
+        if (queuePos < playQueue.length - 1) {
             dispatch (setTrack(playQueue[queuePos + 1]));
             dispatch (setQueuePos(queuePos + 1));
+        } else {
+            dispatch (unload());
         }
     }
 }
@@ -120,6 +122,8 @@ export const prevTrack = () => {
         if (queuePos > 0) {
             dispatch (setTrack(playQueue[queuePos - 1]));
             dispatch (setQueuePos(queuePos - 1));
+        } else {
+            dispatch (unload());
         }
     }
 }

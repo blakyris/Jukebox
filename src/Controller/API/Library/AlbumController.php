@@ -18,7 +18,7 @@ class AlbumController extends AbstractController
     {
         $albums = $dm->getRepository(Album::class)->findAll();
         
-        $json[] = array();
+        $json = array();
         foreach ($albums as $album)
             $json[] = $album->getProperties();
 

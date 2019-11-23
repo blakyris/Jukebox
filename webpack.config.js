@@ -26,7 +26,7 @@ Encore
         ]
     })
 
-    .addEntry('app-css', './assets/css/app.css')
+    .addEntry('style', './assets/scss/app.scss')
     .addEntry('bootstrap-css', './node_modules/bootstrap/dist/css/bootstrap.min.css')
 
     // enables Sass/SCSS support

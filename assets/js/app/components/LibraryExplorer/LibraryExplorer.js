@@ -32,7 +32,7 @@ class LibraryExplorer extends React.Component {
       <div className="d-flex flex-column flex-fill library-explorer">
 
         <div className="d-flex flex-column header">
-          <h1 className="px-4 py-3">My Library</h1>
+          <h1 className="px-4 py-3 noselect">My Library</h1>
           <Nav className="justify-content-center view-selector" defaultActiveKey="trackView">
             <Nav.Item>
               <Nav.Link onSelect={() => { this.props.changeView('tracks') }} eventKey="trackView">Tracks</Nav.Link>

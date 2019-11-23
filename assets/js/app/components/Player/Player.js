@@ -29,7 +29,7 @@ class Player extends React.Component {
   }
 
   componentDidUpdate() {
-    
+
   }
 
   playPause() {
@@ -59,46 +59,49 @@ class Player extends React.Component {
               onChange={(e) => {
                 this.props.setSeekPosAction(e.target.value);
               }}
-              type="range"  min="0" step="any" max={this.props.player.duration} className="form-control-range p-0 m-0 range-slider seek-bar" />
+              type="range" min="0" step="any" max={this.props.player.duration} className="form-control-range p-0 m-0 range-slider seek-bar" />
           </Form.Group>
         </Form>
-        
-        <div className="d-flex flex-row justify-content-between align-items-center p-2">
 
-          <div className="d-flex flex-column flex-fill noselect track-info">
-            <div>
-              <p className="title">{this.props.player.trackMetadata.title}</p>
+        <div className="d-flex player-bar">
+
+          <div className="d-flex flex-fill player-col-left">
+            <div className="d-flex flex-column flex-fill noselect track-info">
+              <div>
+                <p className="title">{this.props.player.trackMetadata.title}</p>
+                <p className="artist">{this.props.player.trackMetadata.albumArtist}</p>
+              </div>
             </div>
-            <div className="d-flex flex-row flex-fill">
-              <p className="artist">{this.props.player.trackMetadata.albumArtist}</p>
-              <p>&nbsp; -  &nbsp;</p>
-              <p className="album"> {this.props.player.trackMetadata.album}</p>
+          </div>
+
+          <div className="d-flex flex-fill align-items-center player-col-middle">
+            <ButtonToolbar className="d-flex flex-row flex-fill justify-content-center controls">
+              <Button onClick={this.prevTrack.bind(this)} variant="link" className="player-btn mx-2">
+                <FontAwesomeIcon icon={faBackward} />
+              </Button>
+              <Button onClick={this.playPause.bind(this)} variant="link" className="player-btn mx-2">
+                <FontAwesomeIcon icon={this.props.player.isPlaying ? faPauseCircle : faPlayCircle} size="lg" />
+              </Button>
+              <Button onClick={this.nextTrack.bind(this)} variant="link" className="player-btn mx-2">
+                <FontAwesomeIcon icon={faForward} />
+              </Button>
+            </ButtonToolbar>
+          </div>
+
+
+          <div className="d-flex flex-fill player-col-right">
+            <div className="d-flex flex-row volume">
+                <FontAwesomeIcon icon={faVolumeUp} size="sm" className="mr-2" />
+                <Form className="m-0 p-0">
+                  <Form.Group className="m-0 p-0">
+                    <input defaultValue={this.props.player.volume * 100}
+                      onChange={(e) => {
+                        this.props.setVolumeAction(e.target.value);
+                      }}
+                      type="range" className="form-control-range range-slider" />
+                  </Form.Group>
+                </Form>
             </div>
-          </div>  
-
-          <ButtonToolbar className="d-flex flex-row flex-fill justify-content-center controls">
-            <Button onClick={this.prevTrack.bind(this)} variant="link" className="player-btn mx-2">
-              <FontAwesomeIcon icon={faBackward} />
-            </Button>
-            <Button onClick={this.playPause.bind(this)} variant="link" className="player-btn mx-2">
-              <FontAwesomeIcon icon={this.props.player.isPlaying ? faPauseCircle : faPlayCircle} size="lg" />
-            </Button>
-            <Button onClick={this.nextTrack.bind(this)} variant="link" className="player-btn mx-2">
-              <FontAwesomeIcon icon={faForward} />
-            </Button>
-          </ButtonToolbar>
-
-          <div className="d-flex flex-fill align-items-center justify-content-end volume">
-            <FontAwesomeIcon icon={faVolumeUp} size="sm" className="mr-2" />
-            <Form className="m-0 p-0">
-              <Form.Group className="m-0 p-0">
-                <input defaultValue={this.props.player.volume * 100}
-                  onChange={(e) => {
-                    this.props.setVolumeAction(e.target.value);
-                  }} 
-                  type="range" className="form-control-range range-slider" />
-              </Form.Group>
-            </Form>
           </div>
 
         </div>

@@ -12,9 +12,9 @@ class Loading extends React.Component {
 
     render() {
         return (
-            <div className="flex-fill loading py-3">
-                <div className="spinner"></div>
-                <div className="message">
+            <div className="flex-fill loading py-3 noselect">
+                <div className="spinner noselect"></div>
+                <div className="message noselect">
                     <p className="m-0 p-0">Loading...</p>
                 </div>
             </div>

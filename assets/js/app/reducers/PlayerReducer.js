@@ -75,7 +75,7 @@ function PlayerReducer(state = initialPlayerState, action) {
             if (state.isPlaying) {
                 return {
                     ...state,
-                    seek: Math.round(state.audioObj.seek() * 10) / 10,
+                    seek: Math.fround(state.audioObj.seek() * 10) / 10,
                 };
             } else {
                 return {
@@ -122,6 +122,7 @@ function PlayerReducer(state = initialPlayerState, action) {
                 isPlaying: false,
                 seek: 0,
                 seekBarAnimationId: 0,
+                trackMetadata: {},
             };
 
         default:
