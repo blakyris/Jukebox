@@ -19,7 +19,7 @@ class LibraryExplorer extends React.Component {
     let viewComponent;
 
     if (view == 'tracks') {
-      viewComponent = <TrackList />;
+      viewComponent =  <TrackList />;
     } else if (view == 'albums') {
       viewComponent = <AlbumGrid />;
     } else if (view == 'artists') {

@@ -25,12 +25,12 @@ class App extends React.Component {
 
     render() {
         return (
-            <div className="d-flex flex-column flex-wrap h-100 w-100 app">
-                <div className="d-flex flex-row flex-fill h-100 w-100 app-container">
+            <div className="app">
+                <div className="app-container">
                     <Sidebar />
                     <ViewContainer />
                 </div>
-                <div className="d-flex flex-column fixed-bottom player-container">
+                <div className="player-container">
                     <Player />
                 </div>
             </div>

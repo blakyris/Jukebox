@@ -41,8 +41,8 @@ class AlbumGrid extends React.Component {
                 );
             else {
                 return (
-                    <div className="d-flex flex-column flex-fill flex-wrap album-grid">
-                        <div className="d-flex flex-row flex-wrap grid-content">
+                    <div className="album-grid">
+                        <div className="grid-content">
                             {albums.map((album) => (
                                 <AlbumGridItem key={album.id} name={album.name} artist={album.artist} />
                             ))}

@@ -11,8 +11,8 @@ class ViewContainer extends React.Component {
 
   render() {
     return (
-      <div className="d-flex flex-column flex-fill view-container">
-          <LibraryExplorer />
+      <div className="view-container">
+          <LibraryExplorer></LibraryExplorer>
       </div>
     );
   }

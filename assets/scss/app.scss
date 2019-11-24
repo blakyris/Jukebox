@@ -2,6 +2,16 @@ html,body{ height: 100%; }
 
 /* UTILS */
 
+* {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+}
+
+
 .noselect {
     -webkit-touch-callout: none;
       -webkit-user-select: none;
@@ -28,23 +38,59 @@ html,body{ height: 100%; }
 }
 
 /* CONTAINERS */
-.app {
 
+#root {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.app {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 100%;
+    height: 100%;
 }
 
 .app-container {
-    padding-bottom: 60px;
+    display: flex;
+    flex-flow: row nowrap;
+    flex: 1;
+    width: 100%;
+    order: 1;
+    overflow: hidden;
+}
+
+.player-container {
+    width: 100%;
+    min-height: fit-content;
+    align-self: flex-end;
+    order: 2;
+    z-index: 1;
 }
 
 .view-container {
-    position:relative;
-    overflow-y: scroll;
+    order: 2;
+    display:flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
 }
 
 /* React.Component : SIDEBAR */
+
 .sidebar {
+    order: 1;
+    display: flex;
+    flex-flow: column wrap;
     background-color: #111;
     color: #FFF;
+    width: 60px;
     @media screen and (min-width: 768px) {
 
     }
@@ -53,23 +99,48 @@ html,body{ height: 100%; }
     }
 }
 
-.sidebar .button {
+.sidebar .menu {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.sidebar .menu .button {
     list-style: none;
+    display:flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 60px;
     color: #FFF;
+    padding: 5px 0;
+}
+
+.sidebar .menu .button:hover {
+    background-color: #333;
+    transition: 0.2s;
+    -moz-transition: 0.2s;
 }
 
 /* React.Component : LIBRARY EXPLORER */
+
 .library-explorer {
+    display:flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
     background-color: #090909;
+    overflow-y: scroll;
     color: #FFF;
+
 }
 
 .library-explorer .header {
+    order: 1;
+    width: 100%;
+    min-height: fit-content;
     background-color: #101010;
-}
-
-.library-explorer .content {
-
 }
 
 .library-explorer .view-selector {
@@ -84,44 +155,79 @@ html,body{ height: 100%; }
     border-bottom: 3px solid greenyellow;
 }
 
+.library-explorer .content {
+    order: 2;
+    width: 100%;
+    height: 100%;
+}
+
+
 /* React.Component : ALBUM GRID */
+
 .album-grid {
-    margin: 10px 10px;
+    width: 100%;
+    height: 100%;
 }
 
 .album-grid .grid-content {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start !important;
+    
     @media screen and (min-width: 768px) {
-        justify-content: flex-start !important;
+        
     }
+
     @media screen and (max-width: 768px) {
-        justify-content: space-around !important;
+
     }
 }
 
 .album-grid .item {
     margin: 10px 15px;
-    width: 150px;
+    
+    @media screen and (min-width: 1024px) {
+        width:150px;
+    }
+
+    @media screen and (min-width: 750px) and (max-width: 1024px) {
+        width:15%;
+    }
+    
+    @media screen and (min-width: 640px) and (max-width: 750px) {
+       width: 25%;
+    }
+
+    @media screen and (min-width: 480px) and (max-width: 640px) {
+        width:30%;
+    }
+    
+    @media screen and (max-width: 480px) {
+       width: 40%;
+    }
 }
 
 .album-grid .item .cover {
     background-color: #333;
-    width: 150px;
-    height: 150px;
+    width: 100%;
+    display: inline-block;
+    padding-bottom: 100%;
 }
 
 .album-grid .item .info {
+    width: 100%;
     padding: 5px 10px;
 }
 
 .album-grid .item .info p {
+    width: 100%;
     margin: 0;
     padding: 0;
     text-align: center;
-    text-overflow: ("...");
-    word-wrap: break-word;
+    max-height: 1.6em;
+    line-height: 1.6em;
     overflow: hidden;
-    max-height: 3.6em;
-    line-height: 1.8em;
+    text-overflow: ellipsis;
 }
 
 .album-grid .item .info .name {
@@ -133,112 +239,79 @@ html,body{ height: 100%; }
     font-size: 12px;
 }
 
+
 /* React.Component : TRACK LIST */
+
 .track-list {
-    margin: 10px 10px;
+    width: 100%;
+    height: 100%;    
 }
 
 .track-list tbody td  {
-    border:none;
-    color: #fff;
-    font-size: 12px;
+    border: none;
 }
 
 .track-list .track-row p {
     margin: 3px 0;
+    font-size: 12px;
+    color: #fff;
 }
 
 .track-list .track-row:hover {
     background-color: #111;
 }
 
-.track-list .track-row td:focus {
-    
+/* React.Component : PLAYER */
+
+.player {
+    background-color:#111;
+    color: #FFF;
+    display: flex;
+    flex-flow: column wrap;
 }
 
-/* React.Component : PLAYER */
-.player {
-    
-    background-color:#111;
+.player .player-btn {
     color: #FFF;
 }
 
+.player .seek-bar-container .form-group {
+    margin-bottom: 5px;
+}
+
 .player .player-bar {
-    height: 100%;
+    display: flex;
+    width: 100%;
     @media screen and (min-width: 768px) {
         flex-direction: row;
-        height: 60px;
+        justify-content: space-around;
+        padding: 5px;
     }
     @media screen and (max-width: 768px) {
         flex-direction: column;
+        justify-content: center;
     }
 }
 
 .player .player-col-left {
-    align-items: center !important;
+    display:flex;
+    flex-flow: column wrap;
     @media screen and (min-width: 768px) {
-        min-width: 250px;
-        max-width: 500px;
-        padding-left: 10px;
+        width: 30%;
+        align-self: stretch;
     }
     @media screen and (max-width: 768px) {
-        padding: 5px 0;
-    }
-}
-
-.player .player-col-middle {
-    @media screen and (min-width: 768px) {
-        min-width: 268px;
-    }
-    @media screen and (max-width: 768px) {
-        padding: 10px 0;
-    }
-}
-
-.player .player-col-right {
-    @media screen and (min-width: 768px) {
-        min-width: 250px;
-        max-width: 500px;
-        flex-direction: row;
-        justify-content: flex-end !important;
-        align-items: center !important;
-        padding-right: 10px;
-    }
-    @media screen and (max-width: 768px) {
-        justify-content: center !important;
-        padding: 10px 0;
-        display: none !important;
-    }
-}
-
-.player .player-col-right .volume {
-    align-items: center;
-    @media screen and (min-width: 768px) {
-        justify-content: flex-end !important;
-    }
-    @media screen and (max-width: 768px) {
-        justify-content: center !important;
-    }
-}
-
-
-.player .player-col-right .volume .range-slider {
-    max-width: 100px;
-    @media screen and (min-width: 768px) {
-        
-    }
-    @media screen and (max-width: 768px) {
-        
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 5px;
     }
 }
 
 .player .track-info {
     @media screen and (min-width: 768px) {
-        
+        margin-left: 5px;
     }
     @media screen and (max-width: 768px) {
         text-align: center;
-        justify-content: center;
     }
 }
 
@@ -250,7 +323,7 @@ html,body{ height: 100%; }
 
     }
     @media screen and (max-width: 768px) {
-        text-align: center;
+        
     }
 }
 
@@ -268,72 +341,121 @@ html,body{ height: 100%; }
     }
 }
 
-.player .controls {
-
+.player .player-col-middle {
+    display:flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    @media screen and (min-width: 768px) {
+        width: 40%;
+        height: 100%;
+        align-self: stretch;
+    }
+    @media screen and (max-width: 768px) {
+        padding-bottom: 5px;
+    }
 }
 
-.player .controls .player-btn {
+.player .player-col-middle .controls {
     color: #FFF;
 }
 
-
-
-/* SEEK */ 
-
-.range-slider {
-  -webkit-appearance: none;
-  background-color: #555;
-  height: 5px;
-  outline: none;
-  cursor: pointer;
+.player .player-col-right {
+    display: flex;
+    flex-direction: column nowrap;
+    @media screen and (min-width: 768px) {
+        width: 30%;
+        align-self: stretch;
+        padding-right: 10px;
+        justify-content: flex-end !important;
+    }
+    @media screen and (max-width: 768px) {
+        width: 100%;
+        padding: 10px 0;
+        justify-content: center !important;
+        display: none !important;
+    }
 }
 
-.range-slider::-moz-range-progress {
+.player .player-col-right .volume-control {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
+    @media screen and (min-width: 768px) {
+        margin-right: 5px;
+    }
+    @media screen and (max-width: 768px) {
+        
+    }
+}
+
+.player .player-col-right .volume-control .icon {
+    margin-right: 10px;
+}
+
+.player .player-col-right .volume-control .form-group {
+    margin: 0;
+    padding: 0;
+    max-width: 100px;
+}
+
+.player-slider {
+    -webkit-appearance: none;
+    background-color: #555;
     height: 5px;
-    background-color: #AAA;
-}
-
-.range-slider::-webkit-slider-thumb {
-  appearance: none;
-  -webkit-appearance: none;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: #FFF;
-}
-
-.range-slider::-moz-range-thumb {
-  appearance: none;
-  -moz-appearance: none;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: #FFF;
-}
-
-.range-slider:hover::-webkit-slider-thumb {
-  height: 15px;
-  width: 15px;
-  transition: linear 0.2s;
-}
-
-.range-slider:hover::-moz-range-thumb {
+    outline: none;
+    cursor: pointer;
+  }
+  
+  .player-slider::-moz-range-progress {
+      height: 5px;
+      background-color: #AAA;
+  }
+  
+  .player-slider::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #FFF;
+  }
+  
+  .player-slider::-moz-range-thumb {
+    appearance: none;
+    -moz-appearance: none;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #FFF;
+  }
+  
+  .player-slider:hover::-webkit-slider-thumb {
     height: 15px;
     width: 15px;
-    -moz-transition: linear 0.5s;
-}
+    transition: linear 0.2s;
+  }
+  
+  .player-slider:hover::-moz-range-thumb {
+      height: 15px;
+      width: 15px;
+      -moz-transition: linear 0.5s;
+  }
 
-/* UTILS VIEWS */
+
+/* LOADING WIDGET */
 
 .loading {
+    display: flex;
+    flex-flow: column nowrap;
     height: 100%;
+    width: 100%;
     justify-content: center;
-    text-align: center;
+    align-items: center;
 }
 
 .loading .spinner {
     margin-top: 30px;
-    display: inline-block;
     width: 120px;
     height: 120px;
 }

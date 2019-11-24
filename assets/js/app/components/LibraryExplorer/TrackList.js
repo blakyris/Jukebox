@@ -53,14 +53,14 @@ class TrackList extends React.Component {
                 );
             else {
                 return (
-                    <div className="d-flex flex-column track-list">
-                        <Table hover size="sm" className="">
+                    <div className="track-list noselect">
+                        <Table hover size="md" className="list noselect">
                             <tbody>
                                 {tracks.map((track) => (
-                                    <tr className="track-row" key={track.id} onDoubleClick={() => { this.handleClick(track) }}>
-                                        <td><p className="noselect">{track.title}</p></td>
-                                        <td><p className="noselect">{track.albumArtist}</p></td>
-                                        <td><p className="noselect">{track.album}</p></td>
+                                    <tr className="track-row noselect" key={track.id} onDoubleClick={() => { this.handleClick(track) }}>
+                                        <td><p className="title noselect">{track.title}</p></td>
+                                        <td><p className="artist noselect">{track.albumArtist}</p></td>
+                                        <td><p className="album noselect">{track.album}</p></td>
                                     </tr>
                                 ))}
                             </tbody>

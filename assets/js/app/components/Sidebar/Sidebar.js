@@ -9,9 +9,9 @@ class Sidebar extends React.Component {
   render() {
     return (
       <div className="sidebar">
-        <ul className="m-0 p-0">
-          <li className="button p-3">
-            <Icon icon={music_note_multiple} size={24} />
+        <ul className="menu">
+          <li className="button">
+            <Icon icon={music_note_multiple} size={24} className="icon"/>
           </li>
         </ul>
       </div>

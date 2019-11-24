@@ -51,22 +51,22 @@ class Player extends React.Component {
 
   render() {
     return (
-      <div className="player w-100">
+      <div className="player">
 
-        <Form className="m-0 p-0">
-          <Form.Group className="m-0 p-0">
+        <Form className="seek-bar-container">
+          <Form.Group>
             <input value={this.props.player.seek}
               onChange={(e) => {
                 this.props.setSeekPosAction(e.target.value);
               }}
-              type="range" min="0" step="any" max={this.props.player.duration} className="form-control-range p-0 m-0 range-slider seek-bar" />
+              type="range" min="0" step="any" max={this.props.player.duration} className="form-control-range player-slider seek-bar" />
           </Form.Group>
         </Form>
 
-        <div className="d-flex player-bar">
+        <div className="player-bar">
 
-          <div className="d-flex flex-fill player-col-left">
-            <div className="d-flex flex-column flex-fill noselect track-info">
+          <div className="player-col-left">
+            <div className="track-info noselect">
               <div>
                 <p className="title">{this.props.player.trackMetadata.title}</p>
                 <p className="artist">{this.props.player.trackMetadata.albumArtist}</p>
@@ -74,8 +74,8 @@ class Player extends React.Component {
             </div>
           </div>
 
-          <div className="d-flex flex-fill align-items-center player-col-middle">
-            <ButtonToolbar className="d-flex flex-row flex-fill justify-content-center controls">
+          <div className="player-col-middle">
+            <ButtonToolbar className="controls">
               <Button onClick={this.prevTrack.bind(this)} variant="link" className="player-btn mx-2">
                 <FontAwesomeIcon icon={faBackward} />
               </Button>
@@ -89,16 +89,16 @@ class Player extends React.Component {
           </div>
 
 
-          <div className="d-flex flex-fill player-col-right">
-            <div className="d-flex flex-row volume">
-                <FontAwesomeIcon icon={faVolumeUp} size="sm" className="mr-2" />
-                <Form className="m-0 p-0">
-                  <Form.Group className="m-0 p-0">
+          <div className="player-col-right">
+            <div className="volume-control">
+                <FontAwesomeIcon icon={faVolumeUp} size="sm" className="icon" />
+                <Form className="">
+                  <Form.Group className="">
                     <input defaultValue={this.props.player.volume * 100}
                       onChange={(e) => {
                         this.props.setVolumeAction(e.target.value);
                       }}
-                      type="range" className="form-control-range range-slider" />
+                      type="range" className="form-control-range player-slider" />
                   </Form.Group>
                 </Form>
             </div>
