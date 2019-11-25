@@ -6,7 +6,11 @@ Demo : https://jukebox.sebastienmercier.fr/
 
 ## System Requirements
 
-To run Jukebox you have to be able to have SSH access to a Web Server running NGINX or Apache, PHP 7, MongoDB with GridFS support and Node.js.
+- Web Server running PHP 7.x
+- MongoDB + MongoDB PHP Driver
+- Node.js & NPM
+
+Deploy like a normal Symfony App.
 
 ## Licence
 

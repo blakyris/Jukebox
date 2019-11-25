@@ -277,7 +277,7 @@ html,body{ height: 100%; }
 .artist-list {
     display:flex;
     flex-flow: row wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex: 1;
 }
 
@@ -288,7 +288,12 @@ html,body{ height: 100%; }
     justify-content: flex-start;
     align-items: center;
 
-    @media screen and (min-width: 520px) {
+    @media screen and (min-width: 1024px) {
+        width: 25%;
+        padding: 10px 10px;
+    }
+
+    @media screen and (min-width: 520px) and (max-width: 1024px) {
         width: 50%;
         padding: 10px 10px;
     }
