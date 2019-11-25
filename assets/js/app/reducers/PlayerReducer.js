@@ -22,6 +22,7 @@ function PlayerReducer(state = initialPlayerState, action) {
     switch (action.type) {
 
         case PlayerActions.PLAYER_SET_TRACK:
+            console.log("Duration : " + action.duration);
             return {
                 ...state,
                 audioObj: action.audioObj,
@@ -33,7 +34,6 @@ function PlayerReducer(state = initialPlayerState, action) {
         case PlayerActions.PLAYER_LOAD_SUCCESS:
             return {
                 ...state,
-                duration: Math.round(state.audioObj.duration()),
             };
 
         case PlayerActions.PLAYER_LOAD_ERROR:

@@ -59,7 +59,8 @@ class Player extends React.Component {
               onChange={(e) => {
                 this.props.setSeekPosAction(e.target.value);
               }}
-              type="range" min="0" step="any" max={this.props.player.duration} className="form-control-range player-slider seek-bar" />
+              type="range" min={0} step={1} max={this.props.player.duration}
+              className="form-control-range player-slider seek-bar" />
           </Form.Group>
         </Form>
 
@@ -95,7 +96,7 @@ class Player extends React.Component {
                 <Form className="">
                   <Form.Group className="">
                     <input defaultValue={this.props.player.volume * 100}
-                      onChange={(e) => {
+                      onInput={(e) => {
                         this.props.setVolumeAction(e.target.value);
                       }}
                       type="range" className="form-control-range player-slider" />
@@ -161,3 +162,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Player);
+
+/*
+
+*/
