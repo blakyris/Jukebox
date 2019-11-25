@@ -15,26 +15,28 @@ class TrackList extends React.Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
             isLoaded: false,
-            tracks: []
-        }
+            tracks: {},
+        };
     }
 
     componentDidMount() {
         axios.get(API.API_GET_ALL_TRACKS)
-        .then((response) => {
-            this.setState({
-                isLoaded: true,
-                tracks: response.data,
+            .then((response) => {
+                console.log("Response : ", response);
+                this.setState({
+                    isLoaded: true,
+                    tracks: response.data,
+                });
+            })
+            .catch((error) => {
+                this.setState({
+                    isLoaded: true,
+                    error
+                });
             });
-        })
-        .catch(function (error) {
-            this.setState({
-                isLoaded: true,
-                error
-            });
-        });
     }
 
     handleClick(track) {

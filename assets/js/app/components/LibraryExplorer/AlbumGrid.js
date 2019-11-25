@@ -23,7 +23,7 @@ class AlbumGrid extends React.Component {
                 albums: response.data,
             });
         })
-        .catch(function (error) {
+        .catch((error) => {
             this.setState({
                 isLoaded: true,
                 error
