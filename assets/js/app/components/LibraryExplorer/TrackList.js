@@ -25,7 +25,6 @@ class TrackList extends React.Component {
     componentDidMount() {
         axios.get(API.API_GET_ALL_TRACKS)
             .then((response) => {
-                console.log("Response : ", response);
                 this.setState({
                     isLoaded: true,
                     tracks: response.data,
