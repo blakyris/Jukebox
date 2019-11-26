@@ -11,23 +11,28 @@ class AlbumGrid extends React.Component {
         super(props);
         this.state = {
             isLoaded: false,
+            cancelToken: axios.CancelToken.source().token,
             albums: []
         }
     }
 
     componentDidMount() {
-        axios.get(API.API_GET_ALL_ALBUMS)
-        .then((response) => {
+        axios.get(API.API_GET_ALL_ALBUMS, {
+            cancelToken: this.state.cancelToken
+        }).then((response) => {
             this.setState({
                 isLoaded: true,
                 albums: response.data,
             });
-        })
-        .catch((error) => {
-            this.setState({
-                isLoaded: true,
-                error
-            });
+        }).catch((error) => {
+            if (axios.isCancel(error)) {
+                return null;
+            } else {
+                this.setState({
+                    isLoaded: true,
+                    error
+                });
+            }
         });
     }
 

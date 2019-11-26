@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 
 import { Icon } from 'react-icons-kit'
-import {basic_clessidre} from 'react-icons-kit/linea/basic_clessidre'
+import { basic_clessidre } from 'react-icons-kit/linea/basic_clessidre'
 
 import Table from 'react-bootstrap/Table';
 
@@ -18,24 +18,33 @@ class TrackList extends React.Component {
 
         this.state = {
             isLoaded: false,
+            source: axios.CancelToken.source(),
             tracks: {},
         };
     }
 
     componentDidMount() {
-        axios.get(API.API_GET_ALL_TRACKS)
-            .then((response) => {
-                this.setState({
-                    isLoaded: true,
-                    tracks: response.data,
-                });
-            })
-            .catch((error) => {
+        axios.get(API.API_GET_ALL_TRACKS, {
+            cancelToken: this.state.source.token
+        }).then((response) => {
+            this.setState({
+                isLoaded: true,
+                tracks: response.data,
+            });
+        }).catch((error) => {
+            if (axios.isCancel(error)) {
+                return null;
+            } else {
                 this.setState({
                     isLoaded: true,
                     error
                 });
-            });
+            }
+        });
+    }
+
+    componentWillUnmount() {
+        this.state.source.cancel();
     }
 
     handleClick(track) {
@@ -46,11 +55,14 @@ class TrackList extends React.Component {
 
     render() {
         const { isLoaded, tracks, error } = this.state;
-        
+
         if (isLoaded) {
             if (error)
                 return (
-                    <div>An orrer occured while loading tracks.</div>
+                    <div>
+                        <p>An orrer occured while loading tracks :</p>
+                        <p>{error.message}</p>
+                    </div>
                 );
             else {
                 return (

@@ -59,7 +59,7 @@ class LibraryManager
         } else {
             $albumArtist = new Artist();
             $albumArtist->setName($tags['tags']['albumArtist']);
-            //$this->documentManager->persist($albumArtist);
+            $this->documentManager->persist($albumArtist);
         }
 
         $artists = array(); 
@@ -70,7 +70,7 @@ class LibraryManager
             } else {
                 $a = new Artist();
                 $a->setName($artist);
-                //$this->documentManager->persist($a);
+                $this->documentManager->persist($a);
                 $artists[] = $a;
             }
         }   

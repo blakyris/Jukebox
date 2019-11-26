@@ -30,7 +30,6 @@ class FileController extends AbstractController
         DocumentManager $dm, Request $request, 
         FileManager $fileManager, TagEditor $tagger, LibraryManager $libraryManager )
     {
-        $response = array();
         $files = $fileManager->scan($request->request->get('path'));
         if ($files) {
             foreach ($files as $file) {
