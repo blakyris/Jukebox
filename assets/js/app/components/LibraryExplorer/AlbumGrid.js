@@ -49,7 +49,7 @@ class AlbumGrid extends React.Component {
                     <div className="album-grid">
                         <div className="grid-content">
                             {albums.map((album) => (
-                                <AlbumGridItem key={album.id} name={album.name} artist={album.artist} />
+                                <AlbumGridItem key={album.id} id={album.id} name={album.name} artist={album.artist} />
                             ))}
                         </div>
                     </div>

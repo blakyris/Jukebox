@@ -196,8 +196,9 @@ html,body{ height: 100%; }
 }
 
 .album-grid .item {
+    display: flex;
+    flex-flow: column wrap;
     padding:10px 15px;
-
     @media screen and (min-width: 1350px) {
         width: 10%;
     }
@@ -224,13 +225,16 @@ html,body{ height: 100%; }
 }
 
 .album-grid .item .cover {
-    background-color: #333;
     width: 100%;
-    display: inline-block;
-    padding-bottom: 100%;
+}
+
+.album-grid .item .cover img {
+    width: 100%;
 }
 
 .album-grid .item .info {
+    display:flex;
+    flex-flow: column wrap;
     width: 100%;
     padding: 5px 10px;
 }

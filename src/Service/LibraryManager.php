@@ -60,6 +60,7 @@ class LibraryManager
             $albumArtist = new Artist();
             $albumArtist->setName($tags['tags']['albumArtist']);
             $this->documentManager->persist($albumArtist);
+            //$this->documentManager->flush();
         }
 
         $artists = array(); 
@@ -80,6 +81,7 @@ class LibraryManager
         } else {
             $album = new Album();
             $album->setName($tags['tags']['album']);
+            $album->setCover($tags['tags']['albumCover']);
             $album->setArtist($albumArtist);
             $this->documentManager->persist($album);
         }

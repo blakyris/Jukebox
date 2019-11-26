@@ -109,7 +109,7 @@ class Track
     public function setArtists(Array $artists) { $this->artists = $artists; }
     public function setAlbum(Album $album) { $this->album = $album; }
     public function setTrackNumber(int $number) { $this->trackNumber = $number; }
-    public function setGenre(String $genre) { $this->genre = $genre; }
+    public function setGenre($genre) { $this->genre = $genre; }
     public function setFormat(String $format) { $this->format = $format; }
     public function setDuration(float $duration) { $this->duration = $duration; }
     public function setMimeType($type) { $this->mimetype = $type; }

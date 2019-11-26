@@ -24,6 +24,11 @@ class Album
     private $name;
 
     /**
+     * @MongoDB\Field(type="bin")
+     */
+    private $cover;
+
+    /**
      * @MongoDB\ReferenceOne(targetDocument=Artist::class, cascade={"persist"})
      */
     private $artist;
@@ -45,6 +50,7 @@ class Album
 
     public function getId() { return $this->id; }
     public function getName() { return $this->name; }
+    public function getCover() { return $this->cover; }
     public function getArtist() { return $this->artist; }
     public function getTracks() { return $this->tracks; }
     public function getYear() { return $this->year; }
@@ -59,6 +65,7 @@ class Album
     }
 
     public function setName(String $name) { $this->name = $name; }
+    public function setCover($cover) { $this->cover = $cover; }
     public function setArtist(Artist $artist) { $this->artist = $artist; }
     public function setYear(int $year) { $this->year = $year; }
 }

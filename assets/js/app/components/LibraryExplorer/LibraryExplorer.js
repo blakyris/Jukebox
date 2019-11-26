@@ -30,9 +30,9 @@ class LibraryExplorer extends React.Component {
     }
 
     return (
-      <div className="d-flex flex-column flex-fill library-explorer">
+      <div className="library-explorer">
 
-        <div className="d-flex flex-column header">
+        <div className="header">
           <h1 className="px-4 py-3 noselect">My Library</h1>
           <Nav className="justify-content-center view-selector" defaultActiveKey="trackView">
             <Nav.Item>

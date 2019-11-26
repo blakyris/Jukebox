@@ -44,7 +44,6 @@ class TagEditor
     public function analyse($file) {
         $fileInfo = $this->tagReader->analyze($file);
         getid3_lib::CopyTagsToComments($fileInfo);
-        print_r($fileInfo['tags']);
         return ($fileInfo);
     }
 
@@ -158,7 +157,7 @@ class TagEditor
                 "artists" => $this->artists,
                 "albumArtist" => $this->albumArtist,
                 "album" => $this->album,
-                "albumCover" => null,
+                "albumCover" => $this->cover,
                 "trackNumber" => $this->trackNumber,
                 "tracksOnDisc" => $this->tracksOnDisc,
                 "discNumber" => $this->discNumber,
