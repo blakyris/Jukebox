@@ -2,49 +2,22 @@ import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
-import { Icon } from 'react-icons-kit'
-import { basic_clessidre } from 'react-icons-kit/linea/basic_clessidre'
-
 import Table from 'react-bootstrap/Table';
 
-import Loading from '../Utils/Loading';
-import * as API from '../../constants/ApiConstants';
 import { setTrack, setPlayQueue, setQueuePos } from '../../actions/PlayerActions';
 
 class TrackList extends React.Component {
 
     constructor(props) {
         super(props);
-
-        this.state = {
-            isLoaded: false,
-            source: axios.CancelToken.source(),
-            tracks: {},
-        };
     }
 
     componentDidMount() {
-        axios.get(API.API_GET_ALL_TRACKS, {
-            cancelToken: this.state.source.token
-        }).then((response) => {
-            this.setState({
-                isLoaded: true,
-                tracks: response.data,
-            });
-        }).catch((error) => {
-            if (axios.isCancel(error)) {
-                return null;
-            } else {
-                this.setState({
-                    isLoaded: true,
-                    error
-                });
-            }
-        });
+
     }
 
     componentWillUnmount() {
-        this.state.source.cancel();
+
     }
 
     handleClick(track) {
@@ -54,38 +27,21 @@ class TrackList extends React.Component {
     }
 
     render() {
-        const { isLoaded, tracks, error } = this.state;
-
-        if (isLoaded) {
-            if (error)
-                return (
-                    <div>
-                        <p>An orrer occured while loading tracks :</p>
-                        <p>{error.message}</p>
-                    </div>
-                );
-            else {
-                return (
-                    <div className="track-list noselect">
-                        <Table hover size="md" className="list noselect">
-                            <tbody>
-                                {tracks.map((track) => (
-                                    <tr className="track-row noselect" key={track.id} onDoubleClick={() => { this.handleClick(track) }}>
-                                        <td><p className="title noselect">{track.title}</p></td>
-                                        <td><p className="artist noselect">{track.albumArtist}</p></td>
-                                        <td><p className="album noselect">{track.album}</p></td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </Table>
-                    </div>
-                );
-            }
-        } else {
-            return (
-                <Loading />
-            );
-        }
+        return (
+            <div className="track-list">
+                <Table hover size="md" className="list">
+                    <tbody>
+                        {this.props.tracks.map((track) => (
+                            <tr className="track-row" key={track.id} onDoubleClick={() => { this.handleClick(track) }}>
+                                <td><p className="title">{track.title}</p></td>
+                                <td><p className="artist">{track.albumArtist}</p></td>
+                                <td><p className="album">{track.album}</p></td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </Table>
+            </div>
+        );
     }
 
 }

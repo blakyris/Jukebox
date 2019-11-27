@@ -2,8 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
-import * as API from '../../constants/ApiConstants'
+import * as API from '../../constants/ApiConstants';
 import Loading from '../Utils/Loading';
+import TrackList from '../LibraryExplorer/TrackList';
 
 class AlbumPage extends React.Component {
 
@@ -42,10 +43,18 @@ class AlbumPage extends React.Component {
             return (
                 <div className="album-page">
                     <div className="header">
-    
+                        <div class="album-cover">
+                            <img src={API.API_GET_ALBUM_BY_ID + this.state.album.id + "/cover"} />
+                        </div>
+                        <div class="album-info">
+                            <h1 className="name">{this.state.album.name}</h1>
+                            <h2 className="artist">by {this.state.album.artist}</h2>
+                        </div>
                     </div>
                     <div className="content">
-    
+                        <div className="tracklist">
+                            <TrackList />
+                        </div>
                     </div>
                 </div>
             );

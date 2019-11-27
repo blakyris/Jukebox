@@ -1,7 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 import Nav from 'react-bootstrap/Nav';
+
+import * as API from '../../constants/ApiConstants'
 
 import * as LibraryExplorerActions from '../../actions/LibraryExplorerActions';
 import AlbumGrid from './AlbumGrid';
@@ -15,20 +18,19 @@ class LibraryExplorer extends React.Component {
     super(props);
   }
 
+  componentDidMount() {
+    this.props.fetchData();
+  }
+
+  componentDidUpdate() {
+
+  }
+
+  componentWillUnmount() {
+
+  }
+
   render() {
-    const view = this.props.libraryExplorer.view;
-    let viewComponent;
-
-    if (view == 'tracks') {
-      viewComponent =  <TrackList />;
-    } else if (view == 'albums') {
-      viewComponent = <AlbumGrid />;
-    } else if (view == 'artists') {
-      viewComponent = <ArtistList />;
-    } else {
-      viewComponent = <div><p>An error occured during view rendering</p></div>;
-    }
-
     return (
       <div className="library-explorer">
 
@@ -47,8 +49,26 @@ class LibraryExplorer extends React.Component {
           </Nav>
         </div>
 
-        <div className="d-flex flex-column m-0 p-0 content">
-          {viewComponent}
+        <div className="content">
+          {(() => {
+            if (this.props.libraryExplorer.loaded) {
+              if (this.props.libraryExplorer.error) {
+                <p>Error while loading library</p>
+              } else {
+                const view = this.props.libraryExplorer.view;
+                console.log(this.props.libraryExplorer.tracks);
+                switch (view) {
+                  
+                  case 'tracks': return <TrackList tracks={this.props.libraryExplorer.tracks} />;
+                  case 'albums': return <AlbumGrid />;
+                  case 'artists': return <ArtistList />;
+                  default: return "NO VIEW";
+                }
+              }
+            } else {
+              return <Loading />;
+            }
+          })()}
         </div>
 
       </div>
@@ -66,6 +86,10 @@ const mapDispatchToProps = (dispatch) => {
 
     changeView: (view) => {
       dispatch(LibraryExplorerActions.changeView(view));
+    },
+
+    fetchData: () => {
+      dispatch(LibraryExplorerActions.fetchLibraryData());
     },
 
   };

@@ -1,6 +1,7 @@
-html,body{ height: 100%; }
-
-
+html,body{
+    height: 100%;
+    background-color: #090909;
+}
 
 /* UTILS */
 
@@ -12,7 +13,6 @@ html,body{ height: 100%; }
         -ms-user-select: none;
             user-select: none;
 }
-
 
 .noselect {
     -webkit-touch-callout: none;
@@ -26,20 +26,15 @@ html,body{ height: 100%; }
 ::-webkit-scrollbar {
     width: 6px;
 }
-
 ::-webkit-scrollbar-track {
     background: #333;
-}
-  
+} 
 ::-webkit-scrollbar-thumb {
     background: #555;
 }
-
 ::-webkit-scrollbar-thumb:hover {
     background: #777;
 }
-
-/* CONTAINERS */
 
 #root {
     width: 100%;
@@ -91,279 +86,25 @@ html,body{ height: 100%; }
 
 
 /* React.Component : SIDEBAR */
-
-.sidebar {
-    order: 1;
-    display: flex;
-    background-color: #111;
-    color: #FFF;
-    justify-content: flex-start;
-    flex-flow: column wrap;
-    @media screen and (min-width: 768px) {
-        width: 60px;
-    }
-    @media screen and (max-width: 768px) {
-        width: 100%;
-    }
-}
-
-.sidebar .menu {
-    display: flex;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    @media screen and (min-width: 768px) {
-        flex-flow: column wrap;
-    }
-    @media screen and (max-width: 768px) {
-        flex-flow: row nowrap;
-        height: 50px;
-    }
-}
-
-.sidebar .menu .button {
-    list-style: none;
-    display:flex;
-    flex-flow: column wrap;
-    justify-content: center;
-    align-items: center;
-
-    color: #FFF;
-    padding: 5px 0;
-    @media screen and (min-width: 768px) {
-        width: 100%;
-        height: 60px;
-    }
-    @media screen and (max-width: 768px) {
-        width: 60px;
-        height: 100%;
-    }
-}
-
-.sidebar .menu .button:hover {
-    background-color: #333;
-    transition: 0.2s;
-    -moz-transition: 0.2s;
-}
+@import './sidebar.scss';
 
 /* React.Component : LIBRARY EXPLORER */
-
-.library-explorer {
-    display:flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
-    background-color: #090909;
-    overflow-y: scroll;
-    color: #FFF;
-
-}
-
-.library-explorer .header {
-    order: 1;
-    width: 100%;
-    min-height: fit-content;
-    background-color: #101010;
-}
-
-.library-explorer .view-selector {
-
-}
-
-.library-explorer .view-selector a {
-    color: #FFF;
-}
-
-.library-explorer .view-selector a.active {
-    border-bottom: 3px solid greenyellow;
-}
-
-.library-explorer .content {
-    order: 2;
-    width: 100%;
-    height: 100%;
-}
-
+@import './library-explorer.scss';
 
 /* React.Component : ALBUM GRID */
-
-.album-grid {
-
-}
-
-.album-grid .grid-content {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-start;
-}
-
-.album-grid .item {
-    display: flex;
-    flex-flow: column wrap;
-    padding:10px 15px;
-    @media screen and (min-width: 1350px) {
-        width: 10%;
-    }
-
-    @media screen and (min-width: 1024px) and (max-width: 1350px) {
-        width: 20%;
-    }
-
-    @media screen and (min-width: 768px) and (max-width: 1024px) {
-        width:25%;
-    }
-
-    @media screen and (min-width: 520px) and (max-width: 768px) {
-        width:25%;
-    }
-    
-    @media screen and (min-width: 320px) and (max-width: 520px) {
-       width: 50%;
-    }
-    
-    @media screen and (max-width: 320px) {
-       width: 50%;
-    }
-}
-
-.album-grid .item .cover {
-    position: relative;
-    width: 100%;
-    height: 0;
-    padding-bottom: 100%;
-}
-
-.album-grid .item .cover img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center center;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.album-grid .item .info {
-    display:flex;
-    flex-flow: column wrap;
-    width: 100%;
-    padding: 5px 10px;
-}
-
-.album-grid .item .info p {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    max-height: 1.6em;
-    line-height: 1.6em;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.album-grid .item .info .name {
-    font-weight: bold;
-    font-size: 14px;
-}
-
-.album-grid .item .info .artist {
-    font-size: 12px;
-}
-
+@import './album-grid.scss';
 
 /* React.Component : TRACK LIST */
-
-.track-list {
-    width: 100%;
-    height: 100%;    
-}
-
-.track-list tbody td  {
-    border: none;
-}
-
-.track-list .track-row p {
-    margin: 3px 0;
-    font-size: 12px;
-    color: #fff;
-}
-
-.track-list .track-row:hover {
-    background-color: #111;
-}
+@import './track-list.scss';
 
 /* React.Component : ARTIST LIST */
-
-.artist-list {
-    display:flex;
-    flex-flow: row wrap;
-    justify-content: flex-start;
-}
-
-.artist-list .list-item {
-    display: flex;
-    flex-flow: row nowrap;
-    min-height: fit-content;
-    justify-content: flex-start;
-    align-items: center;
-    @media screen and (min-width: 1024px) {
-        width: 25%;
-        padding: 20px 10px;
-    }
-
-    @media screen and (min-width: 520px) and (max-width: 1024px) {
-        width: 50%;
-        padding: 15px 10px;
-    }
-    
-    @media screen and (max-width: 520px) {
-       width: 100%;
-       padding: 10px 10px;
-    }
-}
-
-.artist-list .list-item:hover {
-    transition: ease-in;
-    transition-duration: 0.1s;
-    background-color: rgba($color: #FFF, $alpha: 0.1);
-}
-
-.artist-list .list-item .item-img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-right: 15px;
-    background-color: #555;
-    border: 1px solid #CCC;
-}
-
-.artist-list .list-item .item-content {
-    flex: 1;
-    padding: 2px;
-
-}
-
-.artist-list .list-item .item-content p {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    font-weight: bold;
-    line-height: 1.5em;
-    max-height: 1.5em;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
+@import './artist-list.scss';
 
 /* React.Component : ALBUM PAGE */
-
 @import 'album-page.scss';
 
 /* React.Component : PLAYER */
-
 @import 'player.scss';
-
-
 
 /* LOADING WIDGET */
 
