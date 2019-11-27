@@ -1,0 +1,21 @@
+
+.album-page {
+    display:flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    background-color: #090909;
+    overflow-y: scroll;
+    color: #FFF;
+}
+
+.album-page .header {
+    width: 100%;
+    height: fit-content;
+    padding: 2% 3%;
+    background-color: #555;
+}
+
+.album-page .header .album-cover {
+    
+}
