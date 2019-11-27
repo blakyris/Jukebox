@@ -1,0 +1,30 @@
+.library-explorer {
+    display:flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    background-color: #090909;
+    overflow-y: scroll;
+    color: #FFF;
+}
+
+.library-explorer .header {
+    order: 1;
+    width: 100%;
+    min-height: fit-content;
+    background-color: #101010;
+}
+
+.library-explorer .view-selector a {
+    color: #FFF;
+}
+
+.library-explorer .view-selector a.active {
+    border-bottom: 3px solid greenyellow;
+}
+
+.library-explorer .content {
+    order: 2;
+    width: 100%;
+    height: 100%;
+}
