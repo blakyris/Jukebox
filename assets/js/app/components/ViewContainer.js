@@ -1,7 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import LibraryExplorer from './LibraryExplorer/LibraryExplorer';
-import TrackList from './LibraryExplorer/TrackList';
+import AlbumPage from './AlbumPage/AlbumPage';
 
 class ViewContainer extends React.Component {
 
@@ -10,13 +11,38 @@ class ViewContainer extends React.Component {
   }
 
   render() {
+    const view = this.props.viewContainer.view;
+    let viewComponent;
+
+    if (view == 'LibraryExplorer') {
+      viewComponent =  <LibraryExplorer />;
+    } else if (view == 'AlbumPage') {
+      viewComponent = <AlbumPage />;
+    } else {
+      viewComponent = <div><p>An error occured during view rendering</p></div>;
+    }
+
     return (
       <div className="view-container">
-          <LibraryExplorer></LibraryExplorer>
+          {viewComponent}
       </div>
     );
   }
 
 }
 
-export default ViewContainer;
+const mapStateToProps = (state) => {
+  return state;
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+
+    viewLibraryExplorer: () => {
+      dispatch({ type: "VIEW_LIBRARY_EXPLORER" });
+    },
+
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (ViewContainer);

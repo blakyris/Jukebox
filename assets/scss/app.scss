@@ -1,5 +1,7 @@
 html,body{ height: 100%; }
 
+
+
 /* UTILS */
 
 * {
@@ -296,7 +298,6 @@ html,body{ height: 100%; }
     display:flex;
     flex-flow: row wrap;
     justify-content: flex-start;
-    flex: 1;
 }
 
 .artist-list .list-item {
@@ -307,12 +308,12 @@ html,body{ height: 100%; }
     align-items: center;
     @media screen and (min-width: 1024px) {
         width: 25%;
-        padding: 10px 10px;
+        padding: 20px 10px;
     }
 
     @media screen and (min-width: 520px) and (max-width: 1024px) {
         width: 50%;
-        padding: 10px 10px;
+        padding: 15px 10px;
     }
     
     @media screen and (max-width: 520px) {
@@ -353,195 +354,15 @@ html,body{ height: 100%; }
     text-overflow: ellipsis;
 }
 
+
+/* React.Component : ALBUM PAGE */
+
+@import 'album-page.scss';
+
 /* React.Component : PLAYER */
 
-.player {
-    background-color:#111;
-    color: #FFF;
-    display: flex;
-    flex-flow: column wrap;
-}
+@import 'player.scss';
 
-.player .player-btn {
-    color: #FFF;
-}
-
-.player .seek-bar-container {
-    width: 100%;
-    height: fit-content;
-}
-
-.player .seek-bar-container .form-group {
-    margin-bottom: 5px;
-    height: fit-content;
-}
-
-.player .player-bar {
-    display: flex;
-    width: 100%;
-    @media screen and (min-width: 768px) {
-        flex-direction: row;
-        justify-content: space-around;
-        padding: 5px;
-    }
-    @media screen and (max-width: 768px) {
-        flex-direction: column;
-        justify-content: center;
-    }
-}
-
-.player .player-col-left {
-    display:flex;
-    flex-flow: column wrap;
-    @media screen and (min-width: 768px) {
-        width: 30%;
-        align-self: stretch;
-    }
-    @media screen and (max-width: 768px) {
-        justify-content: center;
-        align-items: center;
-        padding-bottom: 5px;
-    }
-}
-
-.player .track-info {
-    @media screen and (min-width: 768px) {
-        margin-left: 5px;
-    }
-    @media screen and (max-width: 768px) {
-        text-align: center;
-    }
-}
-
-.player .track-info p {
-    margin: 0;
-    padding: 0;
-    font-size: 12px;
-    @media screen and (min-width: 768px) {
-
-    }
-    @media screen and (max-width: 768px) {
-        
-    }
-}
-
-.player .track-info .title {
-    font-weight: bold;
-    font-size: 14px;
-}
-
-.player .track-info .artist {
-    @media screen and (min-width: 768px) {
-        
-    }
-    @media screen and (max-width: 768px) {
-
-    }
-}
-
-.player .player-col-middle {
-    display:flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    @media screen and (min-width: 768px) {
-        width: 40%;
-        height: 100%;
-        align-self: stretch;
-    }
-    @media screen and (max-width: 768px) {
-        padding-bottom: 5px;
-    }
-}
-
-.player .player-col-middle .controls {
-    color: #FFF;
-}
-
-.player .player-col-right {
-    display: flex;
-    flex-direction: column nowrap;
-    @media screen and (min-width: 768px) {
-        width: 30%;
-        align-self: stretch;
-        padding-right: 10px;
-        justify-content: flex-end !important;
-    }
-    @media screen and (max-width: 768px) {
-        width: 100%;
-        padding: 10px 0;
-        justify-content: center !important;
-        display: none !important;
-    }
-}
-
-.player .player-col-right .volume-control {
-    display: flex;
-    flex-flow: row wrap;
-    align-items: center;
-    justify-content: center;
-    @media screen and (min-width: 768px) {
-        margin-right: 5px;
-    }
-    @media screen and (max-width: 768px) {
-        
-    }
-}
-
-.player .player-col-right .volume-control .icon {
-    margin-right: 10px;
-}
-
-.player .player-col-right .volume-control .form-group {
-    margin: 0;
-    padding: 0;
-    max-width: 100px;
-}
-
-.player-slider {
-    -webkit-appearance: none;
-    background-color: #555;
-    height: 5px;
-    outline: none;
-    cursor: pointer;
-    pointer-events: painted;
-    touch-action: pan-x;
-  }
-  
-  .player-slider::-moz-range-progress {
-      height: 5px;
-      background-color: #AAA;
-  }
-  
-  .player-slider::-webkit-slider-thumb {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: #FFF;
-  }
-  
-  .player-slider::-moz-range-thumb {
-    appearance: none;
-    -moz-appearance: none;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: #FFF;
-  }
-  
-  .player-slider:hover::-webkit-slider-thumb {
-    height: 15px;
-    width: 15px;
-    transition: linear 0.2s;
-    touch-action: pan-x;
-  }
-  
-  .player-slider:hover::-moz-range-thumb {
-      height: 15px;
-      width: 15px;
-      -moz-transition: linear 0.5s;
-  }
 
 
 /* LOADING WIDGET */

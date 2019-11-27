@@ -39,7 +39,7 @@ class Album
     private $tracks;
 
     /**
-     * @MongoDB\Field(type="integer")
+     * @MongoDB\Field(type="string")
      */
     private $year;
 
@@ -54,11 +54,22 @@ class Album
     public function getArtist() { return $this->artist; }
     public function getTracks() { return $this->tracks; }
     public function getYear() { return $this->year; }
+
+    public function getTracksProperties() {
+        $tracklist = array();
+        foreach ($this->tracks as $track) {
+            $tracklist[] = $track->getProperties();
+        }
+
+        return $tracklist;
+    }
+
     public function getProperties() {
         $album = [
             'id' => $this->id,
             'name' => $this->name,
-            'artist' => $this->artist->getName()
+            'artist' => $this->artist->getName(),
+            'tracks' => $this->getTracksProperties(),
         ];
 
         return $album;
@@ -67,5 +78,5 @@ class Album
     public function setName(String $name) { $this->name = $name; }
     public function setCover($cover) { $this->cover = $cover; }
     public function setArtist(Artist $artist) { $this->artist = $artist; }
-    public function setYear(int $year) { $this->year = $year; }
+    public function setYear(String $year) { $this->year = $year; }
 }

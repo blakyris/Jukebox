@@ -15,7 +15,6 @@ use App\Document\Album;
 
 class LibraryManager
 {
-
     private $documentManager;
     private $gridfsRepo;
 
@@ -45,6 +44,14 @@ class LibraryManager
         else return NULL;
     }
 
+    public function addArtistToLibrary(String $name) {
+        $artist = new Artist();
+        $artist->setName($name);
+        $this->documentManager->persist($artist);
+
+        return $artist;
+    }
+
     public function addFileToLibrary(String $path)
     {
         $file = $this->documentManager->getRepository(File::class)->uploadFromFile($path);
@@ -57,24 +64,22 @@ class LibraryManager
         if ($artist = $this->isArtistInLibrary($tags['tags']['albumArtist'])) {
             $albumArtist = $artist;
         } else {
-            $albumArtist = new Artist();
-            $albumArtist->setName($tags['tags']['albumArtist']);
-            $this->documentManager->persist($albumArtist);
-            //$this->documentManager->flush();
+            $albumArtist = $this->addArtistToLibrary($tags['tags']['albumArtist']);
         }
 
         $artists = array(); 
         foreach($tags['tags']['artists'] as $artist) {
-            
-            if ($a = $this->isArtistInLibrary($artist)) {
-                $artists[] = $a;
+            if ($existingArtist = $this->isArtistInLibrary($artist)) {
+                $artists[] = $existingArtist;
             } else {
-                $a = new Artist();
-                $a->setName($artist);
-                $this->documentManager->persist($a);
-                $artists[] = $a;
+                if ($artist == $tags['tags']['albumArtist']) {
+                    $artists[] = $albumArtist;
+                } else {
+                    $newArtist = $this->addArtistToLibrary($artist);
+                    $artists[] = $newArtist;
+                }
             }
-        }   
+        }
 
         if ($albumObj = $this->isAlbumInLibrary($tags['tags']['album'], $albumArtist)) {
             $album = $albumObj;
@@ -83,6 +88,7 @@ class LibraryManager
             $album->setName($tags['tags']['album']);
             $album->setCover($tags['tags']['albumCover']);
             $album->setArtist($albumArtist);
+            $album->setYear($tags['tags']['year'] ?? "");
             $this->documentManager->persist($album);
         }
 
@@ -97,6 +103,8 @@ class LibraryManager
         $track->setFormat($tags['fileInfo']['format']);
         $track->setMimeType($tags['fileInfo']['mimetype']);
         
+        $album->getTracks()->add($track);
+
         $this->documentManager->persist($track);
         $this->documentManager->flush();
     }

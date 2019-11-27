@@ -27,9 +27,19 @@ class AlbumController extends AbstractController
     }
 
     /**
+     * @Route("/api/library/albums/{id}", methods={"GET"})
+     */
+    public function getAlbumById(DocumentManager $documentManager, $id)
+    {
+        $album = $documentManager->getRepository(Album::class)->findOneBy(['id' => $id]);
+
+        return new JsonResponse($album->getProperties());
+    }
+
+    /**
      * @Route("/api/library/albums/{id}/cover", methods={"GET"})
      */
-    public function streamTrack(DocumentManager $documentManager, $id)
+    public function getAlbumCover(DocumentManager $documentManager, $id)
     {
         $album = $documentManager->getRepository(Album::class)->findOneBy(['id' => $id]);
         $cover = $album->getCover();
