@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 
 import Table from 'react-bootstrap/Table';
 
@@ -22,8 +21,8 @@ class TrackList extends React.Component {
 
     handleClick(track) {
         this.props.playerSetTrack(track);
-        this.props.playerSetPlayQueue(this.state.tracks);
-        this.props.playerSetQueuePos(this.state.tracks.indexOf(track));
+        this.props.playerSetPlayQueue(this.props.tracks);
+        this.props.playerSetQueuePos(this.props.tracks.indexOf(track));
     }
 
     render() {

@@ -1,129 +1,85 @@
-import * as PlayerActions from '../actions/PlayerActions';
-import * as API from '../constants/ApiConstants';
+import * as Actions from '../actions/PlayerActions';
 
 import { dispatch } from 'redux'
 import { Howl } from 'howler';
 
 
 const initialPlayerState = {
-    audioObj: null,
-    trackMetadata: {},
-    playQueue: null,
-    queuePos: 0,
-    duration: 0,
-    seek: 0,
-    volume: 1,
-    isLoading: false,
     isPlaying: false,
-    seekBarAnimationId: 0,
+    hasLoaded: false,
+    currentTrack: null,
+    playQueue: null,
+    queuePos: null,
 }
 
 function PlayerReducer(state = initialPlayerState, action) {
     switch (action.type) {
 
-        case PlayerActions.PLAYER_SET_TRACK:
-            console.log("Duration : " + action.duration);
-            return {
+        case Actions.PLAYER_SET_TRACK:
+            return ({
                 ...state,
-                audioObj: action.audioObj,
-                trackMetadata: action.trackMetadata,
-                duration: action.duration,
-                isPlaying: true,
-            };
+                currentTrack: action.track,
+            });
 
-        case PlayerActions.PLAYER_LOAD_SUCCESS:
-            return {
+        case Actions.PLAYER_LOAD_SUCCESS:
+            return ({
                 ...state,
-            };
+                hasLoaded: true,
+            });
 
-        case PlayerActions.PLAYER_LOAD_ERROR:
-            console.error("Player error while loading track : " + action.error);
-            return {
+        case Actions.PLAYER_LOAD_ERROR:
+            return ({
                 ...state,
-            };
+                hasLoaded: false,
+            });
 
-        case PlayerActions.PLAYER_PLAY_TRACK:
-            state.audioObj.play();
-            return {
+        case Actions.PLAYER_PLAY_TRACK:
+            return ({
                 ...state,
-            };
+            });
 
-        case PlayerActions.PLAYER_STARTED_PLAYBACK:
-            return {
+        case Actions.PLAYER_IS_PLAYING:
+            return ({
                 ...state,
                 isPlaying: true,
-            };
+            });
 
-
-        case PlayerActions.PLAYER_PAUSE_TRACK:
-            clearInterval(state.seekBarAnimationId);
-            state.audioObj.pause();
-            return {
+        case Actions.PLAYER_IS_PAUSED:
+            return ({
                 ...state,
                 isPlaying: false,
-            };
+            });
 
-        case PlayerActions.PLAYER_SET_SEEK_POS:
-            if (state.isPlaying) {
-                state.audioObj.seek(action.seekPos);
-            }
-            return {
+        case Actions.PLAYER_PAUSE_TRACK:
+            return ({
                 ...state,
-            };
+                isPlaying: false,
+            });
 
-        case PlayerActions.PLAYER_GET_SEEK_POS:
-            if (state.isPlaying) {
-                return {
-                    ...state,
-                    seek: Math.fround(state.audioObj.seek() * 10) / 10,
-                };
-            } else {
-                return {
-                    ...state,
-                    seek: 0,
-                };
-            }
-
-
-        case PlayerActions.PLAYER_STARTED_SEEK_TRACKING:
-            return {
-                ...state,
-                seekBarAnimationId: action.animationId,
-            };
-
-        case PlayerActions.PLAYER_SET_VOLUME:
-            if (state.audioObj)
-                state.audioObj.volume(action.volume / 100);
-            return {
-                ...state,
-                volume: action.volume / 100,
-            };
-
-        case PlayerActions.PLAYER_SET_PLAY_QUEUE:
-            return {
+        case Actions.PLAYER_SET_PLAY_QUEUE:
+            return ({
                 ...state,
                 playQueue: action.playQueue,
-            };
+            });
 
-        case PlayerActions.PLAYER_SET_QUEUE_POSITION:
-            return {
+        case Actions.PLAYER_SET_QUEUE_POSITION:
+            return ({
                 ...state,
                 queuePos: action.queuePos,
-            };
+            });
 
-        case PlayerActions.PLAYER_UNLOAD:
-            clearInterval(state.seekBarAnimationId);
-            state.audioObj.off();
-            state.audioObj.stop();
-            state.audioObj.unload();
-            return {
+        case Actions.PLAYER_UNLOADED:
+            return ({
                 ...state,
-                audioObj: null,
                 isPlaying: false,
-                seek: 0,
-                seekBarAnimationId: 0,
-                trackMetadata: {},
-            };
+                hasLoaded: false,
+            });
+
+        case Actions.PLAYER_CLEAR_CURRENT_TRACK:
+            return ({
+                ...state,
+                currentTrack: null,
+            });
 
         default:
             return {

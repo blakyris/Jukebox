@@ -30,7 +30,27 @@ class LibraryExplorer extends React.Component {
 
   }
 
+  setContentView() {
+    if (this.props.libraryExplorer.loaded) {
+      if (this.props.libraryExplorer.error) {
+        return <p>Error while loading library</p>;
+      } else {
+        const view = this.props.libraryExplorer.view;
+        switch (view) {
+          case 'tracks': return <TrackList tracks={this.props.libraryExplorer.tracks} />;
+          case 'albums': return <AlbumGrid />;
+          case 'artists': return <ArtistList />;
+          default: return <div>Nothing to show here</div>;
+        }
+      }
+    } else {
+      return <Loading />;
+    }
+  }
+
   render() {
+    const view = this.setContentView();
+
     return (
       <div className="library-explorer">
 
@@ -50,25 +70,7 @@ class LibraryExplorer extends React.Component {
         </div>
 
         <div className="content">
-          {(() => {
-            if (this.props.libraryExplorer.loaded) {
-              if (this.props.libraryExplorer.error) {
-                <p>Error while loading library</p>
-              } else {
-                const view = this.props.libraryExplorer.view;
-                console.log(this.props.libraryExplorer.tracks);
-                switch (view) {
-                  
-                  case 'tracks': return <TrackList tracks={this.props.libraryExplorer.tracks} />;
-                  case 'albums': return <AlbumGrid />;
-                  case 'artists': return <ArtistList />;
-                  default: return "NO VIEW";
-                }
-              }
-            } else {
-              return <Loading />;
-            }
-          })()}
+           {view}
         </div>
 
       </div>

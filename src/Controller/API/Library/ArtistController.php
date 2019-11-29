@@ -18,6 +18,7 @@ class ArtistController extends AbstractController
     {
         $artists = $dm->getRepository(Artist::class)->findAll();
         
+        $json = array();
         foreach ($artists as $artist)
             $json[] = $artist->getProperties();
 

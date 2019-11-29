@@ -1,68 +1,8 @@
-import * as API from '../constants/ApiConstants';
-
-import { Howl, Howler } from 'howler';
-
-
-export const PLAYER_INITIALIZE = 'PLAYER_INITIALIZE'
-export const initialize = (trackId) => {
-    return {
-        type: PLAYER_INITIALIZE,
-    }
-}
-
 export const PLAYER_SET_TRACK = 'PLAYER_SET_TRACK'
 export const setTrack = (track) => {
-    return (dispatch, getState) => {
-
-        const { player } = getState();
-        let animationId = null;
-        if (player.audioObj && player.audioObj.state() != 'unloaded') {
-            dispatch({
-                type: PLAYER_UNLOAD,
-            });
-        }
-
-        dispatch({
-            type: PLAYER_SET_TRACK,
-            audioObj: new Howl({
-                src: API.API_STREAM_TRACK + track.id,
-                html5: true,
-                preload: true,
-                autoplay: true,
-                format: track.format,
-                volume: player.volume,
-                onplay: () => {
-                    dispatch({
-                        type: PLAYER_STARTED_PLAYBACK,
-                    });
-                    animationId = setInterval(() => {
-                        dispatch({
-                            type: PLAYER_GET_SEEK_POS,
-                        });
-                    }, 200);
-                    dispatch({
-                        type: PLAYER_STARTED_SEEK_TRACKING,
-                        animationId: animationId,
-                    });
-                },
-                onload: () => {
-                    dispatch({
-                        type: PLAYER_LOAD_SUCCESS,
-                    });
-                },
-                onloaderror: (id, error) => {
-                    dispatch({
-                        type: PLAYER_LOAD_ERROR,
-                        error: error,
-                    });
-                },
-                onend: () => {
-                    dispatch(nextTrack());
-                },
-            }),
-            trackMetadata: track,
-            duration: track.duration,
-        });
+    return {
+        type: PLAYER_SET_TRACK,
+        track: track,
     }
 }
 
@@ -87,10 +27,24 @@ export const playTrack = () => {
     }
 }
 
-export const PLAYER_STARTED_PLAYBACK = 'PLAYER_STARTED_PLAYBACK'
-export const startedPlayback = () => {
+export const PLAYER_IS_PLAYING = 'PLAYER_IS_PLAYING'
+export const isPlaying = () => {
     return {
-        type: PLAYER_STARTED_PLAYBACK,
+        type: PLAYER_IS_PLAYING,
+    }
+}
+
+export const PLAYER_IS_PAUSED = 'PLAYER_IS_PAUSED'
+export const isPaused = () => {
+    return {
+        type: PLAYER_IS_PAUSED,
+    }
+}
+
+export const PLAYER_PLAYBACK_ERROR = 'PLAYER_PLAYBACK_ERROR'
+export const playbackError = () => {
+    return {
+        type: PLAYER_PLAYBACK_ERROR,
     }
 }
 
@@ -98,65 +52,6 @@ export const PLAYER_PAUSE_TRACK = 'PLAYER_PAUSE_TRACK'
 export const pauseTrack = () => {
     return {
         type: PLAYER_PAUSE_TRACK,
-    }
-}
-
-export const PLAYER_NEXT_TRACK = 'PLAYER_NEXT_TRACK'
-export const nextTrack = () => {
-    return (dispatch, getState) => {
-        const { playQueue, queuePos } = getState().player;
-
-        if (queuePos < playQueue.length - 1) {
-            dispatch (setTrack(playQueue[queuePos + 1]));
-            dispatch (setQueuePos(queuePos + 1));
-        } else {
-            dispatch (unload());
-        }
-    }
-}
-
-export const PLAYER_PREV_TRACK = 'PLAYER_PREV_TRACK'
-export const prevTrack = () => {
-    return (dispatch, getState) => {
-        const { playQueue, queuePos } = getState().player;
-
-        if (queuePos > 0) {
-            dispatch (setTrack(playQueue[queuePos - 1]));
-            dispatch (setQueuePos(queuePos - 1));
-        } else {
-            dispatch (unload());
-        }
-    }
-}
-
-export const PLAYER_SET_SEEK_POS = 'PLAYER_SET_SEEK_POS'
-export const setSeek = (pos) => {
-    return {
-        type: PLAYER_SET_SEEK_POS,
-        seekPos: pos
-    }
-}
-
-export const PLAYER_GET_SEEK_POS = 'PLAYER_GET_SEEK_POS'
-export const getSeekPos = () => {
-    return {
-        type: PLAYER_GET_SEEK_POS,
-    }
-}
-
-export const PLAYER_STARTED_SEEK_TRACKING = 'PLAYER_STARTED_SEEK_TRACKING'
-export const startedSeekTracking = (animationId) => {
-    return {
-        type: PLAYER_SET_VOLUME,
-        animationId: animationId,
-    }
-}
-
-export const PLAYER_SET_VOLUME = 'PLAYER_SET_VOLUME'
-export const setVolume = (value) => {
-    return {
-        type: PLAYER_SET_VOLUME,
-        volume: value
     }
 }
 
@@ -169,16 +64,23 @@ export const setPlayQueue = (queue) => {
 }
 
 export const PLAYER_SET_QUEUE_POSITION = 'PLAYER_SET_QUEUE_POSITION'
-export const setQueuePos = (pos) => {
+export const setQueuePos = (position) => {
     return {
         type: PLAYER_SET_QUEUE_POSITION,
-        queuePos: pos,
+        queuePos: position,
     }
 }
 
-export const PLAYER_UNLOAD = 'PLAYER_UNLOAD'
-export const unload = () => {
+export const PLAYER_UNLOADED = 'PLAYER_UNLOADED'
+export const unloaded = () => {
     return {
-        type: PLAYER_UNLOAD,
+        type: PLAYER_UNLOADED,
+    }
+}
+
+export const PLAYER_CLEAR_CURRENT_TRACK = 'PLAYER_CLEAR_CURRENT_TRACK'
+export const clearCurrentTrack = () => {
+    return {
+        type: PLAYER_CLEAR_CURRENT_TRACK,
     }
 }

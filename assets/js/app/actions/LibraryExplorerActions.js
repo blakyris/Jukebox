@@ -11,7 +11,6 @@ export const changeView = (view) => {
 export const LIBRARY_FETCH_DATA = 'LIBRARY_FETCH_DATA'
 export const fetchLibraryData = () => {
     return (dispatch) => {
-
         return Promise.all([
             fetch(API.API_GET_ALL_TRACKS),
             fetch(API.API_GET_ALL_ALBUMS),
@@ -23,14 +22,12 @@ export const fetchLibraryData = () => {
                 artists.json()
             ]);
         }).then(([tracks, albums, artists]) => {
-            let data = {
+            dispatch(librarySuccessfullyLoaded({
                 tracks: tracks,
                 albums: albums,
                 artists: artists
-            };
-            dispatch(librarySuccessfullyLoaded(data));
+            }));
         }).catch((error) => {
-            console.error(error);
             dispatch(failedFetchData(error));
         });
     }

@@ -16,50 +16,158 @@ import { faForward } from '@fortawesome/free-solid-svg-icons';
 import { faVolumeUp } from '@fortawesome/free-solid-svg-icons';
 
 // APP MODULES
-import * as PlayerActions from '../../actions/PlayerActions';
+import * as API from '../../constants/ApiConstants';
 
 class Player extends React.Component {
 
   constructor(props) {
     super(props);
+
+    this.state = {
+      player: null,
+      seekPos: 0,
+      seekInterval: null,
+      volume: 1,
+      duration: 100,
+    }
+    this.seekTimer = null;
   }
 
   componentDidMount() {
 
   }
 
+  getSnapshotBeforeUpdate(prevProps, prevState) {
+    if (this.props.player.currentTrack) {
+      if (this.props.player.currentTrack != prevProps.player.currentTrack) {
+        this.setTrack(this.props.player.currentTrack);
+      }
+    }
+
+    return null;
+  }
+
   componentDidUpdate() {
 
   }
 
-  playPause() {
-    if (!this.props.player.isPlaying) {
-      if (this.props.player.audioObj.state() != 'unloaded')
-        this.props.playAction();
-    } else {
-      this.props.pauseAction();
+  setTrack(track) {
+    if (this.props.player.isPlaying) {
+      this.unload();
     }
+
+    this.setState({
+      player: new Howl({
+        src: API.API_STREAM_TRACK + track.id,
+        html5: true,
+        preload: true,
+        autoplay: true,
+        format: track.format,
+        volume: this.state.volume,
+        onload: () => {
+          this.props.loadedSuccessfully();
+        },
+        onloaderror: (id, error) => {
+          this.props.loadError();
+        },
+        onplay: () => {
+          this.postPlayTasks();
+          this.props.isPlaying();
+        },
+        onpause: () => {
+          clearInterval(this.seekTimer);
+          this.props.isPaused();
+        },
+        onend: () => {
+          this.nextTrack();
+        },
+      }),
+    });
+
   }
 
-  prevTrack() {
-    this.props.prevAction();
+  play() {
+    this.state.player.play();
+  }
+
+  postPlayTasks() {
+    this.setState({
+      ...this.state,
+      duration: this.state.player.duration(),
+    })
+    this.seekTimer = setInterval(() => {
+      this.setState({
+        ...this.state,
+        seekPos: this.state.player.seek(),
+      });
+    }, 200);
+  }
+
+  pause() {
+    this.state.player.pause();
   }
 
   nextTrack() {
-    this.props.nextAction();
+    const { playQueue, queuePos } = this.props.player;
+
+    if (queuePos < playQueue.length - 1) {
+      this.props.setTrack(playQueue[queuePos + 1]);
+      this.props.setQueuePosition(queuePos + 1);
+    } else {
+      if (this.state.player)
+        this.unload();
+        this.props.clearCurrentTrack();
+    }
+  }
+
+  previousTrack() {
+    const { playQueue, queuePos } = this.props.player;
+
+    if (queuePos > 0) {
+      this.props.setTrack(playQueue[queuePos - 1]);
+      this.props.setQueuePosition(queuePos - 1);
+    } else {
+      if (this.state.player) {
+        this.unload();
+        this.props.clearCurrentTrack();
+      }
+    }
+  }
+
+  seek(position) {
+    if (this.props.player.isPlaying) {
+      this.state.player.seek(position);
+    }
+  }
+
+  setVolume(value) {
+    if (value >= 0 && value <= 100) {
+      this.state.player.volume(value / 100);
+    }
+  }
+
+  unload() {
+    clearInterval(this.seekTimer);
+    this.state.player.off();
+    this.state.player.stop();
+    this.state.player.unload();
+    this.setState({ ...this.state, player: null, seekPos: 0 });
+    this.props.unloaded();
   }
 
   render() {
+    const { currentTrack } = this.props.player;
+
     return (
       <div className="player">
 
         <Form className="seek-bar-container">
           <Form.Group>
-            <input value={this.props.player.seek}
+            <input value={this.state.seekPos}
               onChange={(e) => {
-                this.props.setSeekPosAction(e.target.value);
+                this.seek(e.target.value);
               }}
-              type="range" min={0} step={1} max={this.props.player.duration}
+              type="range" min="0" step="any" max={this.state.duration}
               className="form-control-range player-slider seek-bar" />
           </Form.Group>
         </Form>
@@ -69,21 +177,24 @@ class Player extends React.Component {
           <div className="player-col-left">
             <div className="track-info noselect">
               <div>
-                <p className="title">{this.props.player.trackMetadata.title}</p>
-                <p className="artist">{this.props.player.trackMetadata.albumArtist}</p>
+                <p className="title">{currentTrack && currentTrack.title ? currentTrack.title : ""}</p>
+                <p className="artist">{currentTrack && currentTrack.title ? currentTrack.albumArtist : ""}</p>
               </div>
             </div>
           </div>
 
           <div className="player-col-middle">
             <ButtonToolbar className="controls">
-              <Button onClick={this.prevTrack.bind(this)} variant="link" className="player-btn mx-2">
+              <Button onClick={() => { this.previousTrack() }} variant="link" className="player-btn mx-2">
                 <FontAwesomeIcon icon={faBackward} />
               </Button>
-              <Button onClick={this.playPause.bind(this)} variant="link" className="player-btn mx-2">
+              <Button onClick={() => { 
+                if (this.props.player.isPlaying) { this.pause() }
+                else { this.play() }
+               }} variant="link" className="player-btn mx-2">
                 <FontAwesomeIcon icon={this.props.player.isPlaying ? faPauseCircle : faPlayCircle} size="lg" />
               </Button>
-              <Button onClick={this.nextTrack.bind(this)} variant="link" className="player-btn mx-2">
+              <Button onClick={() => { this.nextTrack() }} variant="link" className="player-btn mx-2">
                 <FontAwesomeIcon icon={faForward} />
               </Button>
             </ButtonToolbar>
@@ -92,16 +203,14 @@ class Player extends React.Component {
 
           <div className="player-col-right">
             <div className="volume-control">
-                <FontAwesomeIcon icon={faVolumeUp} size="sm" className="icon" />
-                <Form className="">
-                  <Form.Group className="">
-                    <input defaultValue={this.props.player.volume * 100}
-                      onInput={(e) => {
-                        this.props.setVolumeAction(e.target.value);
-                      }}
-                      type="range" className="form-control-range player-slider" />
-                  </Form.Group>
-                </Form>
+              <FontAwesomeIcon icon={faVolumeUp} size="sm" className="icon" />
+              <Form className="">
+                <Form.Group className="">
+                  <input defaultValue={100}
+                    onInput={(e) => { this.setVolume(e.target.value) }}
+                    type="range" className="form-control-range player-slider" />
+                </Form.Group>
+              </Form>
             </div>
           </div>
 
@@ -110,6 +219,11 @@ class Player extends React.Component {
       </div>
     );
   }
+
+  componentWillUnmount() {
+    clearInterval(this.seekTimer);
+  }
+
 }
 
 const mapStateToProps = (state) => {
@@ -119,50 +233,43 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
 
-    setAction: (track) => {
-      dispatch({
-        type: 'PLAYER_SET_TRACK',
-        track: track
-      })
+    setTrack: (track) => {
+      dispatch({ type: "PLAYER_SET_TRACK", track: track });
     },
 
-    playAction: () => {
-      dispatch({
-        type: 'PLAYER_PLAY_TRACK',
-      })
+    loadedSuccessfully: () => {
+      dispatch({ type: "PLAYER_LOADED_SUCCESSFULLY" });
     },
 
-    pauseAction: () => {
-      dispatch({
-        type: 'PLAYER_PAUSE_TRACK',
-      })
+    loadError: () => {
+      dispatch({ type: "PLAYER_LOAD_ERROR" });
     },
 
-    nextAction: () => {
-      dispatch(PlayerActions.nextTrack());
+    isPlaying: () => {
+      dispatch({ type: "PLAYER_IS_PLAYING" });
     },
 
-    prevAction: () => {
-      dispatch(PlayerActions.prevTrack());
+    isPaused: () => {
+      dispatch({ type: "PLAYER_IS_PAUSED" });
     },
 
-    setSeekPosAction: (pos) => {
-      dispatch(PlayerActions.setSeek(pos));
+    playbackError: () => {
+      dispatch({ type: "PLAYER_PLAYBACK_ERROR" });
     },
 
-    getSeekPosAction: () => {
-      dispatch(PlayerActions.getSeekPos());
+    setQueuePosition: (position) => {
+      dispatch({ type: "PLAYER_SET_QUEUE_POSITION", queuePos: position });
     },
 
-    setVolumeAction: (value) => {
-      dispatch(PlayerActions.setVolume(value));
+    clearCurrentTrack: () => {
+      dispatch({ type: "PLAYER_CLEAR_CURRENT_TRACK" });
     },
+
+    unloaded: () => {
+      dispatch({ type: "PLAYER_UNLOADED" });
+    }
 
   };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Player);
-
-/*
-
-*/

@@ -43,17 +43,17 @@ class AlbumPage extends React.Component {
             return (
                 <div className="album-page">
                     <div className="header">
-                        <div class="album-cover">
+                        <div className="album-cover">
                             <img src={API.API_GET_ALBUM_BY_ID + this.state.album.id + "/cover"} />
                         </div>
-                        <div class="album-info">
+                        <div className="album-info">
                             <h1 className="name">{this.state.album.name}</h1>
                             <h2 className="artist">by {this.state.album.artist}</h2>
                         </div>
                     </div>
                     <div className="content">
                         <div className="tracklist">
-                            <TrackList />
+                            <TrackList tracks={this.state.album.tracks} />
                         </div>
                     </div>
                 </div>
