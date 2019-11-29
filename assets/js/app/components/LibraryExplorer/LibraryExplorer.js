@@ -16,6 +16,7 @@ class LibraryExplorer extends React.Component {
 
   constructor(props) {
     super(props);
+    this.defaultView = "trackView";
   }
 
   componentDidMount() {
@@ -23,7 +24,7 @@ class LibraryExplorer extends React.Component {
   }
 
   componentDidUpdate() {
-
+    
   }
 
   componentWillUnmount() {
@@ -40,7 +41,7 @@ class LibraryExplorer extends React.Component {
           case 'tracks': return <TrackList tracks={this.props.libraryExplorer.tracks} />;
           case 'albums': return <AlbumGrid />;
           case 'artists': return <ArtistList />;
-          default: return <div>Nothing to show here</div>;
+          default: return null;
         }
       }
     } else {
@@ -49,32 +50,37 @@ class LibraryExplorer extends React.Component {
   }
 
   render() {
-    const view = this.setContentView();
+    const { view } = this.props.libraryExplorer;
+    const contentView = this.setContentView();
 
     return (
       <div className="library-explorer">
 
         <div className="header">
           <h1 className="px-4 py-3 noselect">My Library</h1>
-          <Nav className="justify-content-center view-selector" defaultActiveKey="trackView">
+          <Nav className="justify-content-center view-selector" defaultActiveKey={view}>
             <Nav.Item>
-              <Nav.Link onSelect={() => { this.props.changeView('tracks') }} eventKey="trackView">Tracks</Nav.Link>
+              <Nav.Link onSelect={() => { this.props.changeView('tracks') }} eventKey="tracks">Tracks</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link onSelect={() => { this.props.changeView('albums') }} eventKey="albumView">Albums</Nav.Link>
+              <Nav.Link onSelect={() => { this.props.changeView('albums') }} eventKey="albums">Albums</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link onSelect={() => { this.props.changeView('artists') }} eventKey="artistView">Artists</Nav.Link>
+              <Nav.Link onSelect={() => { this.props.changeView('artists') }} eventKey="artists">Artists</Nav.Link>
             </Nav.Item>
           </Nav>
         </div>
 
         <div className="content">
-           {view}
+           {contentView}
         </div>
 
       </div>
     );
+  }
+
+  componentWillUnmount() {
+
   }
 
 }
