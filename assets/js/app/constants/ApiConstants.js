@@ -1,4 +1,4 @@
-const API_ROOT = "http://172.20.10.9:8080/api/"
+const API_ROOT = "http://localhost:8080/api/"
 
 /* LIBRARY API */
 
