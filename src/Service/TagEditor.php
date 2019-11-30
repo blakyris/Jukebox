@@ -35,20 +35,26 @@ class TagEditor
 
     public function getTags($path) {
         $rawData = $this->analyse($path);
-        $this->extractData($rawData);
-        $this->extractExtendedData($rawData);
-        $this->cleanTags();
-        return $this->buildTagsBag();
+        if (isset($rawData['error'])) {
+            return null;
+        } else {
+            $this->extractData($rawData);
+            $this->extractExtendedData($rawData);
+            $this->cleanTags();
+            return $this->buildTagsBag();
+        }
     }
 
     public function analyse($file) {
         $fileInfo = $this->tagReader->analyze($file);
         getid3_lib::CopyTagsToComments($fileInfo);
+
         return ($fileInfo);
     }
 
     public function extractData($data) {
-        $this->fileFormat = $data['fileformat'];
+        $this->fileSize = $data['filesize'] ?? null;
+        $this->fileFormat = $data['fileformat'] ?? null;
         $this->mimetype = $data['mime_type'] ?? null;
         if (isset($data['comments']['picture']))
             $this->cover = $data['comments']['picture'][0]['data'];

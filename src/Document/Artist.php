@@ -36,16 +36,21 @@ class Artist
     public function getName() { return $this->name; }
     public function getAlbums() { return $this->albums; }
 
+    public function getAlbumsProperties() {
+        $albums = array();
+        foreach ($this->albums as $album) {
+            $albums[] = $album->getProperties();
+        }
+
+        return $albums;
+    }
+
     public function getProperties() {
-        /*
-        $albumsArray = array();
-        foreach ($this->albums as $album)
-            $albumsArray[] = $album;*/
 
         $artist = [
             'id' => $this->id,
             'name' => $this->name,
-            'albums' => $this->albums,
+            'albums' => $this->getAlbumsProperties(),
         ];
 
         return $artist;

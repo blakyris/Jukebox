@@ -1,0 +1,101 @@
+
+.artist-page {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    overflow-y: scroll;
+}
+
+.artist-page .header {
+    display: flex;
+    flex-flow: row wrap;
+    order: 1;
+    width: 100%;
+    min-height: fit-content;
+    background-color: #101010;
+    @media screen and (min-width: 1440px) {
+        padding: 1% 2%;
+    }
+    @media screen and (min-width: 1024px) and (max-width: 1440px) {
+        padding: 1.5% 2.5%;
+    }
+    @media screen and (max-width: 1024px) {
+        padding: 2% 3%;
+    }
+}
+
+.artist-page .header .artist-pic {
+    position: relative;
+    margin-right: 25px;
+    @media screen and (min-width: 1440px) {
+        width: 10%;
+        height: 0;
+        padding-bottom: 10%;
+    }
+    @media screen and (min-width: 1024px) and (max-width: 1440px) {
+        width: 15%;
+        height: 0;
+        padding-bottom: 15%;
+    }
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+        width: 20%;
+        height: 0;
+        padding-bottom: 20%;
+    }
+    @media screen and (max-width: 768px) {
+        width: 25%;
+        height: 0;
+        padding-bottom: 25%;
+    }
+}
+
+.artist-page .header .artist-pic .img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: url("../img/default_avatar.png");
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    border: 2px solid #777;
+}
+
+.artist-page .header .artist-info .name {
+    font-weight: bold;
+    color: #FFF;
+}
+
+.artist-page .content {
+    order: 2;
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-flow: column wrap;
+    padding: 20px 20px;
+}
+
+.artist-page .content .section {
+    width: 100%;
+    min-height: 0;
+}
+
+.artist-page .content .section .section-title {
+    width: 100%;
+    min-height: fit-content;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 10px 0;
+}
+
+.artist-page .content .section .section-title h2 {
+    color: #FFF;
+    font-size: 22px;
+    font-weight: bold;
+    padding: 0;
+    margin: 0;
+}

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import LibraryExplorer from './LibraryExplorer/LibraryExplorer';
 import AlbumPage from './AlbumPage/AlbumPage';
+import ArtistPage from './artist-page/artist-page';
 
 class ViewContainer extends React.Component {
 
@@ -18,6 +19,8 @@ class ViewContainer extends React.Component {
       viewComponent =  <LibraryExplorer />;
     } else if (view == 'AlbumPage') {
       viewComponent = <AlbumPage />;
+    } else if (view == 'ArtistPage') {
+      viewComponent = <ArtistPage />;
     } else {
       viewComponent = <div><p>An error occured during view rendering</p></div>;
     }

@@ -2,8 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Table from 'react-bootstrap/Table';
-
-import { setTrack, setPlayQueue, setQueuePos } from '../../actions/PlayerActions';
+import TrackRow from './trackrow';
 
 class TrackList extends React.Component {
 
@@ -30,13 +29,13 @@ class TrackList extends React.Component {
             <div className="track-list">
                 <Table hover size="md" className="list">
                     <tbody>
-                        {this.props.tracks.map((track) => (
-                            <tr className="track-row" key={track.id} onDoubleClick={() => { this.handleClick(track) }}>
-                                <td><p className="title">{track.title}</p></td>
-                                <td><p className="artist">{track.albumArtist}</p></td>
-                                <td><p className="album">{track.album}</p></td>
-                            </tr>
-                        ))}
+                        {this.props.tracks.map(track => {
+                            return (
+                                <TrackRow key={track.id} track={track}
+                                          onDoubleClick={() => { this.handleClick(track)  }}
+                                />
+                            );
+                        })}
                     </tbody>
                 </Table>
             </div>
@@ -49,15 +48,24 @@ const mapDispatchToProps = (dispatch) => {
     return {
 
         playerSetTrack: (track) => {
-            dispatch(setTrack(track));
+            dispatch({
+                type: "PLAYER_SET_TRACK",
+                track: track,
+            });
         },
 
         playerSetPlayQueue: (queue) => {
-            dispatch(setPlayQueue(queue));
+            dispatch({
+                type: "PLAYER_SET_PLAY_QUEUE",
+                playQueue: queue,
+            });
         },
 
         playerSetQueuePos: (pos) => {
-            dispatch(setQueuePos(pos));
+            dispatch({
+                type: "PLAYER_SET_QUEUE_POSITION",
+                queuePos: pos,
+            });
         },
 
     };

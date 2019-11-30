@@ -5,13 +5,14 @@ html,body{
 
 /* UTILS */
 
+
 * {
     -webkit-touch-callout: none;
-    -webkit-user-select: none;
-     -khtml-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
+      -webkit-user-select: none;
+       -khtml-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none;
 }
 
 .noselect {
@@ -83,8 +84,6 @@ html,body{
     z-index: 1;
 }
 
-
-
 /* React.Component : SIDEBAR */
 @import './sidebar.scss';
 
@@ -103,11 +102,13 @@ html,body{
 /* React.Component : ALBUM PAGE */
 @import 'album-page.scss';
 
+/* React.Component : ARTIST PAGE */
+@import 'artist-page.scss';
+
 /* React.Component : PLAYER */
 @import 'player.scss';
 
 /* LOADING WIDGET */
-
 .loading {
     display: flex;
     flex-flow: column nowrap;

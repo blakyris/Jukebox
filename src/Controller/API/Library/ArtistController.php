@@ -16,22 +16,48 @@ class ArtistController extends AbstractController
      */
     public function getAll(DocumentManager $dm)
     {
-        $artists = $dm->getRepository(Artist::class)->findAll();
-        
-        $json = array();
-        foreach ($artists as $artist)
-            $json[] = $artist->getProperties();
+        $response = new JsonResponse();
 
-        return new JsonResponse($json);
+        try {
+            $artists = $dm->getRepository(Artist::class)->findAll();
+
+            $json = array();
+            foreach ($artists as $artist)
+                $json[] = $artist->getProperties();
+    
+            $response->setData($json);
+            return $response;
+        } catch (\Throwable $error) {
+            $response->setStatusCode(JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+            $response->setData([
+                'status' => "error",
+                'code' => $error->getCode(),
+                'message' => $error->getMessage()
+            ]);
+            return $response;
+        }
     }
 
     /**
-     * @Route("/api/library/artists/{name}", methods={"GET"})
+     * @Route("/api/library/artists/{id}", methods={"GET"})
      */
-    public function getArtist(DocumentManager $dm, String $name)
+    public function getArtistById(DocumentManager $dm, $id)
     {
-        $artist = $dm->getRepository(Artist::class)->findBy(['name' => $name]);
+        $response = new JsonResponse();
 
-        return new JsonResponse($artist->getProperties());
+        try {
+            $artist = $dm->getRepository(Artist::class)->findOneBy(['id' => $id]);
+            
+            $response->setData($artist->getProperties());
+            return $response;
+        } catch (\Throwable $th) {
+            $response->setStatusCode(JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+            $response->setData([
+                'status' => "error",
+                'code' => $error->getCode(),
+                'message' => $error->getMessage()
+            ]);
+            return $response;
+        }
     }
 }

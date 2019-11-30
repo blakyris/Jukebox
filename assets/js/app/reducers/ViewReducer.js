@@ -19,6 +19,13 @@ function ViewReducer(state = initialLibraryExplorerState, action) {
                 data: action.id,
             };
 
+        case ViewActions.VIEW_ARTIST_PAGE:
+            return {
+                ...state,
+                view: 'ArtistPage',
+                data: action.id,
+            };
+
         default:
             return {
                 ...state,

@@ -1,18 +1,38 @@
 .track-list {
     width: 100%;
-    height: 100%;    
+    min-height: fit-content;  
 }
 
 .track-list tbody td  {
     border: none;
+    padding: 10px 15px;
+}   
+
+.track-list .track-row {
+
+}
+
+.track-list .track-row:hover {
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
 .track-list .track-row p {
-    margin: 3px 0;
+    margin: 2px 0;
     font-size: 12px;
     color: #fff;
 }
 
-.track-list .track-row:hover {
-    background-color: #111;
+.track-list .track-row .track-number {
+    width: 20px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.track-list .track-row .track-number p {
+    font-weight: bold;
+    color: #777;
+}
+
+.track-list .track-row .title {
+    font-weight: bold;
 }

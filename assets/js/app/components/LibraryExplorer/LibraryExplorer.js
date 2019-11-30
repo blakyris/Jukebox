@@ -7,9 +7,9 @@ import Nav from 'react-bootstrap/Nav';
 import * as API from '../../constants/ApiConstants'
 
 import * as LibraryExplorerActions from '../../actions/LibraryExplorerActions';
-import AlbumGrid from './AlbumGrid';
-import TrackList from './TrackList';
-import ArtistList from './ArtistList';
+import TrackList from '../reusables/tracklist/tracklist';
+import AlbumGrid from '../reusables/album-grid/album-grid';
+import ArtistList from '../reusables/artist-list/artist-list';
 import Loading from '../Utils/Loading';
 
 class LibraryExplorer extends React.Component {
@@ -36,11 +36,11 @@ class LibraryExplorer extends React.Component {
       if (this.props.libraryExplorer.error) {
         return <p>Error while loading library</p>;
       } else {
-        const view = this.props.libraryExplorer.view;
+        const { view } = this.props.libraryExplorer;
         switch (view) {
           case 'tracks': return <TrackList tracks={this.props.libraryExplorer.tracks} />;
-          case 'albums': return <AlbumGrid />;
-          case 'artists': return <ArtistList />;
+          case 'albums': return <AlbumGrid albums={this.props.libraryExplorer.albums} />;
+          case 'artists': return <ArtistList artists={this.props.libraryExplorer.artists} />;
           default: return null;
         }
       }

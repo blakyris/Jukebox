@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import * as API from '../../constants/ApiConstants';
+import * as API from '../../../constants/ApiConstants';
 
 class AlbumGridItem extends React.Component {
   

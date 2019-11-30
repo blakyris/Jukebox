@@ -28,7 +28,8 @@ class Player extends React.Component {
       seekPos: 0,
       seekInterval: null,
       volume: 1,
-      duration: 100,
+      duration: 1,
+      inputValue: 0,
     }
     this.seekTimer = null;
   }
@@ -68,11 +69,15 @@ class Player extends React.Component {
           this.props.loadedSuccessfully();
         },
         onloaderror: (id, error) => {
+          this.unlock();
           this.props.loadError();
         },
         onplay: () => {
           this.postPlayTasks();
           this.props.isPlaying();
+        },
+        onplayerror: (id, error) => {
+          console.log("Play error : ", error);
         },
         onpause: () => {
           clearInterval(this.seekTimer);
@@ -84,6 +89,12 @@ class Player extends React.Component {
       }),
     });
 
+  }
+
+  unlock() {
+    this.state.player.once('unlock', function() {
+      this.play();
+    });
   }
 
   play() {
@@ -165,7 +176,13 @@ class Player extends React.Component {
           <Form.Group>
             <input value={this.state.seekPos}
               onChange={(e) => {
-                this.seek(e.target.value);
+                this.setState({
+                  ...this.state,
+                  inputValue: Math.fround(e.target.value),
+                })
+              }}
+              onMouseUp={(e) => {
+                this.seek(this.state.inputValue);
               }}
               type="range" min="0" step="any" max={this.state.duration}
               className="form-control-range player-slider seek-bar" />

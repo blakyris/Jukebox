@@ -14,3 +14,11 @@ export const viewAlbum = (id) => {
         id: id,
     };
 }
+
+export const VIEW_ARTIST_PAGE = 'VIEW_ARTIST_PAGE'
+export const viewArtistPage = (id) => {
+    return {
+        type: VIEW_ARTIST_PAGE,
+        id: id,
+    };
+}
