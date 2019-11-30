@@ -63,9 +63,20 @@
     border: 2px solid #777;
 }
 
+.artist-page .header .artist-info {
+    flex: 1;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 5px;
+}
+
 .artist-page .header .artist-info .name {
     font-weight: bold;
     color: #FFF;
+    padding: 0;
+    margin: 0;
 }
 
 .artist-page .content {
@@ -98,4 +109,8 @@
     font-weight: bold;
     padding: 0;
     margin: 0;
+}
+
+.artist-page .popular-tracks {
+    height: 200px;
 }

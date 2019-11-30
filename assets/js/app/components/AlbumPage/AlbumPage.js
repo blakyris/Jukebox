@@ -53,7 +53,7 @@ class AlbumPage extends React.Component {
                     </div>
                     <div className="content">
                         <div className="tracklist">
-                            <TrackList tracks={this.state.album.tracks} />
+                            <TrackList tracks={this.state.album.tracks} format="responsive" />
                         </div>
                     </div>
                 </div>

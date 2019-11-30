@@ -31,7 +31,7 @@ class TrackList extends React.Component {
                     <tbody>
                         {this.props.tracks.map(track => {
                             return (
-                                <TrackRow key={track.id} track={track}
+                                <TrackRow key={track.id} format={this.props.format || "full"} track={track}
                                           onDoubleClick={() => { this.handleClick(track)  }}
                                 />
                             );
@@ -70,6 +70,5 @@ const mapDispatchToProps = (dispatch) => {
 
     };
 }
-
 
 export default connect(null, mapDispatchToProps)(TrackList);

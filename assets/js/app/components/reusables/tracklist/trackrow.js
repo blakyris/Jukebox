@@ -18,19 +18,40 @@ class TrackRow extends React.Component {
     }
 
     render() {
-        const { track } = this.props;
+        const { format, track } = this.props;
+        
+        if (format == "full") {
+            return (
+                <tr className="track-row full-row"  onDoubleClick={this.props.onDoubleClick}>
+                    <td className="track-number">
+                        <p></p>
+                    </td>
+                    <td className="track-info">
+                        <p className="title">{track.title}</p>
+                    </td>
+                    <td className="track-info">
+                        <p className="artist">{track.albumArtist}</p>
+                    </td>
+                    <td className="track-info">
+                        <p className="album">{track.album}</p>
+                    </td>
+                </tr>
+            );
+        } else if (format == "responsive") {
+            return (
+                <tr className="track-row responsive-row"  onDoubleClick={this.props.onDoubleClick}>
+                    <td className="track-number">
+                        <p>#{track.trackNumber}</p>
+                    </td>
+                    <td className="track-info">
+                        <p className="title">{track.title}</p>
+                        <p className="artist">{track.albumArtist}</p>
+                    </td>
+                </tr>
+            );
+        }
 
-        return (
-            <tr className="track-row" onDoubleClick={this.props.onDoubleClick}>
-                <td className="track-number">
-                    <p>#{track.trackNumber}</p>
-                </td>
-                <td className="track-info">
-                    <p className="title">{track.title}</p>
-                    <p className="artist">{track.albumArtist}</p>
-                </td>
-            </tr>
-        );
+
     }
 
 }
