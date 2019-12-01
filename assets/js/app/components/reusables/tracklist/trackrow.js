@@ -22,17 +22,15 @@ class TrackRow extends React.Component {
         
         if (format == "full") {
             return (
-                <tr className="track-row full-row"  onDoubleClick={this.props.onDoubleClick}>
-                    <td className="track-number">
-                        <p></p>
-                    </td>
-                    <td className="track-info">
+                <tr className="track-row full-row"
+                    onDoubleClick={this.props.onDoubleClick}>
+                    <td className="track-title">
                         <p className="title">{track.title}</p>
                     </td>
-                    <td className="track-info">
+                    <td className="track-artist">
                         <p className="artist">{track.albumArtist}</p>
                     </td>
-                    <td className="track-info">
+                    <td className="track-album">
                         <p className="album">{track.album}</p>
                     </td>
                 </tr>

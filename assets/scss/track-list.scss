@@ -6,33 +6,97 @@
 .track-list tbody td  {
     border: none;
     padding: 10px 15px;
-}   
-
-.track-list .track-row {
-
 }
 
 .track-list .track-row:hover {
-    background-color: rgba(255, 255, 255, 0.05);
+    transition: ease-in;
+    transition-duration: 0.1s;
+    background-color: rgba($color: #FFF, $alpha: 0.1);
 }
 
-.track-list .track-row p {
-    margin: 2px 0;
-    font-size: 12px;
-    color: #fff;
+.track-list .track-row.full-row {
+
+    p {
+        margin: 2px 0;
+        font-size: 12px;
+        color: #FFF;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    @media screen and (max-width: 520px) {
+        td {
+            display: block;
+            padding: 0 20px;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        .track-title {
+            padding-top: 10px;
+        }
+
+        .track-album {
+            padding-bottom: 10px;
+        }
+
+        .title {
+            font-weight: bolder;
+            font-size: 16px;
+            color: #DDD;
+        }
+
+        .artist {
+            color: #CCC;
+        }
+
+        .album {
+            font-size: 10px;
+            color: #777;
+        }
+    }
+
 }
 
-.track-list .track-row .track-number {
-    width: 20px;
-    text-align: center;
-    vertical-align: middle;
-}
 
-.track-list .track-row .track-number p {
-    font-weight: bold;
-    color: #777;
-}
+.track-list .track-row.responsive-row {
 
-.track-list .track-row .title {
-    font-weight: bold;
-}
+    p {
+        margin: 2px 0;
+        font-size: 12px;
+        color: #FFF;
+    }
+
+    .track-number {
+        width: 20px;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .track-number p {
+        font-weight: bold;
+        color: #777;
+    }
+
+    .title {
+        font-weight: bold;
+        color: #DDD;
+        font-size: 14px;
+    }
+    
+    .artist {
+        color: #777;
+    }
+
+    @media screen and (max-width: 520px) {
+        
+        .title {
+            font-size: 16px;
+        }
+
+    }
+
+} 
+

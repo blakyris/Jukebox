@@ -5,10 +5,6 @@
     flex-flow: column wrap;
 }
 
-.player .player-btn {
-    color: #FFF;
-}
-
 .player .seek-bar-container {
     width: 100%;
     height: fit-content;
@@ -98,8 +94,8 @@
     }
 }
 
-.player .player-col-middle .controls {
-    color: #FFF;
+.player .player-col-middle .player-btn {
+    color: #DDD;
 }
 
 .player .player-col-right {
