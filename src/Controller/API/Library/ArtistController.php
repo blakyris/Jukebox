@@ -19,13 +19,21 @@ class ArtistController extends AbstractController
         $response = new JsonResponse();
 
         try {
-            $artists = $dm->getRepository(Artist::class)->findAll();
+            $query = $dm->createQueryBuilder(Artist::class)
+                        ->select('id', 'name')
+                        ->sort('name', 'asc')
+                        ->getQuery();
+            $results = $query->execute();
 
-            $json = array();
-            foreach ($artists as $artist)
-                $json[] = $artist->getProperties();
-    
-            $response->setData($json);
+            $artists = array();
+            foreach ($results as $artist) {
+                $artists[] = [
+                    'id' => $artist->getId(),
+                    'name' => $artist->getName()
+                ];
+            }
+  
+            $response->setData($artists);
             return $response;
         } catch (\Throwable $error) {
             $response->setStatusCode(JsonResponse::HTTP_INTERNAL_SERVER_ERROR);

@@ -45,6 +45,7 @@
 }
 
 .player .track-info {
+
     @media screen and (min-width: 768px) {
         margin-left: 5px;
     }
@@ -54,15 +55,14 @@
 }
 
 .player .track-info p {
+    width: 100%;
     margin: 0;
     padding: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.6em;
+    max-height: 1.6em;
     font-size: 12px;
-    @media screen and (min-width: 768px) {
-
-    }
-    @media screen and (max-width: 768px) {
-        
-    }
 }
 
 .player .track-info .title {
