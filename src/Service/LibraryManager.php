@@ -58,7 +58,9 @@ class LibraryManager
         $tags = $tagger->getTags($path);
         
         if ($tags) {
-            $file = $this->documentManager->getRepository(File::class)->uploadFromFile($path);
+            $file = $this->documentManager->getRepository(File::class)
+            ->uploadFromFile($path);
+
             $track = new Track();
 
             if ($artist = $this->isArtistInLibrary($tags['tags']['albumArtist'])) {
